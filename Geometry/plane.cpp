@@ -39,7 +39,7 @@ Plane::operator= (const Plane& rhs)	{
     if (this == &rhs)
         return (*this);
 
-    GeometricObject::operator= (rhs);
+    Geometry::operator= (rhs);
 
     a = rhs.a;
     n = rhs.n;
@@ -53,7 +53,7 @@ Plane::operator= (Plane&& rhs)	{
     if (this == &rhs)
         return (*this);
 
-    GeometricObject::operator= (rhs);
+    Geometry::operator= (rhs);
 
     a = rhs.a;
     n = rhs.n;
@@ -70,12 +70,12 @@ Plane::~Plane()
 
 bool
 Plane::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
-    float t = (a - ray.o) * n / (ray.d * n);
+    double t = (a - ray.origin) * n / (ray.direction * n);
 
     if (t > kEpsilon) {
         tmin = t;
         sr.normal = n;
-        sr.local_hit_point = ray.o + t * ray.d;
+        sr.local_hit_point = ray.origin + t * ray.direction;
 
         return (true);
     }

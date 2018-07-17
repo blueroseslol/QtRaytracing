@@ -69,9 +69,9 @@ Sphere::~Sphere(void) {}
 bool
 Sphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
     double 		t;
-    Vector3D	temp 	= ray.o - center;
-    double 		a 		= ray.d * ray.d;
-    double 		b 		= 2.0 * temp * ray.d;
+    Vector3D	temp 	= ray.origin - center;
+    double 		a 		= ray.direction * ray.direction;
+    double 		b 		= 2.0 * temp * ray.direction;
     double 		c 		= temp * temp - radius * radius;
     double 		disc	= b * b - 4.0 * a * c;
 
@@ -84,8 +84,8 @@ Sphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 
         if (t > kEpsilon) {
             tmin = t;
-            sr.normal 	 = (temp + t * ray.d) / radius;
-            sr.local_hit_point = ray.o + t * ray.d;
+            sr.normal 	 = (temp + t * ray.direction) / radius;
+            sr.local_hit_point = ray.origin + t * ray.direction;
             return (true);
         }
 
@@ -93,8 +93,8 @@ Sphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 
         if (t > kEpsilon) {
             tmin = t;
-            sr.normal   = (temp + t * ray.d) / radius;
-            sr.local_hit_point = ray.o + t * ray.d;
+            sr.normal   = (temp + t * ray.direction) / radius;
+            sr.local_hit_point = ray.origin + t * ray.direction;
             return (true);
         }
     }

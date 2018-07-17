@@ -2,8 +2,9 @@
 #define WORLD_H
 #include "Utilities//RGBColor.h"
 #include "Geometry/sphere.h"
-#include "Tracer.h"
+#include "Tracer/Tracer.h"
 #include "Cameras/Camera.h"
+#include "ViewPlane.h"
 
 class World
 {
@@ -12,7 +13,7 @@ public:
     RGBColor background_color;
     Sphere sphere;
     Tracer* tracer_ptr;
-
+    ViewPlane vp;
     World();
 
     void build();

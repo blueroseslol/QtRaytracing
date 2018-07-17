@@ -10,26 +10,26 @@
 
 Ray::Ray (void)
     : 	origin(0.0),
-		d(0.0, 0.0, 1.0) 
+        direction(0.0, 0.0, 1.0)
 {}
 
 // ---------------------------------------------------------------- constructor
 
 Ray::Ray (const Point3D& origin, const Vector3D& direction)
     : 	origin(origin),
-        d(direction)
+        direction(direction)
 {}
 
 // ---------------------------------------------------------------- copy constructor
 
 Ray::Ray (const Ray& ray)
-    : 	origin(ray.o),
-		d(ray.d) 
+    : 	origin(ray.origin),
+        direction(ray.direction)
 {}
 
 Ray::Ray (Ray&& ray)
-    : 	origin(ray.o),
-        d(ray.d)
+    : 	origin(ray.origin),
+        direction(ray.direction)
 {}
 // ---------------------------------------------------------------- assignment operator
 
@@ -40,7 +40,7 @@ Ray::operator= (const Ray& rhs) {
 		return (*this);
 		
     origin = rhs.origin;
-	d = rhs.d; 
+    direction = rhs.direction;
 
 	return (*this);	
 }
@@ -52,7 +52,7 @@ Ray::operator= (Ray&& rhs) {
         return (*this);
 
     origin = rhs.origin;
-    d = rhs.d;
+    direction = rhs.direction;
 
     return (*this);
 }

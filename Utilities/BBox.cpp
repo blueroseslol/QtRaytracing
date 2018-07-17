@@ -80,8 +80,8 @@ BBox::~BBox (void) {}
 
 bool 									
 BBox::hit(const Ray& ray) const {	
-	double ox = ray.o.x; double oy = ray.o.y; double oz = ray.o.z;
-	double dx = ray.d.x; double dy = ray.d.y; double dz = ray.d.z;
+    double ox = ray.origin.x; double oy = ray.origin.y; double oz = ray.origin.z;
+    double dx = ray.direction.x; double dy = ray.direction.y; double dz = ray.direction.z;
 	
 	double tx_min, ty_min, tz_min;
 	double tx_max, ty_max, tz_max; 

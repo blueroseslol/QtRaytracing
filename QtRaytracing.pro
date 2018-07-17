@@ -69,7 +69,9 @@ SOURCES += \
     World.cpp \
     Cameras/Camera.cpp \
     ViewPlane.cpp \
-    Core/Render.cpp
+    Core/Render.cpp \
+    Tracer/tracer.cpp \
+    Tracer/singlesphere.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -119,7 +121,9 @@ HEADERS += \
     World.h \
     Cameras/Camera.h \
     ViewPlane.h \
-    Core/Render.h
+    Core/Render.h \
+    Tracer/tracer.h \
+    Tracer/singlesphere.h
 
 FORMS += \
         mainwindow.ui
