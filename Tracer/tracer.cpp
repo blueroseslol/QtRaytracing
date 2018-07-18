@@ -10,6 +10,6 @@ Tracer::Tracer(World *w_ptr):world_ptr(w_ptr){
 
 }
 
-void Tracer::trace_ray(const Ray &ray) const{
+RGBColor Tracer::trace_ray(const Ray &ray) const{
     return RGBColor();
 }

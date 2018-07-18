@@ -13,10 +13,10 @@ public:
     float gamma;
     float inv_gamma;
 
-    void set_hres(int hres);
-    void set_vres(int vres);
-    void set_pixel_size(float pixel_size);
-    void set_gamma(float gamma);
+    void set_hres(int _hres);
+    void set_vres(int _vres);
+    void set_pixel_size(float _pixel_size);
+    void set_gamma(float _gamma);
 };
 
 #endif // VIEWPLANE_H

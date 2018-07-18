@@ -1,11 +1,12 @@
 ﻿#ifndef WORLD_H
 #define WORLD_H
-#include "Utilities//RGBColor.h"
+#include "Utilities/RGBColor.h"
 #include "Geometry/sphere.h"
-#include "Tracer/Tracer.h"
 #include "Cameras/Camera.h"
 #include "ViewPlane.h"
+#include <QImage>
 
+class Tracer;
 class World
 {
 public:
@@ -16,9 +17,11 @@ public:
     ViewPlane vp;
     World();
 
+    QImage *image;
+
     void build();
 
-    void render_scene() const;
+    QImage *render_scene();
 };
 
 #endif // WORLD_H

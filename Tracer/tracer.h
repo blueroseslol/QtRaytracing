@@ -1,7 +1,8 @@
 ﻿#ifndef TRACER_H
 #define TRACER_H
 #include "Utilities/RGBColor.h"
-#include "world.h"
+#include "Utilities/Ray.h"
+class World;
 
 class Tracer
 {

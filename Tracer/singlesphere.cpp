@@ -1,7 +1,8 @@
 ﻿#include "singlesphere.h"
 #include "Utilities/ShadeRec.h"
-SingleSphere::SingleSphere(World *w_ptr):world_ptr(w_ptr){
-
+#include "World.h"
+SingleSphere::SingleSphere(World *w_ptr){
+    world_ptr=w_ptr;
 }
 
 RGBColor SingleSphere::trace_ray(const Ray &ray) const{

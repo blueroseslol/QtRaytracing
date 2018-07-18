@@ -23,33 +23,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 
-SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
-    Utilities/BBox.cpp \
-    Utilities/Maths.cpp \
-    Utilities/Matrix.cpp \
-    Utilities/Mesh.cpp \
-    Utilities/Normal.cpp \
-    Utilities/Point2D.cpp \
-    Utilities/Point3D.cpp \
-    Utilities/Ray.cpp \
-    Utilities/RGBColor.cpp \
-    Utilities/ShadeRec.cpp \
-    Utilities/Vector3D.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    Utilities/BBox.cpp \
-    Utilities/Maths.cpp \
-    Utilities/Matrix.cpp \
-    Utilities/Mesh.cpp \
-    Utilities/Normal.cpp \
-    Utilities/Point2D.cpp \
-    Utilities/Point3D.cpp \
-    Utilities/Ray.cpp \
-    Utilities/RGBColor.cpp \
-    Utilities/ShadeRec.cpp \
-    Utilities/Vector3D.cpp \
+SOURCES += \ 
     main.cpp \
     mainwindow.cpp \
     Utilities/BBox.cpp \
@@ -74,34 +48,6 @@ SOURCES += \
     Tracer/singlesphere.cpp
 
 HEADERS += \
-        mainwindow.h \
-    Utilities/BBox.h \
-    Utilities/Constants.h \
-    Utilities/Maths.h \
-    Utilities/Matrix.h \
-    Utilities/Mesh.h \
-    Utilities/Normal.h \
-    Utilities/Point2D.h \
-    Utilities/Point3D.h \
-    Utilities/Ray.h \
-    Utilities/RGBColor.h \
-    Utilities/ShadeRec.h \
-    Utilities/Vector3D.h \
-    mainwindow.h \
-    Utilities/Geometry.h \
-    Utilities/BBox.h \
-    Utilities/Constants.h \
-    Utilities/Geometry.h \
-    Utilities/Maths.h \
-    Utilities/Matrix.h \
-    Utilities/Mesh.h \
-    Utilities/Normal.h \
-    Utilities/Point2D.h \
-    Utilities/Point3D.h \
-    Utilities/Ray.h \
-    Utilities/RGBColor.h \
-    Utilities/ShadeRec.h \
-    Utilities/Vector3D.h \
     mainwindow.h \
     Utilities/BBox.h \
     Utilities/Constants.h \
