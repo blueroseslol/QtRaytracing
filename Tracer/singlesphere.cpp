@@ -10,6 +10,10 @@ RGBColor SingleSphere::trace_ray(const Ray &ray) const{
     double t;
     if(world_ptr->sphere.hit(ray,t,sr))
         return RGBColor(1.0,0.0,0.0);
-    else
-        return RGBColor();
+    else{
+        Vector3D unit_direction = ray.direction;
+        unit_direction.normalize();
+        float t = 0.5*(unit_direction.y + 1.0);
+        return (1.0 - t)*RGBColor(1.0, 1.0, 1.0) + t*RGBColor(0.5, 0.7, 1.0);
+    }
 }

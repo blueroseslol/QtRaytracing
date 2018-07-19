@@ -3,53 +3,64 @@
 #include "Utilities/Constants.h"
 #include "Tracer/singlesphere.h"
 #include <QColor>
+#include <QFile>
+#include <QTextStream>
+#include "Utilities/Maths.h"
+#include "Utilities/Vector3D.h"
+#include <QDebug>
 World::World()
 {
 
 }
 
 void World::build(){
-    vp.set_hres(200);
+    vp.set_hres(100);
     vp.set_vres(200);
     vp.set_pixel_size(1.0);
     vp.set_gamma(1.0);
 
     background_color=qMove(RGBColor());
     tracer_ptr=new SingleSphere(this);
-    sphere.set_center(Point3D(10.0,10.0,0.0));
-    sphere.set_radius(85.0);
+    sphere.set_center(Point3D(0.0,0.0,-1));
+    sphere.set_radius(0.5);
 }
 
 QImage* World::render_scene() {
     RGBColor pixel_color;
     Ray ray;
-    double zw=100;
-    double x,y;
+    int nx = 200;
+    int ny = 100;
+    QImage *image=new QImage(nx,ny,QImage::Format_RGB888);
 
-//    image=new QImage(vp.vres,vp.hres,QImage::Format_RGB888);
+    QFile file("result.ppm");
+    if (!file.open(QFile::WriteOnly | QFile :: Truncate))
+        return nullptr;
+    QTextStream out(&file);
+    out << "P3\n" <<nx << " " << ny << "\n255\n";
 
-//    for(int r=0;r<vp.vres;r++){
-//        for(int c=0;c<=vp.hres;c++){
-//            x=vp.s*(c-0.5*(vp.hres-1.0));
-//            y=vp.s*(r-0.5*(vp.vres-1.0));
 
-    image=new QImage(vp.vres,vp.hres,QImage::Format_RGB888);
+    Vector3D lower_left_corner(-2.0, -1.0, -1.0);
+    Vector3D horizontal(4.0, 0.0, 0.0);
+    Vector3D vertical(0.0, 2.0, 0.0);
+    Point3D origin(0.0, 0.0, 0.0);
 
-    for(int r=0;r<vp.vres;r++){
-        for(int c=0;c<=vp.hres;c++){
-//            x=vp.s*(c-0.5*(vp.hres-1.0));
-//            y=vp.s*(r-0.5*(vp.vres-1.0));
+    //for (int j = ny - 1; j >= 0; j--){
+    for (int j = 0; j < ny; j++){
+        for (int i=0;i<nx;i++){
+            float u = float(i) / float(nx);
+            float v = float(j) / float(ny);
+            ray.origin=origin;
+            ray.direction=lower_left_corner+u*horizontal+v*vertical;
+            RGBColor color= tracer_ptr->trace_ray(ray);
 
-            x=vp.s*r/vp.vres;
-            y=vp.s*c/vp.hres;
-
-            ray.origin=Point3D(x,y,zw);
-            pixel_color=tracer_ptr->trace_ray(ray);
-            //Gamma映射
-            //displace_pixel(r,c,pixel_color);
-            image->setPixelColor(x,y,QColor(pixel_color.r,pixel_color.g,pixel_color.b));
+            int ir = int(255.99*color.r);
+            int ig = int(255.99*color.g);
+            int ib = int(255.99*color.b);
+            out << ir << " " << ig << " " << ib << "\n";
+            image->setPixelColor(i,j,QColor(ir,ig,ib));
         }
     }
+    file.close();
 
 return image;
 }

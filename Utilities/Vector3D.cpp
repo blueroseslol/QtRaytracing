@@ -143,4 +143,3 @@ operator* (const Matrix& matrix, const Vector3D& v) {
                     matrix.m[1][0] * v.x + matrix.m[1][1] * v.y + matrix.m[1][2] * v.z,
                     matrix.m[2][0] * v.x + matrix.m[2][1] * v.y + matrix.m[2][2] * v.z));
 }
-
