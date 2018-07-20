@@ -3,22 +3,23 @@
 #include "Utilities/RGBColor.h"
 #include "Geometry/sphere.h"
 //#include "Cameras/Camera.h"
-#include "ViewPlane.h"
 #include <QImage>
-#include <QFutureSynchronizer>
 #include <QObject>
 #include <QColor>
+#include "rendersetting.h"
 class Tracer;
 class World : public QObject
 {
     Q_OBJECT
 public:
     //Camera camera;
-    RGBColor background_color;
     Sphere sphere;
     Tracer* tracer_ptr;
-    ViewPlane vp;
+    RenderSetting* setting;
+
     World();
+    World(RenderSetting *_setting);
+    ~World();
 
     void build();
 
