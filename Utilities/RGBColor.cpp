@@ -35,7 +35,7 @@ RGBColor::RGBColor(double _r, double _g, double _b)
 
 RGBColor::RGBColor(const RGBColor& c)
 	: r(c.r), g(c.g), b(c.b)
-{} 				 
+{}
 		
 RGBColor::RGBColor(RGBColor&& c)
     : r(c.r), g(c.g), b(c.b)

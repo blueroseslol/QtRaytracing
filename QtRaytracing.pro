@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui concurrent
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -45,7 +45,8 @@ SOURCES += \
     ViewPlane.cpp \
     Core/Render.cpp \
     Tracer/tracer.cpp \
-    Tracer/singlesphere.cpp
+    Tracer/singlesphere.cpp \
+    rendersetting.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -69,7 +70,9 @@ HEADERS += \
     ViewPlane.h \
     Core/Render.h \
     Tracer/tracer.h \
-    Tracer/singlesphere.h
+    Tracer/singlesphere.h \
+    rendersetting.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    rendersetting.ui
