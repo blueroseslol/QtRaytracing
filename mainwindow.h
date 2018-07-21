@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTimer>
 #include "World.h"
 #include "rendersetting.h"
 namespace Ui {
@@ -16,7 +17,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 private slots:
-    void setPixelColor(const int &u, const int &v,const int &progress, const QColor &color);
+    void setPixelColor(const int &u, const int &v, const QColor &color);
 
     void renderComplete();
 
@@ -26,15 +27,18 @@ private slots:
 
     void on_pushButton_saveImage_clicked();
 
+    void updateRenderResult();
 private:
     Ui::MainWindow *ui;
     World *world;
     QImage *image;
     RenderSetting setting;
+    QTimer timer;
 
-    bool rendering;
+    int currentRenderPixelNum;
+    int allPixelNum;
 
-    void paintEvent(QPaintEvent *event);
+//    void paintEvent(QPaintEvent *event);
 };
 
 #endif // MAINWINDOW_H

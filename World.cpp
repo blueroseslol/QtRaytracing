@@ -46,7 +46,7 @@ void World::render_scene() {
                 //int ig = int(255.99*color.g);
                 //int ib = int(255.99*color.b);
 
-                emit pixelComplete(i,j,int(j*100/ny),QColor( int(255.99*color.r), int(255.99*color.g), int(255.99*color.b)));
+                emit pixelComplete(i,j,QColor( int(255.99*color.r), int(255.99*color.g), int(255.99*color.b)));
             }
         }
         emit renderComplete();

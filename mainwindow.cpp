@@ -4,11 +4,13 @@
 #include <QDebug>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow),image(nullptr),rendering(false)
+    ui(new Ui::MainWindow),image(nullptr)
 {
     ui->setupUi(this);
     world=new World(&setting);
-    connect(world,SIGNAL(pixelComplete(int,int,int,QColor)),this,SLOT(setPixelColor(const int&,const int&,const int&,const QColor&)));
+
+    connect(&timer,SIGNAL(timeout()),this,SLOT(updateRenderResult()));
+    connect(world,SIGNAL(pixelComplete(int,int,QColor)),this,SLOT(setPixelColor(const int&,const int&,const QColor&)));
     connect(world,SIGNAL(renderComplete()),this,SLOT(renderComplete()));
 }
 
@@ -20,10 +22,10 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::setPixelColor(const int& u, const int& v, const int &progress, const QColor& color){
+void MainWindow::setPixelColor(const int& u, const int& v, const QColor& color){
     image->setPixelColor(u,v,color);
 
-    ui->progressBar->setValue(progress);
+    currentRenderPixelNum++;
 }
 
 void MainWindow::on_pushButton_renderSetting_clicked()
@@ -40,11 +42,14 @@ void MainWindow::on_pushButton_start_clicked()
     }
     image=new QImage(setting.imageWidth,setting.imageHeight,QImage::Format_RGB888);
 
+    currentRenderPixelNum=0;
+    allPixelNum=setting.imageWidth*setting.imageHeight;
     ui->progressBar->setValue(0);
-    rendering=true;
+
     //开始渲染
     world->build();
     world->render_scene();
+    timer.start(200);
 }
 
 void MainWindow::on_pushButton_saveImage_clicked()
@@ -55,15 +60,13 @@ void MainWindow::on_pushButton_saveImage_clicked()
 
 void MainWindow::renderComplete()
 {
-    rendering=false;
+    timer.stop();
+    ui->label->setPixmap(QPixmap::fromImage(*image));
     ui->progressBar->setValue(100);
 }
 
-void MainWindow::paintEvent(QPaintEvent *event)
+void MainWindow::updateRenderResult()
 {
-    if(rendering){
-        ui->label->setPixmap(QPixmap::fromImage(*image));
-    }
+    ui->label->setPixmap(QPixmap::fromImage(*image));
+    ui->progressBar->setValue(int(currentRenderPixelNum*100/allPixelNum));
 }
-
-
