@@ -17,7 +17,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 private slots:
-    void setPixelColor(const int &u, const int &v, const QColor &color);
+    void setPixelColor(const int &u, const int &v, const float &progress, const QColor &color);
 
     void renderComplete();
 
@@ -35,9 +35,8 @@ private:
     RenderSetting setting;
     QTimer timer;
 
-    int currentRenderPixelNum;
-    int allPixelNum;
-
+    float currentProgress;
+    bool needUpdate;
 //    void paintEvent(QPaintEvent *event);
 };
 

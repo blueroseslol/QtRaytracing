@@ -4,13 +4,13 @@
 #include <QDebug>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow),image(nullptr)
+    ui(new Ui::MainWindow),image(nullptr),needUpdate(false)
 {
     ui->setupUi(this);
     world=new World(&setting);
 
     connect(&timer,SIGNAL(timeout()),this,SLOT(updateRenderResult()));
-    connect(world,SIGNAL(pixelComplete(int,int,QColor)),this,SLOT(setPixelColor(const int&,const int&,const QColor&)));
+    connect(world,SIGNAL(pixelComplete(int,int,float,QColor)),this,SLOT(setPixelColor(const int&,const int&,const float&,const QColor&)));
     connect(world,SIGNAL(renderComplete()),this,SLOT(renderComplete()));
 }
 
@@ -22,10 +22,10 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::setPixelColor(const int& u, const int& v, const QColor& color){
+void MainWindow::setPixelColor(const int& u, const int& v,const float& progress,const QColor& color){
     image->setPixelColor(u,v,color);
-
-    currentRenderPixelNum++;
+    currentProgress=progress;
+    needUpdate=true;
 }
 
 void MainWindow::on_pushButton_renderSetting_clicked()
@@ -42,14 +42,12 @@ void MainWindow::on_pushButton_start_clicked()
     }
     image=new QImage(setting.imageWidth,setting.imageHeight,QImage::Format_RGB888);
 
-    currentRenderPixelNum=0;
-    allPixelNum=setting.imageWidth*setting.imageHeight;
     ui->progressBar->setValue(0);
 
     //开始渲染
     world->build();
     world->render_scene();
-    timer.start(200);
+    timer.start(300);
 }
 
 void MainWindow::on_pushButton_saveImage_clicked()
@@ -67,6 +65,9 @@ void MainWindow::renderComplete()
 
 void MainWindow::updateRenderResult()
 {
+    if(!needUpdate)
+        return;
     ui->label->setPixmap(QPixmap::fromImage(*image));
-    ui->progressBar->setValue(int(currentRenderPixelNum*100/allPixelNum));
+    ui->progressBar->setValue(currentProgress);
+    needUpdate=false;
 }

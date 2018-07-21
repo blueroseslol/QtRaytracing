@@ -27,6 +27,8 @@ void World::render_scene() {
         Ray ray;
         int nx = setting->imageWidth;
         int ny =  setting->imageHeight;
+        int allPixelNum=nx*ny;
+        int currentPixelNum=0;
 
         Vector3D lower_left_corner(-2.0, -1.0, -1.0);
         Vector3D horizontal(4.0, 0.0, 0.0);
@@ -46,7 +48,8 @@ void World::render_scene() {
                 //int ig = int(255.99*color.g);
                 //int ib = int(255.99*color.b);
 
-                emit pixelComplete(i,j,QColor( int(255.99*color.r), int(255.99*color.g), int(255.99*color.b)));
+                currentPixelNum++;
+                emit pixelComplete(i,j,currentPixelNum*100/allPixelNum,QColor( int(255.99*color.r), int(255.99*color.g), int(255.99*color.b)));
             }
         }
         emit renderComplete();
