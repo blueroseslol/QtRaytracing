@@ -4,11 +4,12 @@
 #include <QDebug>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow),image(nullptr)
+    ui(new Ui::MainWindow),image(nullptr),rendering(false)
 {
     ui->setupUi(this);
     world=new World(&setting);
-    connect(world,SIGNAL(pixelComplete(int,int,QColor)),this,SLOT(setPixelColor(const int&,const int&,const QColor&)));
+    connect(world,SIGNAL(pixelComplete(int,int,int,QColor)),this,SLOT(setPixelColor(const int&,const int&,const int&,const QColor&)));
+    connect(world,SIGNAL(renderComplete()),this,SLOT(renderComplete()));
 }
 
 MainWindow::~MainWindow()
@@ -19,14 +20,10 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::setPixelColor(const int& u,const int& v, const QColor& color){
+void MainWindow::setPixelColor(const int& u, const int& v, const int &progress, const QColor& color){
     image->setPixelColor(u,v,color);
 
-    currentRenderPixelNum+=1;
-    ui->progressBar->setValue(currentRenderPixelNum/allPixelNum*100);
-    if(currentRenderPixelNum%setting.imageWidth==0){
-        ui->label->setPixmap(QPixmap::fromImage(*image));
-    }
+    ui->progressBar->setValue(progress);
 }
 
 void MainWindow::on_pushButton_renderSetting_clicked()
@@ -36,17 +33,16 @@ void MainWindow::on_pushButton_renderSetting_clicked()
 
 void MainWindow::on_pushButton_start_clicked()
 {
-
+    //初始化渲染参数
     if(image){
         delete image;
         ui->label->resize(setting.imageWidth,setting.imageHeight);
     }
     image=new QImage(setting.imageWidth,setting.imageHeight,QImage::Format_RGB888);
 
-    currentRenderPixelNum=0;
-    allPixelNum=setting.imageWidth*setting.imageHeight;
     ui->progressBar->setValue(0);
-
+    rendering=true;
+    //开始渲染
     world->build();
     world->render_scene();
 }
@@ -56,3 +52,18 @@ void MainWindow::on_pushButton_saveImage_clicked()
     if(image)
         image->save(setting.fileName);
 }
+
+void MainWindow::renderComplete()
+{
+    rendering=false;
+    ui->progressBar->setValue(100);
+}
+
+void MainWindow::paintEvent(QPaintEvent *event)
+{
+    if(rendering){
+        ui->label->setPixmap(QPixmap::fromImage(*image));
+    }
+}
+
+

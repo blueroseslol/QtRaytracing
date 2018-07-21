@@ -26,7 +26,8 @@ public:
     void render_scene();
 
 signals:
-    void pixelComplete(int u,int v,QColor color);
+    void pixelComplete(int u,int v,int progress,QColor color);
+    void renderComplete();
 };
 
 #endif // WORLD_H

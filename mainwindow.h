@@ -15,10 +15,10 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-public slots:
-    void setPixelColor(const int &u, const int &v, const QColor &color);
 private slots:
+    void setPixelColor(const int &u, const int &v,const int &progress, const QColor &color);
 
+    void renderComplete();
 
     void on_pushButton_renderSetting_clicked();
 
@@ -32,8 +32,9 @@ private:
     QImage *image;
     RenderSetting setting;
 
-    int currentRenderPixelNum;
-    int allPixelNum;
+    bool rendering;
+
+    void paintEvent(QPaintEvent *event);
 };
 
 #endif // MAINWINDOW_H

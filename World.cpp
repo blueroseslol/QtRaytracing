@@ -40,13 +40,15 @@ void World::render_scene() {
                 ray.origin=origin;
                 ray.direction=lower_left_corner+u*horizontal+v*vertical;
 
+                //TODO:将RGBColor替换为QColor来减少消耗
                 RGBColor color= tracer_ptr->trace_ray(ray);
                 //int ir = int(255.99*color.r);
                 //int ig = int(255.99*color.g);
                 //int ib = int(255.99*color.b);
 
-                emit pixelComplete(i,j,QColor( int(255.99*color.r), int(255.99*color.g), int(255.99*color.b)));
+                emit pixelComplete(i,j,int(j*100/ny),QColor( int(255.99*color.r), int(255.99*color.g), int(255.99*color.b)));
             }
         }
+        emit renderComplete();
     });
 }
