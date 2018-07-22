@@ -2,6 +2,7 @@
 #define TRACER_H
 #include "Utilities/RGBColor.h"
 #include "Utilities/Ray.h"
+#include "Utilities/ShadeRec.h"
 class World;
 
 class Tracer

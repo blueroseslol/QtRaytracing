@@ -45,8 +45,11 @@ SOURCES += \
     ViewPlane.cpp \
     Core/Render.cpp \
     Tracer/tracer.cpp \
-    Tracer/singlesphere.cpp \
-    rendersetting.cpp
+    rendersetting.cpp \
+    Tracer/mutipleobjects.cpp \
+    Sampler/sampler.cpp \
+    Sampler/jittered.cpp \
+    Sampler/uniformsampler.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -70,8 +73,11 @@ HEADERS += \
     ViewPlane.h \
     Core/Render.h \
     Tracer/tracer.h \
-    Tracer/singlesphere.h \
-    rendersetting.h
+    rendersetting.h \
+    Tracer/mutipleobjects.h \
+    Sampler/sampler.h \
+    Sampler/jittered.h \
+    Sampler/uniformsampler.h
 
 FORMS += \
         mainwindow.ui \

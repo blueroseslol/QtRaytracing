@@ -2,7 +2,8 @@
 #define RENDERSETTING_H
 
 #include <QWidget>
-
+#include "Utilities/RGBColor.h"
+#include "Sampler/jittered.h"
 namespace Ui {
 class RenderSetting;
 }
@@ -15,6 +16,7 @@ public:
     explicit RenderSetting(QWidget *parent = 0);
     ~RenderSetting();
     QString fileName;
+    RGBColor backergroundColor;
     int imageWidth;
     int imageHeight;
 
@@ -29,6 +31,10 @@ private slots:
 
 private:
     Ui::RenderSetting *ui;
+    Sampler *samplerPtr;
+    int numSamples;
+
+    void setSampler(Sampler *sp);
 };
 
 #endif // RENDERSETTING_H

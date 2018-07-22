@@ -6,7 +6,8 @@
 RenderSetting::RenderSetting(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::RenderSetting),
-    imageWidth(1000),imageHeight(500),fileName("result.png")
+    imageWidth(1000),imageHeight(500),fileName("result.png"),backergroundColor(RGBColor()),
+    samplerPtr(nullptr)
 {
     ui->setupUi(this);
 //    QSettings config("RenderSetting.ini",QSettings::NativeFormat);
@@ -49,4 +50,28 @@ void RenderSetting::on_spinBox_imageHeight_valueChanged(const QString &arg1)
     this->imageHeight=int(arg1.toInt());
 //    QSettings config("RenderSetting.ini",QSettings::NativeFormat);
 //    config.setValue("Globel/ImageHeight",arg1);
+}
+
+void RenderSetting::setSampler(Sampler *sp)
+{
+    if(samplerPtr){
+        delete samplerPtr;
+        samplerPtr=nullptr;
+    }
+    numSamples=sp->getNumSamples();
+    samplerPtr=sp;
+}
+
+void RenderSetting::setSamples(const int n)
+{
+    numSamples=n;
+    if(samplerPtr){
+        delete samplerPtr;
+        samplerPtr=nullptr;
+    }
+
+    if(numSamples>1)
+    {
+        samplerPtr=new Jittered(n);
+    }
 }

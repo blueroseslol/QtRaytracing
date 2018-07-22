@@ -9,6 +9,9 @@ class Geometry
 public:
     Geometry();
     virtual bool hit(const Ray& ray,double& tmin,ShadeRec& sr) const =0;
+
+    RGBColor getColor() const;
+    void setColor(const RGBColor &_color);
 protected:
     RGBColor color;
 };

@@ -7,19 +7,24 @@
 #include <QObject>
 #include <QColor>
 #include "rendersetting.h"
+#include <QVector>
 class Tracer;
 class World : public QObject
 {
     Q_OBJECT
 public:
     //Camera camera;
-    Sphere sphere;
     Tracer* tracer_ptr;
     RenderSetting* setting;
+    QVector<Geometry*> scene;
 
     World();
     World(RenderSetting *_setting);
     ~World();
+
+    void addGeometry(Geometry *geometryPtr);
+
+    ShadeRec hit_bare_bones_objects(const Ray& ray) const;
 
     void build();
 

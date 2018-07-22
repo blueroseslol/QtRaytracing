@@ -35,9 +35,9 @@ class ShadeRec {
 		double				t;					// ray parameter
         double				u;					// texture coordinate
         double				v;					// texture coordinate
-		World&				w;					// world reference
+        const World&				w;					// world reference
 				
-		ShadeRec(World& wr);					// constructor
+        ShadeRec(const World& wr);					// constructor
 		ShadeRec(const ShadeRec& sr);			// copy constructor
         ShadeRec(ShadeRec&& sr);
 		~ShadeRec(void);						// destructor
