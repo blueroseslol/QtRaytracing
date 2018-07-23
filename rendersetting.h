@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include "Utilities/RGBColor.h"
-#include "Sampler/jittered.h"
+
 namespace Ui {
 class RenderSetting;
 }

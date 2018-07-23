@@ -3,6 +3,8 @@
 #include <QSettings>
 //#include <QFile>
 #include <QDebug>
+#include "Sampler/jittered.h"
+#include "Sampler/regular.h"
 RenderSetting::RenderSetting(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::RenderSetting),
@@ -70,8 +72,9 @@ void RenderSetting::setSamples(const int n)
         samplerPtr=nullptr;
     }
 
-    if(numSamples>1)
-    {
+    if(numSamples>1){
         samplerPtr=new Jittered(n);
+    }else{
+        samplerPtr=new Regular(0);
     }
 }

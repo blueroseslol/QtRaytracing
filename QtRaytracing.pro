@@ -49,7 +49,7 @@ SOURCES += \
     Tracer/mutipleobjects.cpp \
     Sampler/sampler.cpp \
     Sampler/jittered.cpp \
-    Sampler/uniformsampler.cpp
+    Sampler/regular.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -77,7 +77,7 @@ HEADERS += \
     Tracer/mutipleobjects.h \
     Sampler/sampler.h \
     Sampler/jittered.h \
-    Sampler/uniformsampler.h
+    Sampler/regular.h
 
 FORMS += \
         mainwindow.ui \

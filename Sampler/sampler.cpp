@@ -1,4 +1,4 @@
-#include "sampler.h"
+﻿#include "sampler.h"
 
 Sampler::Sampler()
 {
@@ -8,4 +8,8 @@ Sampler::Sampler()
 int Sampler::getNumSamples() const
 {
     return numSamples;
+}
+
+Point2D Sampler::sampleUnitSquare(){
+    return (samples[count++%(numSamples*numSets)]);
 }
