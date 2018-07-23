@@ -6,6 +6,8 @@ class Jittered : public Sampler
 {
 public:
     Jittered();
+
+    Jittered(const int& _numSamples);
 private:
     virtual void generateSampler();
 };

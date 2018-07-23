@@ -6,6 +6,10 @@ class Regular : public Sampler
 {
 public:
     Regular();
+
+    Regular(const int& _numSamples);
+private:
+    virtual void generateSampler();
 };
 
 #endif // REGULAR_H

@@ -7,6 +7,8 @@ class Sampler
 public:
     Sampler();
 
+    Sampler(const int& _numSamples);
+
     virtual void generateSampler()=0;
 
     void setupShuffledIndices();

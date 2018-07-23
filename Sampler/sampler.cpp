@@ -5,6 +5,11 @@ Sampler::Sampler()
 
 }
 
+Sampler::Sampler(const int &_numSamples):numSamples(_numSamples)
+{
+
+}
+
 int Sampler::getNumSamples() const
 {
     return numSamples;

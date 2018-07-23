@@ -6,6 +6,8 @@
 #include <QFutureSynchronizer>
 //#include "Tracer/singlesphere.h"
 #include "Tracer/mutipleobjects.h"
+#include "Utilities/Point2D.h"
+#include "Sampler/sampler.h"
 
 World::World(RenderSetting *_setting):setting(_setting),tracer_ptr(nullptr)
 {
@@ -84,7 +86,7 @@ void World::render_scene() {
                 }
                 pixelColor/=setting->numSamples;
                 currentPixelNum++;
-                emit pixelComplete(i,j,currentPixelNum*100/allPixelNum,QColor( int(255.99*color.r), int(255.99*color.g), int(255.99*color.b)));
+                emit pixelComplete(i,j,currentPixelNum*100/allPixelNum,QColor( int(255.99*pixelColor.r), int(255.99*pixelColor.g), int(255.99*pixelColor.b)));
             }
         }
         emit renderComplete();

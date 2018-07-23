@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "Utilities/RGBColor.h"
 
+class Sampler;
 namespace Ui {
 class RenderSetting;
 }
@@ -19,7 +20,8 @@ public:
     RGBColor backergroundColor;
     int imageWidth;
     int imageHeight;
-
+    int numSamples;
+    Sampler *samplerPtr;
 private slots:
     void on_pushButton_close_clicked();
 
@@ -31,10 +33,10 @@ private slots:
 
 private:
     Ui::RenderSetting *ui;
-    Sampler *samplerPtr;
-    int numSamples;
 
     void setSampler(Sampler *sp);
+
+    void setSamples(const int n);
 };
 
 #endif // RENDERSETTING_H

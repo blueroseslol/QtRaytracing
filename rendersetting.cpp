@@ -75,6 +75,6 @@ void RenderSetting::setSamples(const int n)
     if(numSamples>1){
         samplerPtr=new Jittered(n);
     }else{
-        samplerPtr=new Regular(0);
+//        samplerPtr=new Regular(0);
     }
 }

@@ -1,6 +1,14 @@
 #include "jittered.h"
 
+//#include <QTime>
+//qsrand(QTime::currentTime().msec()+QTime::currentTime().second()*1000);
+
 Jittered::Jittered()
+{
+
+}
+
+Jittered::Jittered(const int &_numSamples):Sampler(_numSamples)
 {
 
 }
