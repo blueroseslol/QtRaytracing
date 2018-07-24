@@ -1,11 +1,11 @@
 ﻿#include "sampler.h"
 
-Sampler::Sampler()
+Sampler::Sampler():count(0),numSamples(1),numSets(1),jump(0)
 {
 
 }
 
-Sampler::Sampler(const int &_numSamples):numSamples(_numSamples)
+Sampler::Sampler(const int &_numSamples):numSamples(_numSamples),count(0),numSets(1),jump(0)
 {
 
 }

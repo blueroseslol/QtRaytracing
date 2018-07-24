@@ -1,8 +1,6 @@
-#include "jittered.h"
-
-//#include <QTime>
-//qsrand(QTime::currentTime().msec()+QTime::currentTime().second()*1000);
-
+﻿#include "jittered.h"
+#include "Utilities/Constants.h"
+#include <QDebug>
 Jittered::Jittered()
 {
 
@@ -19,7 +17,7 @@ void Jittered::generateSampler()
     for(int p=0;p<numSets;p++){
         for(int j=0;j<n;j++){
             for(int k=0;k<n;k++){
-                Point2D sp((k+rand_float())/n,(j+rand_float())/n);
+                Point2D sp((k+float_rand())/n,(j+float_rand())/n);
                 samples.push_back(sp);
             }
         }

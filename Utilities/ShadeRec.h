@@ -40,7 +40,7 @@ class ShadeRec {
         ShadeRec(const World& wr);					// constructor
 		ShadeRec(const ShadeRec& sr);			// copy constructor
         ShadeRec(ShadeRec&& sr);
-		~ShadeRec(void);						// destructor
+        ~ShadeRec();						// destructor
 };
 
 #endif

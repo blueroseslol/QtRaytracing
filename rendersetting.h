@@ -22,6 +22,10 @@ public:
     int imageHeight;
     int numSamples;
     Sampler *samplerPtr;
+
+    void setSampler(Sampler *sp);
+
+    void setSamples(const int n);
 private slots:
     void on_pushButton_close_clicked();
 
@@ -33,10 +37,6 @@ private slots:
 
 private:
     Ui::RenderSetting *ui;
-
-    void setSampler(Sampler *sp);
-
-    void setSamples(const int n);
 };
 
 #endif // RENDERSETTING_H

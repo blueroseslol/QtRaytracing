@@ -49,7 +49,8 @@ SOURCES += \
     Tracer/mutipleobjects.cpp \
     Sampler/sampler.cpp \
     Sampler/jittered.cpp \
-    Sampler/regular.cpp
+    Sampler/regular.cpp \
+    Utilities/Constans.cpp
 
 HEADERS += \
     mainwindow.h \

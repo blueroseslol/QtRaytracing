@@ -25,7 +25,7 @@ ShadeRec::ShadeRec(const World& wr)
 		normal(),
 		ray(),
 		depth(0),
-		color(black),
+        color(RGBColor()),
 		t(0.0),
 		u(0.0),
 		v(0.0),
@@ -67,7 +67,7 @@ ShadeRec::ShadeRec(ShadeRec&& sr)
 
 // ------------------------------------------------------------------ destructor
 
-ShadeRec::~ShadeRec(void) {
+ShadeRec::~ShadeRec() {
 	if (material_ptr) {
 		delete material_ptr;
         material_ptr = nullptr;
