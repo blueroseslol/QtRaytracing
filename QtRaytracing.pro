@@ -51,7 +51,8 @@ SOURCES += \
     Sampler/jittered.cpp \
     Sampler/regular.cpp \
     Sampler/multijittered.cpp \
-    Utilities/Constants.cpp
+    Utilities/Constants.cpp \
+    Sampler/hammersley.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -80,7 +81,8 @@ HEADERS += \
     Sampler/sampler.h \
     Sampler/jittered.h \
     Sampler/regular.h \
-    Sampler/multijittered.h
+    Sampler/multijittered.h \
+    Sampler/hammersley.h
 
 FORMS += \
         mainwindow.ui \

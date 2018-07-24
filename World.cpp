@@ -7,9 +7,10 @@
 //#include "Tracer/singlesphere.h"
 #include "Tracer/mutipleobjects.h"
 #include "Utilities/Point2D.h"
-#include "Sampler/jittered.h"
+//#include "Sampler/jittered.h"
 //#include "Sampler/regular.h"
 #include "Sampler/multijittered.h"
+#include "Sampler/hammersley.h"
 World::World(RenderSetting *_setting):setting(_setting),tracer_ptr(nullptr)
 {
 
@@ -21,6 +22,7 @@ World::~World(){
 }
 
 void World::build(){
+    //TODO:这里应该使用智能指针
     tracer_ptr=new MutipleObjects(this);
     Sphere *sphere=new Sphere(Point3D(0.0,0.0,-1),0.5);
     sphere->setColor(RGBColor(1.0,0,0));
@@ -31,8 +33,9 @@ void World::build(){
     addGeometry(sphere1);
 
 //    setting->setSampler(new Jittered(64,3));
-//     setting->setSampler(new Regular(64));
-    setting->setSampler(new MultiJittered(64,3));
+//    setting->setSampler(new Regular(64));
+//    setting->setSampler(new MultiJittered(64,3));
+    setting->setSampler(new Hammersley(64,3));
 }
 
 void World::addGeometry(Geometry *geometryPtr){
@@ -78,7 +81,6 @@ void World::render_scene() {
             for (int i=0;i<nx;i++){
                 pixelColor=RGBColor(0,0,0);
                 for(int k=0;k<setting->numSamples;k++){
-
                     sp=setting->samplerPtr->sampleUnitSquare();
                     float u = float(i+sp.x) / float(nx);
                     float v = float(j+sp.y) / float(ny);
