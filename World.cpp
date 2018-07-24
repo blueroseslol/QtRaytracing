@@ -8,7 +8,8 @@
 #include "Tracer/mutipleobjects.h"
 #include "Utilities/Point2D.h"
 #include "Sampler/jittered.h"
-
+//#include "Sampler/regular.h"
+#include "Sampler/multijittered.h"
 World::World(RenderSetting *_setting):setting(_setting),tracer_ptr(nullptr)
 {
 
@@ -29,9 +30,9 @@ void World::build(){
     sphere1->setColor(RGBColor(0,1.0,0));
     addGeometry(sphere1);
 
-    setting->setSampler(new Jittered(64));
-    setting->samplerPtr->generateSampler();
-
+//    setting->setSampler(new Jittered(64,3));
+//     setting->setSampler(new Regular(64));
+    setting->setSampler(new MultiJittered(64,3));
 }
 
 void World::addGeometry(Geometry *geometryPtr){

@@ -1,4 +1,4 @@
-#ifndef SAMPLER_H
+﻿#ifndef SAMPLER_H
 #define SAMPLER_H
 #include "Utilities/Point2D.h"
 #include <QVector>
@@ -9,6 +9,8 @@ public:
 
     Sampler(const int& _numSamples);
 
+    Sampler(const int& _numSamples,const int& _numSets);
+
     virtual void generateSampler()=0;
 
     void setupShuffledIndices();
@@ -17,7 +19,7 @@ public:
 
     int getNumSamples() const;
 
-    Point2D sampleUnitSquare();
+    virtual Point2D sampleUnitSquare();
 protected:
     int numSamples;
     int numSets;

@@ -34,6 +34,7 @@ private:
     QImage *image;
     RenderSetting setting;
     QTimer timer;
+    //TODO:添加渲染时间显示功能
 
     float currentProgress;
     bool needUpdate;

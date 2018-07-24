@@ -1,7 +1,11 @@
 ﻿#ifndef __CONSTANTS__
 #define __CONSTANTS__
 
-double float_rand();
+double rand_float();
+
+double rand_float(const double min,const double max);
+
+int rand_int(const int min,const int max);
 
 // 	Copyright (C) Kevin Suffern 2000-2007.
 //	This C++ code is for non-commercial purposes only.

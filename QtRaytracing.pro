@@ -50,7 +50,8 @@ SOURCES += \
     Sampler/sampler.cpp \
     Sampler/jittered.cpp \
     Sampler/regular.cpp \
-    Utilities/Constans.cpp
+    Sampler/multijittered.cpp \
+    Utilities/Constants.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -78,7 +79,8 @@ HEADERS += \
     Tracer/mutipleobjects.h \
     Sampler/sampler.h \
     Sampler/jittered.h \
-    Sampler/regular.h
+    Sampler/regular.h \
+    Sampler/multijittered.h
 
 FORMS += \
         mainwindow.ui \

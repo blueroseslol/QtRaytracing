@@ -8,6 +8,8 @@ public:
     Regular();
 
     Regular(const int& _numSamples);
+
+    virtual Point2D sampleUnitSquare() override;
 private:
     virtual void generateSampler();
 };

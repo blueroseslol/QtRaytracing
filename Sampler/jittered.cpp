@@ -1,6 +1,5 @@
 ﻿#include "jittered.h"
 #include "Utilities/Constants.h"
-#include <QDebug>
 Jittered::Jittered()
 {
 
@@ -8,7 +7,12 @@ Jittered::Jittered()
 
 Jittered::Jittered(const int &_numSamples):Sampler(_numSamples)
 {
+    generateSampler();
+}
 
+Jittered::Jittered(const int &_numSamples, const int &_numSets):Sampler(_numSamples,_numSets)
+{
+    generateSampler();
 }
 
 void Jittered::generateSampler()
@@ -17,8 +21,7 @@ void Jittered::generateSampler()
     for(int p=0;p<numSets;p++){
         for(int j=0;j<n;j++){
             for(int k=0;k<n;k++){
-                Point2D sp((k+float_rand())/n,(j+float_rand())/n);
-                samples.push_back(sp);
+                samples.push_back(Point2D((k+rand_float())/n,(j+rand_float())/n));
             }
         }
     }
