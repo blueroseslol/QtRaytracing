@@ -19,16 +19,13 @@ void MultiJittered::generateSampler()
 {
     // numSamples needs to be a perfect square
 
-    int n = (int)sqrt((float)numSamples);
+    int n = sqrt(numSamples);
     float subcell_width = 1.0 / ((float) numSamples);
 
     // fill the samples array with dummy points to allow us to use the [ ] notation when we set the
     // initial patterns
 
-    Point2D fill_point;
-    for (int j = 0; j < numSamples * numSets; j++)
-        samples.push_back(fill_point);
-
+    samples=QVector<Point2D>(numSamples * numSets,Point2D());
     // distribute points in the initial patterns
 
     for (int p = 0; p < numSets; p++)

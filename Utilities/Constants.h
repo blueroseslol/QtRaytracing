@@ -1,6 +1,7 @@
 ﻿#ifndef __CONSTANTS__
 #define __CONSTANTS__
-
+#define _USE_MATH_DEFINES
+#include <math.h>
 double rand_float();
 
 double rand_float(const double min,const double max);
@@ -16,11 +17,11 @@ int rand_int(const int min,const int max);
 //#include <stdlib.h>			// for RAND_MAX
 //#include "RGBColor.h"
 
-//const double 	PI 			= 3.1415926535897932384;
-//const double 	TWO_PI 		= 6.2831853071795864769;
-//const double 	PI_ON_180 	= 0.0174532925199432957;
-//const double 	invPI 		= 0.3183098861837906715;
-//const double 	invTWO_PI 	= 0.1591549430918953358;
+const double 	PI 			= 3.1415926535897932384;
+const double 	TWO_PI 		= 6.2831853071795864769;
+const double 	PI_ON_180 	= 0.0174532925199432957;
+const double 	invPI 		= 0.3183098861837906715;
+const double 	invTWO_PI 	= 0.1591549430918953358;
 
 static const double 	kEpsilon 	= 0.0001;
 //const double	kHugeValue	= 1.0E10;

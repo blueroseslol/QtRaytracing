@@ -32,10 +32,10 @@ void World::build(){
     sphere1->setColor(RGBColor(0,1.0,0));
     addGeometry(sphere1);
 
-//    setting->setSampler(new Jittered(64,3));
-//    setting->setSampler(new Regular(64));
-//    setting->setSampler(new MultiJittered(64,3));
-    setting->setSampler(new Hammersley(64,3));
+//    setting->setSampler(new Jittered(16,3));
+//    setting->setSampler(new Regular(16));
+    setting->setSampler(new MultiJittered(16,3));
+//    setting->setSampler(new Hammersley(16,3));
 }
 
 void World::addGeometry(Geometry *geometryPtr){
