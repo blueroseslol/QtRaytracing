@@ -1,8 +1,8 @@
 ﻿#ifndef WORLD_H
 #define WORLD_H
 #include "Utilities/RGBColor.h"
-#include "Geometry/sphere.h"
-//#include "Cameras/Camera.h"
+#include "Geometry/Geometry.h"
+#include "Cameras/Camera.h"
 #include <QImage>
 #include <QObject>
 #include <QColor>
@@ -13,13 +13,11 @@ class World : public QObject
 {
     Q_OBJECT
 public:
-    //Camera camera;
-    Tracer* tracer_ptr;
-    RenderSetting* setting;
-    QVector<Geometry*> scene;
-
     World();
     World(RenderSetting *_setting);
+
+    RenderSetting* setting;
+
     ~World();
 
     void addGeometry(Geometry *geometryPtr);
@@ -30,9 +28,19 @@ public:
 
     void render_scene();
 
+    inline void setCamera(Camera *cameraPtr);
+private:
+    Camera* camera_ptr;
+    Tracer* tracer_ptr;
+    QVector<Geometry*> scene;
 signals:
     void pixelComplete(int u,int v,float progress,QColor color);
     void renderComplete();
 };
+
+inline void World::setCamera(Camera *cameraPtr)
+{
+    camera_ptr=cameraPtr;
+}
 
 #endif // WORLD_H

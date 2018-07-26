@@ -11,6 +11,8 @@
 //#include "Sampler/regular.h"
 #include "Sampler/multijittered.h"
 #include "Sampler/hammersley.h"
+#include "Cameras/pinhole.h"
+#include "Geometry/sphere.h"
 World::World(RenderSetting *_setting):setting(_setting),tracer_ptr(nullptr)
 {
 
@@ -36,6 +38,13 @@ void World::build(){
 //    setting->setSampler(new Regular(16));
     setting->setSampler(new MultiJittered(16,3));
 //    setting->setSampler(new Hammersley(16,3));
+
+    Pinhole* pinhole=new Pinhole;
+    pinhole->setOrigin(300,400,500);
+    pinhole->setLookat(0,0,-50);
+    pinhole->setViewDistance(400);
+    pinhole->computeUVW();
+    setCamera(pinhole);
 }
 
 void World::addGeometry(Geometry *geometryPtr){

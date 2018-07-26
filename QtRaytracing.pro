@@ -52,7 +52,8 @@ SOURCES += \
     Sampler/regular.cpp \
     Sampler/multijittered.cpp \
     Utilities/Constants.cpp \
-    Sampler/hammersley.cpp
+    Sampler/hammersley.cpp \
+    Cameras/pinhole.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -82,7 +83,8 @@ HEADERS += \
     Sampler/jittered.h \
     Sampler/regular.h \
     Sampler/multijittered.h \
-    Sampler/hammersley.h
+    Sampler/hammersley.h \
+    Cameras/pinhole.h
 
 FORMS += \
         mainwindow.ui \
