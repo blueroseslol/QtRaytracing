@@ -89,3 +89,12 @@ HEADERS += \
 FORMS += \
         mainwindow.ui \
     rendersetting.ui
+
+
+INCLUDEPATH += $$PWD/tbb/include
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/tbb/lib/intel64/vc14/ -ltbb
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/tbb/lib/intel64/vc14/ -ltbb_debug
+
+INCLUDEPATH += $$PWD/tbb/lib/intel64/vc14
+DEPENDPATH += $$PWD/tbb/lib/intel64/vc14

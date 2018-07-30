@@ -28,6 +28,8 @@ private slots:
     void on_pushButton_saveImage_clicked();
 
     void updateRenderResult();
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     World *world;

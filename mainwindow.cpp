@@ -71,3 +71,9 @@ void MainWindow::updateRenderResult()
     ui->progressBar->setValue(currentProgress);
     needUpdate=false;
 }
+
+void MainWindow::on_pushButton_clicked()
+{
+
+
+}

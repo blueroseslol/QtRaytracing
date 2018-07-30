@@ -13,9 +13,12 @@
 #include "Sampler/hammersley.h"
 #include "Cameras/pinhole.h"
 #include "Geometry/sphere.h"
+
+#include "tbb/tbb.h"
+#include "tbb/parallel_for.h"
+#include "tbb/blocked_range2d.h"
 World::World(RenderSetting *_setting):setting(_setting),tracer_ptr(nullptr)
 {
-
 }
 
 World::~World(){
@@ -71,24 +74,63 @@ void World::render_scene() {
 /*
     这里使用QtConcurrent并行执行渲染任务
 */
-    QtConcurrent::run([this](){
-        Ray ray;
-        RGBColor pixelColor;
-        Point2D sp;//采样点坐标
-        Point2D pp;//pixel上的采样点
-        int nx = setting->imageWidth;
-        int ny =  setting->imageHeight;
-        int allPixelNum=nx*ny;
-        int currentPixelNum=0;
+//    QtConcurrent::run([this](){
+//        Ray ray;
+//        RGBColor pixelColor;
+//        Point2D sp;//采样点坐标
+//        Point2D pp;//pixel上的采样点
+//        int nx = setting->imageWidth;
+//        int ny =  setting->imageHeight;
+//        int allPixelNum=nx*ny;
+//        int currentPixelNum=0;
 
-        Vector3D lower_left_corner(-2.0, -1.0, -1.0);
-        Vector3D horizontal(4.0, 0.0, 0.0);
-        Vector3D vertical(0.0, 2.0, 0.0);
-        Point3D origin(0.0, 0.0, 0.0);
-        //for (int j = ny - 1; j >= 0; j--){
-        for (int j = 0; j < ny; j++){
-            for (int i=0;i<nx;i++){
-                pixelColor=RGBColor(0,0,0);
+//        Vector3D lower_left_corner(-2.0, -1.0, -1.0);
+//        Vector3D horizontal(4.0, 0.0, 0.0);
+//        Vector3D vertical(0.0, 2.0, 0.0);
+//        Point3D origin(0.0, 0.0, 0.0);
+//        //for (int j = ny - 1; j >= 0; j--){
+//        for (int j = 0; j < ny; j++){
+//            for (int i=0;i<nx;i++){
+//                pixelColor=RGBColor(0,0,0);
+//                for(int k=0;k<setting->numSamples;k++){
+//                    sp=setting->samplerPtr->sampleUnitSquare();
+//                    float u = float(i+sp.x) / float(nx);
+//                    float v = float(j+sp.y) / float(ny);
+//                    ray.origin=origin;
+//                    ray.direction=lower_left_corner+u*horizontal+v*vertical;
+
+//                    pixelColor+= tracer_ptr->trace_ray(ray);
+//                }
+//                pixelColor/=setting->numSamples;
+//                currentPixelNum++;
+//                emit pixelComplete(i,j,currentPixelNum*100/allPixelNum,QColor( int(255.99*pixelColor.r), int(255.99*pixelColor.g), int(255.99*pixelColor.b)));
+//            }
+//        }
+//        emit renderComplete();
+//    });
+
+//    int nthreads = tbb::task_scheduler_init::automatic;
+//    tbb::task_scheduler_init init (nthreads-1);
+    QtConcurrent::run([this](){
+    Point2D sp;//采样点坐标
+    Point2D pp;//pixel上的采样点
+    int nx = setting->imageWidth;
+    int ny =  setting->imageHeight;
+    int allPixelNum=nx*ny;
+    int currentPixelNum=0;
+
+    Vector3D lower_left_corner(-2.0, -1.0, -1.0);
+    Vector3D horizontal(4.0, 0.0, 0.0);
+    Vector3D vertical(0.0, 2.0, 0.0);
+    Point3D origin(0.0, 0.0, 0.0);
+
+
+    tbb::parallel_for( tbb::blocked_range2d<int>(0, nx, 1, 0, ny, 1),
+                       [&](const tbb::blocked_range2d<int>& r){
+        for( int i=r.rows().begin(); i!=r.rows().end(); ++i ){
+            for( int j=r.cols().begin(); j!=r.cols().end(); ++j ) {
+                RGBColor pixelColor;
+                Ray ray;
                 for(int k=0;k<setting->numSamples;k++){
                     sp=setting->samplerPtr->sampleUnitSquare();
                     float u = float(i+sp.x) / float(nx);
@@ -100,9 +142,10 @@ void World::render_scene() {
                 }
                 pixelColor/=setting->numSamples;
                 currentPixelNum++;
+
                 emit pixelComplete(i,j,currentPixelNum*100/allPixelNum,QColor( int(255.99*pixelColor.r), int(255.99*pixelColor.g), int(255.99*pixelColor.b)));
             }
         }
-        emit renderComplete();
     });
+    emit renderComplete();});
 }
