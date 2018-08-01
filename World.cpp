@@ -100,11 +100,13 @@ void World::render_scene() {
             for( int j=r.cols().begin(); j!=r.cols().end(); ++j ) {
                 RGBColor pixelColor;
                 Ray ray;
+                ray.origin=origin;
+//                ray.origin=camera_ptr->getOrigin();
                 for(int k=0;k<setting->numSamples;k++){
                     sp=setting->samplerPtr->sampleUnitSquare();
                     float u = float(i+sp.x) / float(nx);
                     float v = float(j+sp.y) / float(ny);
-                    ray.origin=origin;
+
                     ray.direction=lower_left_corner+u*horizontal+v*vertical;
 
                     pixelColor+= tracer_ptr->trace_ray(ray);

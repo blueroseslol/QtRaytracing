@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QPixmap>
 #include <QDebug>
+#include <QFileDialog>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),currentProgress(0)
@@ -44,8 +45,11 @@ void MainWindow::on_pushButton_start_clicked()
 
 void MainWindow::on_pushButton_saveImage_clicked()
 {
-    if(world->image)
-        world->image->save(setting.fileName);
+    if(world->image){
+        QFileDialog::getSaveFileName(this,
+              QString::fromLocal8Bit("保存渲染结果"), "", QString::fromLocal8Bit("图片文件 (*.png *.jpg *.bmp)"));
+            world->image->save(setting.fileName);
+    }
 }
 
 void MainWindow::renderComplete()
