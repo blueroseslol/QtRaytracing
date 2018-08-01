@@ -17,8 +17,6 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 private slots:
-    void setPixelColor(const int &u, const int &v, const float &progress, const QColor &color);
-
     void renderComplete();
 
     void on_pushButton_renderSetting_clicked();
@@ -33,13 +31,11 @@ private slots:
 private:
     Ui::MainWindow *ui;
     World *world;
-    QImage *image;
     RenderSetting setting;
     QTimer timer;
-    //TODO:添加渲染时间显示功能
-
+    QTimer renderTimer;
     float currentProgress;
-    bool needUpdate;
+    //TODO:添加渲染时间显示功能
 //    void paintEvent(QPaintEvent *event);
 };
 

@@ -8,6 +8,7 @@
 #include <QColor>
 #include "rendersetting.h"
 #include <QVector>
+#include <QImage>
 class Tracer;
 class World : public QObject
 {
@@ -17,6 +18,8 @@ public:
     World(RenderSetting *_setting);
 
     RenderSetting* setting;
+    QImage *image;
+    float progress;
 
     ~World();
 
@@ -34,7 +37,6 @@ private:
     Tracer* tracer_ptr;
     QVector<Geometry*> scene;
 signals:
-    void pixelComplete(int u,int v,float progress,QColor color);
     void renderComplete();
 };
 

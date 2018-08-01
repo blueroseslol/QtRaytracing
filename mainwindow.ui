@@ -44,6 +44,43 @@
        </widget>
       </item>
       <item>
+       <widget class="QTimeEdit" name="timeEdit_renderTime">
+        <property name="contextMenuPolicy">
+         <enum>Qt::DefaultContextMenu</enum>
+        </property>
+        <property name="acceptDrops">
+         <bool>false</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::NoButtons</enum>
+        </property>
+        <property name="accelerated">
+         <bool>false</bool>
+        </property>
+        <property name="showGroupSeparator" stdset="0">
+         <bool>false</bool>
+        </property>
+        <property name="currentSection">
+         <enum>QDateTimeEdit::HourSection</enum>
+        </property>
+        <property name="displayFormat">
+         <string>H:mm:ss</string>
+        </property>
+        <property name="calendarPopup">
+         <bool>false</bool>
+        </property>
+        <property name="timeSpec">
+         <enum>Qt::LocalTime</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="pushButton_start">
         <property name="text">
          <string>开始渲染</string>
@@ -51,16 +88,16 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_saveImage">
+       <widget class="QPushButton" name="pushButton">
         <property name="text">
-         <string>保存图片</string>
+         <string>停止渲染</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="pushButton_saveImage">
         <property name="text">
-         <string>PushButton</string>
+         <string>保存图片</string>
         </property>
        </widget>
       </item>
