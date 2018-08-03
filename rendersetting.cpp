@@ -8,7 +8,7 @@
 RenderSetting::RenderSetting(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::RenderSetting),
-    imageWidth(1000),imageHeight(500),fileName("result.png"),backergroundColor(RGBColor()),
+    imageWidth(500),imageHeight(500),fileName("result.png"),backergroundColor(RGBColor()),
     samplerPtr(nullptr)
 {
     ui->setupUi(this);

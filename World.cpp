@@ -12,6 +12,7 @@
 #include "Sampler/multijittered.h"
 #include "Sampler/hammersley.h"
 #include "Cameras/pinhole.h"
+#include "Cameras/fisheye.h"
 #include "Geometry/sphere.h"
 
 #include "tbb/tbb.h"
@@ -45,11 +46,19 @@ void World::build(){
 //    setting->setSampler(new Hammersley(16,3));
 
     Pinhole* pinhole=new Pinhole;
-    pinhole->setOrigin(300,400,500);
-    pinhole->setLookat(0,0,-50);
-    pinhole->setViewDistance(400);
+    pinhole->setOrigin(0,0,5);
+    pinhole->setLookat(0,0,0);
+    pinhole->setViewDistance(1000);
     pinhole->computeUVW();
     setCamera(pinhole);
+
+//    FishEye* fishEye=new FishEye;
+//    fishEye->setOrigin(0,0,2);
+//    fishEye->setLookat(0,0,0);
+//    fishEye->computeUVW();
+//    fishEye->setResoultion(setting->imageWidth,setting->imageHeight);
+//    fishEye->setPsiMax(270);
+//    setCamera(fishEye);
 }
 
 void World::addGeometry(Geometry *geometryPtr){
@@ -80,17 +89,10 @@ void World::render_scene() {
     QtConcurrent::run([this](){
     //    int nthreads = tbb::task_scheduler_init::automatic;
     //    tbb::task_scheduler_init init (nthreads-1);
-    Point2D sp;//采样点坐标
-    Point2D pp;//pixel上的采样点
     int nx = setting->imageWidth;
     int ny =  setting->imageHeight;
     int allPixelNum=nx*ny;
     int currentPixelNum=0;
-
-    Vector3D lower_left_corner(-2.0, -1.0, -1.0);
-    Vector3D horizontal(4.0, 0.0, 0.0);
-    Vector3D vertical(0.0, 2.0, 0.0);
-    Point3D origin(0.0, 0.0, 0.0);
 
     tbb::spin_mutex mutex;
     tbb::parallel_for( tbb::blocked_range2d<int>(0, nx, 1, 0, ny, 1),
@@ -99,20 +101,18 @@ void World::render_scene() {
         for( int i=r.rows().begin(); i!=r.rows().end(); ++i ){
             for( int j=r.cols().begin(); j!=r.cols().end(); ++j ) {
                 RGBColor pixelColor;
-                Ray ray;
-                ray.origin=origin;
-//                ray.origin=camera_ptr->getOrigin();
+                Point2D sp;//采样点坐标
+                Point2D pp;//pixel上的采样点
                 for(int k=0;k<setting->numSamples;k++){
                     sp=setting->samplerPtr->sampleUnitSquare();
-                    float u = float(i+sp.x) / float(nx);
-                    float v = float(j+sp.y) / float(ny);
+                    pp.x=i-0.5*nx+sp.x;
+                    pp.y=j-0.5*ny+sp.y;
 
-                    ray.direction=lower_left_corner+u*horizontal+v*vertical;
-
-                    pixelColor+= tracer_ptr->trace_ray(ray);
+                    pixelColor+= tracer_ptr->trace_ray(camera_ptr->getRay(pp));
                 }
                 mutex.lock();
                 pixelColor/=setting->numSamples;
+                pixelColor*=camera_ptr->getExposureTime();
                 image->setPixelColor(i,j,QColor( int(255.99*pixelColor.r), int(255.99*pixelColor.g), int(255.99*pixelColor.b)));
                 currentPixelNum++;
                 progress=currentPixelNum*100/allPixelNum;
