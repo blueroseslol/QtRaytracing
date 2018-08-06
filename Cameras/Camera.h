@@ -3,6 +3,7 @@
 #include "Utilities/Point3D.h"
 #include "Utilities/Vector3D.h"
 #include "Utilities/Ray.h"
+#include "Utilities/Point2D.h"
 class World;
 class Camera
 {
@@ -10,9 +11,7 @@ public:
     Camera();
     void computeUVW();
 
-    virtual void renderScene(World* world)=0;
-
-    Ray getRay(double u,double v) const;
+    virtual Ray getRay(Point2D &point) const=0;
 
     inline void setOrigin(const Point3D& p);
 
@@ -28,7 +27,9 @@ public:
 
     inline void setExposureTime(const float _exposureTime);
 
-    inline void setRollAngle(const float& angle);
+    inline float getExposureTime() const;
+
+//    inline void setRollAngle(const float& angle);
 
 //    virtual Vector3D getDirection(const Point2D& uv) const;
 protected:
@@ -37,9 +38,6 @@ protected:
     Vector3D up;
     Vector3D u,v,w;
 
-    Vector3D lower_left_corner;
-    Vector3D horizontal;
-    Vector3D vertical;
     float exposureTime;
 };
 
@@ -79,10 +77,15 @@ inline void Camera::setExposureTime(const float _exposureTime)
     exposureTime=_exposureTime;
 }
 
-//TODO:实现倾斜角
-void Camera::setRollAngle(const float &angle)
+inline float Camera::getExposureTime() const
 {
-
+    return exposureTime;
 }
+
+////TODO:实现倾斜角,需要使用四元数，所以懒得实现
+//void Camera::setRollAngle(const float &angle)
+//{
+
+//}
 
 #endif // CAMERA_H
