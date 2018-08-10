@@ -14,6 +14,7 @@
 
 #include "Constants.h"
 #include "ShadeRec.h"
+#include "Material/material.h"
 
 // ------------------------------------------------------------------ constructor
 

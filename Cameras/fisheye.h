@@ -34,7 +34,7 @@ inline void FishEye::setPsiMax(const float _psiMax)
 
 inline float FishEye::getRSquared() const
 {
-    return rSquared;
+    return (float)rSquared;
 }
 
 #endif // FISHEYE_H

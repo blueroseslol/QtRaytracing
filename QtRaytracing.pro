@@ -54,7 +54,15 @@ SOURCES += \
     Utilities/Constants.cpp \
     Sampler/hammersley.cpp \
     Cameras/pinhole.cpp \
-    Cameras/fisheye.cpp
+    Cameras/fisheye.cpp \
+    BRDF/brdf.cpp \
+    BRDF/lambertian.cpp \
+    Light/light.cpp \
+    Light/ambient.cpp \
+    Material/material.cpp \
+    Tracer/raycast.cpp \
+    Material/Matte.cpp \
+    Material/normalmaterial.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -86,7 +94,15 @@ HEADERS += \
     Sampler/multijittered.h \
     Sampler/hammersley.h \
     Cameras/pinhole.h \
-    Cameras/fisheye.h
+    Cameras/fisheye.h \
+    BRDF/brdf.h \
+    BRDF/lambertian.h \
+    Light/light.h \
+    Light/ambient.h \
+    Material/material.h \
+    Tracer/raycast.h \
+    Material/Matte.h \
+    Material/normalmaterial.h
 
 FORMS += \
         mainwindow.ui \

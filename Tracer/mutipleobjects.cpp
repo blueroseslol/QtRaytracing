@@ -1,12 +1,12 @@
-#include "mutipleobjects.h"
-#include "World.h"
+﻿#include "mutipleobjects.h"
 MutipleObjects::MutipleObjects()
 {
 
 }
 
-MutipleObjects::MutipleObjects(World *w_ptr):Tracer(w_ptr){
-//    world_ptr=w_ptr;
+MutipleObjects::MutipleObjects(World *w_ptr):Tracer(w_ptr)
+{
+
 }
 
 RGBColor MutipleObjects::trace_ray(const Ray &ray) const

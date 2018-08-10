@@ -27,6 +27,8 @@ public:
 
     ShadeRec hit_bare_bones_objects(const Ray& ray) const;
 
+    ShadeRec hitObject(const Ray& ray) const;
+
     void build();
 
     void render_scene();

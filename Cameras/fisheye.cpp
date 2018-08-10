@@ -11,7 +11,7 @@ Ray FishEye::getRay(Point2D &point) const
     //TODO:存在问题，以后修正
     float s=1;
     Point2D pn(2.0/(s*hres)*point.x,2.0/(s*vres)*point.y);
-    int rSquared=pn.x*pn.x+pn.y*pn.y;
+    int rSquared=(int)(pn.x*pn.x+pn.y*pn.y);
 
     if(rSquared<=1.0){
         double r=sqrt(rSquared);

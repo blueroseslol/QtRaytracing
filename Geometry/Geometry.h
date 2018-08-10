@@ -12,8 +12,13 @@ public:
 
     RGBColor getColor() const;
     void setColor(const RGBColor &_color);
+
+    virtual void setMaterial(Material* mPtr);
+
+    Material* getMaterial() const;
 protected:
     RGBColor color;
+    mutable Material* material_ptr;
 };
 
 #endif

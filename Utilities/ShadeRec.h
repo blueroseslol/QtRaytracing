@@ -21,6 +21,7 @@ class World;
 #include "Ray.h"
 #include "RGBColor.h"
 
+
 class ShadeRec {
 	public:
 	
@@ -36,6 +37,7 @@ class ShadeRec {
         double				u;					// texture coordinate
         double				v;					// texture coordinate
         const World&				w;					// world reference
+        Vector3D dir;
 				
         ShadeRec(const World& wr);					// constructor
 		ShadeRec(const ShadeRec& sr);			// copy constructor

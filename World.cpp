@@ -4,16 +4,25 @@
 #include <QDebug>
 #include <QtConcurrent>
 #include <QFutureSynchronizer>
-//#include "Tracer/singlesphere.h"
-#include "Tracer/mutipleobjects.h"
+
+#include "Utilities/Constants.h"
 #include "Utilities/Point2D.h"
+
+//#include "Tracer/singlesphere.h"
+//#include "Tracer/mutipleobjects.h"
+#include "Tracer/raycast.h"
+
+
 //#include "Sampler/jittered.h"
 //#include "Sampler/regular.h"
 #include "Sampler/multijittered.h"
 #include "Sampler/hammersley.h"
+
 #include "Cameras/pinhole.h"
 #include "Cameras/fisheye.h"
+
 #include "Geometry/sphere.h"
+#include "Material/normalmaterial.h"
 
 #include "tbb/tbb.h"
 #include "tbb/parallel_for.h"
@@ -31,14 +40,19 @@ World::~World(){
 
 void World::build(){
     //TODO:这里应该使用智能指针
-    tracer_ptr=new MutipleObjects(this);
+    NormalMaterial *mat=new NormalMaterial();
+
+//    tracer_ptr=new MutipleObjects(this);
+    tracer_ptr=new RayCast(this);
     Sphere *sphere=new Sphere(Point3D(0.0,0.0,-1),0.5);
-    sphere->setColor(RGBColor(1.0,0,0));
+    sphere->setMaterial(mat);
+//    sphere->setColor(RGBColor(1.0,0,0));
     addGeometry(sphere);
 
-    Sphere *sphere1=new Sphere(Point3D(0.2,0.2,-0.8),0.3);
-    sphere1->setColor(RGBColor(0,1.0,0));
-    addGeometry(sphere1);
+//    Sphere *sphere1=new Sphere(Point3D(0.2,0.2,-0.8),0.3);
+////    sphere1->setColor(RGBColor(0,1.0,0));
+//    sphere1->setMaterial(mat);
+//    addGeometry(sphere1);
 
 //    setting->setSampler(new Jittered(16,3));
 //    setting->setSampler(new Regular(16));
@@ -81,6 +95,33 @@ ShadeRec World::hit_bare_bones_objects(const Ray &ray) const
     return sr;
 }
 
+ShadeRec World::hitObject(const Ray &ray) const
+{
+    ShadeRec sr(*this);
+    double t;
+    Normal normal;
+    Point3D local_hit_point;
+    double tmin=DBL_MAX;
+
+    for(auto it=scene.begin();it!=scene.end();it++){
+
+        if((*it)->hit(ray,t,sr)&&(t<tmin)){
+           sr.hit_an_object=true;
+           tmin=t;
+            sr.material_ptr=(*it)->getMaterial();
+            sr.hit_point=ray.origin+t*ray.direction;
+            normal=sr.normal;
+            local_hit_point=sr.local_hit_point;
+        }
+        if(sr.hit_an_object){
+            sr.t=tmin;
+            sr.normal=normal;
+            sr.local_hit_point=local_hit_point;
+        }
+    }
+    return sr;
+}
+
 void World::render_scene() {
     if(image)
         delete image;
@@ -108,7 +149,7 @@ void World::render_scene() {
                     pp.x=i-0.5*nx+sp.x;
                     pp.y=j-0.5*ny+sp.y;
 
-                    pixelColor+= tracer_ptr->trace_ray(camera_ptr->getRay(pp));
+                    pixelColor+= tracer_ptr->trace_ray(camera_ptr->getRay(pp),0);
                 }
                 mutex.lock();
                 pixelColor/=setting->numSamples;
