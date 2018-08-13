@@ -27,8 +27,8 @@ class Light {
 		Light& 								
 		operator= (const Light& rhs); 
 
-		virtual Light* 						
-		clone(void) const = 0;
+//		virtual Light*
+//		clone(void) const = 0;
 		
 		virtual 							
 		~Light(void);

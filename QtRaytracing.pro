@@ -62,7 +62,9 @@ SOURCES += \
     Material/material.cpp \
     Tracer/raycast.cpp \
     Material/Matte.cpp \
-    Material/normalmaterial.cpp
+    Material/normalmaterial.cpp \
+    Light/directional.cpp \
+    Light/pointlight.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -102,7 +104,9 @@ HEADERS += \
     Material/material.h \
     Tracer/raycast.h \
     Material/Matte.h \
-    Material/normalmaterial.h
+    Material/normalmaterial.h \
+    Light/directional.h \
+    Light/pointlight.h
 
 FORMS += \
         mainwindow.ui \

@@ -3,13 +3,14 @@
 #include "Utilities/RGBColor.h"
 #include "Geometry/Geometry.h"
 #include "Cameras/Camera.h"
+#include "Light/ambient.h"
 #include <QImage>
 #include <QObject>
 #include <QColor>
 #include "rendersetting.h"
 #include <QVector>
 #include <QImage>
-// #include "tbb/task_scheduler_init.h"
+
 class Tracer;
 class World : public QObject
 {
@@ -20,6 +21,10 @@ public:
 
     RenderSetting* setting;
     QImage *image;
+    QVector<Geometry*> scene;
+    QVector<Material*> material;
+    QVector<Light*> lights;
+    Ambient* ambient_ptr;
     float progress;
     bool terminate;
 
@@ -38,10 +43,16 @@ public:
     QColor postProcess(int& u, int &v, RGBColor &pixelColor);
 
     inline void setCamera(Camera *cameraPtr);
+
+    void clearScene();
+
+    void addLight(Light *lightPtr);
 private:
     Camera* camera_ptr;
     Tracer* tracer_ptr;
-    QVector<Geometry*> scene;
+
+
+
 signals:
     void renderComplete();
 };

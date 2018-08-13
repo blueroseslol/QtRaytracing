@@ -1,4 +1,4 @@
-// 	Copyright (C) Kevin Suffern 2000-2007.
+﻿// 	Copyright (C) Kevin Suffern 2000-2007.
 //	This C++ code is for non-commercial purposes only.
 //	This C++ code is licensed under the GNU General Public License Version 2.
 //	See the file COPYING.txt for the full license.
@@ -8,7 +8,7 @@
 
 // ---------------------------------------------------------------------- default constructor
 
-Directional::Directional(void)
+Directional::Directional()
 	: 	Light(),
 		ls(1.0),
 		color(1.0),
@@ -28,33 +28,33 @@ Directional::Directional(const Directional& dl)
 
 // ---------------------------------------------------------------------- clone
 
-Light* 
-Directional::clone(void) const {
-	return (new Directional(*this));
-}
+//Light*
+//Directional::clone(void) const {
+//	return (new Directional(*this));
+//}
 
 
 // ---------------------------------------------------------------------- assignment operator
 
-Directional& 
-Directional::operator= (const Directional& rhs) 	
-{
-	if (this == &rhs)
-		return (*this);
+//Directional&
+//Directional::operator= (const Directional& rhs)
+//{
+//	if (this == &rhs)
+//		return (*this);
 			
-	Light::operator= (rhs);
+//	Light::operator= (rhs);
 	
-	ls		= rhs.ls;
-	color 	= rhs.color;
-	dir 	= rhs.dir;
+//	ls		= rhs.ls;
+//	color 	= rhs.color;
+//	dir 	= rhs.dir;
 
-	return (*this);
-}
+//	return (*this);
+//}
 
 
 // ---------------------------------------------------------------------- destructor																			
 
-Directional::~Directional(void) {}
+Directional::~Directional() {}
 
 
 // ---------------------------------------------------------------------- get_direction

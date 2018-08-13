@@ -1,4 +1,4 @@
-#ifndef __DIRECTIONAL__
+﻿#ifndef __DIRECTIONAL__
 #define __DIRECTIONAL__
 
 
@@ -9,28 +9,28 @@
 
 
 #include "Light.h"
-#include "Vector3D.h"
-#include "RGBColor.h"
+#include "Utilities/Vector3D.h"
+#include "Utilities/RGBColor.h"
 
 #include "World.h"			// you will need this later on for shadows
-#include "ShadeRec.h"
+#include "Utilities/ShadeRec.h"
 
 
 class Directional: public Light {
 	public:
 	
-		Directional(void);   							
+        Directional();
 
 		Directional(const Directional& dl); 
 		
-		virtual Light* 									
-		clone(void) const;			
+//		virtual Light*
+//		clone(void) const;
 
-		Directional& 									
-		operator= (const Directional& rhs); 
+//		Directional&
+//		operator= (const Directional& rhs);
 			
 		virtual											
-		~Directional(void); 
+        ~Directional();
 				
 		void
 		scale_radiance(const float b);
