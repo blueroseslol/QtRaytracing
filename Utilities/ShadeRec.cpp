@@ -69,10 +69,10 @@ ShadeRec::ShadeRec(ShadeRec&& sr)
 // ------------------------------------------------------------------ destructor
 
 ShadeRec::~ShadeRec() {
-	if (material_ptr) {
-		delete material_ptr;
-        material_ptr = nullptr;
-	}
+	//if (material_ptr) {
+	//	delete material_ptr;
+ //       material_ptr = nullptr;
+	//}
 }
 		
 		

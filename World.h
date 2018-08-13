@@ -33,6 +33,8 @@ public:
 
     void render_scene();
 
+    QColor postProcess(int& u, int &v, RGBColor &pixelColor);
+
     inline void setCamera(Camera *cameraPtr);
 private:
     Camera* camera_ptr;

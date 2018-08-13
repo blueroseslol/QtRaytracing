@@ -1,6 +1,15 @@
 ﻿#include "Geometry/Geometry.h"
+#include <QDebug>
+#include "Material/material.h"
+Geometry::Geometry():color(RGBColor()),material_ptr(nullptr){}
 
-Geometry::Geometry():color(RGBColor()){}
+Geometry::~Geometry()
+{
+    if(material_ptr){
+            delete material_ptr;
+            material_ptr=nullptr;
+    }
+}
 
 RGBColor Geometry::getColor() const
 {

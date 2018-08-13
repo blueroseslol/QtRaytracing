@@ -6,5 +6,5 @@ NormalMaterial::NormalMaterial():Material()
 }
 
 RGBColor NormalMaterial::shade(ShadeRec& sr) {
-    return RGBColor(sr.normal.x,sr.normal.y,sr.normal.z);
+    return RGBColor(0.5*(sr.normal.x+1),0.5*(sr.normal.y+1),1.0);
 }

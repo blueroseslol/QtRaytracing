@@ -66,9 +66,9 @@ void MainWindow::updateRenderResult()
     ui->progressBar->setValue(world->progress);
     //根据已经渲染的时间与总体像素的比值来调整更新间隔
     timer.setInterval((ui->timeEdit_renderTime->time().minute()+1)*1000*1000/(setting.imageHeight*setting.imageWidth)*100);
-//    qDebug()<<timer.interval();
 }
 
+//TODO:实现渲染终止
 void MainWindow::on_pushButton_clicked()
 {
 

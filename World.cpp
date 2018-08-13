@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QtConcurrent>
 #include <QFutureSynchronizer>
+#include <QScopedPointer>
 
 #include "Utilities/Constants.h"
 #include "Utilities/Point2D.h"
@@ -11,7 +12,6 @@
 //#include "Tracer/singlesphere.h"
 //#include "Tracer/mutipleobjects.h"
 #include "Tracer/raycast.h"
-
 
 //#include "Sampler/jittered.h"
 //#include "Sampler/regular.h"
@@ -39,7 +39,6 @@ World::~World(){
 }
 
 void World::build(){
-    //TODO:这里应该使用智能指针
     NormalMaterial *mat=new NormalMaterial();
 
 //    tracer_ptr=new MutipleObjects(this);
@@ -154,12 +153,27 @@ void World::render_scene() {
                 mutex.lock();
                 pixelColor/=setting->numSamples;
                 pixelColor*=camera_ptr->getExposureTime();
-                image->setPixelColor(i,j,QColor( int(255.99*pixelColor.r), int(255.99*pixelColor.g), int(255.99*pixelColor.b)));
+                image->setPixelColor(i,j,postProcess(i,j,pixelColor));
                 currentPixelNum++;
                 progress=currentPixelNum*100/allPixelNum;
                 mutex.unlock();
             }
         }
     });
-    emit renderComplete();});
+    emit renderComplete();
+    //清理场景
+	for (auto it = scene.begin(); it != scene.end(); it++) {
+		delete (*it);
+	}
+    scene.clear();});
+}
+
+QColor World::postProcess(int &u, int &v,RGBColor& pixelColor)
+{
+    float maxValue=max(pixelColor.r,max(pixelColor.g,pixelColor.b));
+    if(maxValue>1)
+    {
+        pixelColor/=maxValue;
+    }
+    return QColor( int(255.99*pixelColor.r), int(255.99*pixelColor.g), int(255.99*pixelColor.b));
 }
