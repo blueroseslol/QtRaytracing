@@ -9,6 +9,7 @@
 #include "rendersetting.h"
 #include <QVector>
 #include <QImage>
+// #include "tbb/task_scheduler_init.h"
 class Tracer;
 class World : public QObject
 {
@@ -20,6 +21,7 @@ public:
     RenderSetting* setting;
     QImage *image;
     float progress;
+    bool terminate;
 
     ~World();
 

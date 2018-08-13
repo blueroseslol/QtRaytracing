@@ -19,7 +19,7 @@
 #include "Sampler/hammersley.h"
 
 #include "Cameras/pinhole.h"
-#include "Cameras/fisheye.h"
+//#include "Cameras/fisheye.h"
 
 #include "Geometry/sphere.h"
 #include "Material/normalmaterial.h"
@@ -27,7 +27,7 @@
 #include "tbb/tbb.h"
 #include "tbb/parallel_for.h"
 #include "tbb/blocked_range2d.h"
-World::World(RenderSetting *_setting):setting(_setting),tracer_ptr(nullptr),image(nullptr),progress(0.0)
+World::World(RenderSetting *_setting):setting(_setting),tracer_ptr(nullptr),image(nullptr),progress(0.0),terminate(false)
 {
 }
 
@@ -125,10 +125,11 @@ void World::render_scene() {
     if(image)
         delete image;
     image=new QImage(setting->imageWidth,setting->imageHeight,QImage::Format_RGB888);
+    terminate=false;
 
     QtConcurrent::run([this](){
     //    int nthreads = tbb::task_scheduler_init::automatic;
-    //    tbb::task_scheduler_init init (nthreads-1);
+//        tbb::task_scheduler_init init;
     int nx = setting->imageWidth;
     int ny =  setting->imageHeight;
     int allPixelNum=nx*ny;
@@ -140,6 +141,9 @@ void World::render_scene() {
     {
         for( int i=r.rows().begin(); i!=r.rows().end(); ++i ){
             for( int j=r.cols().begin(); j!=r.cols().end(); ++j ) {
+                if(terminate){
+                    tbb::task::self().cancel_group_execution();
+                }
                 RGBColor pixelColor;
                 Point2D sp;//采样点坐标
                 Point2D pp;//pixel上的采样点

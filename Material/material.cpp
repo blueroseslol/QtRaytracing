@@ -15,10 +15,7 @@ Material::Material() {}
 
 Material::Material(const Material& m) {}
 
-Material::Material(Material&& material)
-{
-
-}
+Material::Material(Material&& material){}
 
 
 // ---------------------------------------------------------------- assignment operator

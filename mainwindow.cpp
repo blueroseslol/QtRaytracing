@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->timeEdit_renderTime->setTime( ui->timeEdit_renderTime->time().addSecs(1));
     });
     connect(world,SIGNAL(renderComplete()),this,SLOT(renderComplete()));
+
 }
 
 MainWindow::~MainWindow()
@@ -68,8 +69,7 @@ void MainWindow::updateRenderResult()
     timer.setInterval((ui->timeEdit_renderTime->time().minute()+1)*1000*1000/(setting.imageHeight*setting.imageWidth)*100);
 }
 
-//TODO:实现渲染终止
 void MainWindow::on_pushButton_clicked()
 {
-
+    world->terminate=true;
 }
