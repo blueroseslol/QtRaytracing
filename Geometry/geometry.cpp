@@ -3,13 +3,7 @@
 #include "Material/material.h"
 Geometry::Geometry():color(RGBColor()),material_ptr(nullptr){}
 
-Geometry::~Geometry()
-{
-    if(material_ptr){
-            delete material_ptr;
-            material_ptr=nullptr;
-    }
-}
+Geometry::~Geometry(){}
 
 RGBColor Geometry::getColor() const
 {

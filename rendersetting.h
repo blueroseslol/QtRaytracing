@@ -16,7 +16,6 @@ class RenderSetting : public QWidget
 public:
     explicit RenderSetting(QWidget *parent = 0);
     ~RenderSetting();
-    QString fileName;
     RGBColor backergroundColor;
     int imageWidth;
     int imageHeight;
@@ -29,7 +28,7 @@ public:
 private slots:
     void on_pushButton_close_clicked();
 
-    void on_lineEdit_fileName_textChanged(const QString &arg1);
+//    void on_lineEdit_fileName_textChanged(const QString &arg1);
 
     void on_spinBox_imageWidth_valueChanged(const QString &arg1);
 

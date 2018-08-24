@@ -1,11 +1,5 @@
-#ifndef __AMBIENT__
+﻿#ifndef __AMBIENT__
 #define __AMBIENT__
-
-// 	Copyright (C) Kevin Suffern 2000-2007.
-//	This C++ code is for non-commercial purposes only.
-//	This C++ code is licensed under the GNU General Public License Version 2.
-//	See the file COPYING.txt for the full license.
-
 
 #include "Light.h"
 
@@ -15,30 +9,31 @@ class Ambient: public Light {
 		Ambient(void);   							
 
 		Ambient(const Ambient& a); 					 
-	
-		virtual Light* 									
-		clone(void) const;	
+
+        Ambient(Ambient&& a);
+//		virtual Light*
+//		clone(void) const;
 		
 		Ambient& 									
 		operator= (const Ambient& rhs);									
 		
 		virtual 									
-		~Ambient(void);
+        ~Ambient();
 				
 		void
-		scale_radiance(const float b);
+                scaleRadiance(const float b);
 		
 		void
-		set_color(const float c);
+                setColor(const float c);
 		
 		void
-		set_color(const RGBColor& c);
+                setColor(const RGBColor& c);
 		
 		void
-		set_color(const float r, const float g, const float b); 
+                setColor(const float r, const float g, const float b);
 		
 		virtual Vector3D								
-		get_direction(ShadeRec& s); 
+		getDirection(ShadeRec& s); 
 		
 		virtual RGBColor
 		L(ShadeRec& s);
@@ -55,14 +50,14 @@ class Ambient: public Light {
 // ------------------------------------------------------------------------------- scale_radiance
 
 inline void
-Ambient::scale_radiance(const float b) { 
+Ambient::scaleRadiance(const float b) {
 	ls = b;
 }
 
 // ------------------------------------------------------------------------------- set_color
 
 inline void
-Ambient::set_color(const float c) {
+Ambient::setColor(const float c) {
 	color.r = c; color.g = c; color.b = c;
 }
 
@@ -70,7 +65,7 @@ Ambient::set_color(const float c) {
 // ------------------------------------------------------------------------------- set_color
 
 inline void
-Ambient::set_color(const RGBColor& c) {
+Ambient::setColor(const RGBColor& c) {
 	color = c;
 }
 
@@ -78,10 +73,9 @@ Ambient::set_color(const RGBColor& c) {
 // ------------------------------------------------------------------------------- set_color
 
 inline void
-Ambient::set_color(const float r, const float g, const float b) {
+Ambient::setColor(const float r, const float g, const float b) {
 	color.r = r; color.g = g; color.b = b;
 }
 
 
 #endif
-

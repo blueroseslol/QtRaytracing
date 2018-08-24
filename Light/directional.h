@@ -22,7 +22,8 @@ class Directional: public Light {
         Directional();
 
 		Directional(const Directional& dl); 
-		
+
+        Directional(Directional&& dl);
 //		virtual Light*
 //		clone(void) const;
 
@@ -33,25 +34,25 @@ class Directional: public Light {
         ~Directional();
 				
 		void
-		scale_radiance(const float b);
+        scaleRadiance(const float b);
 		
 		void
-		set_color(const float c);
+        setColor(const float c);
 		
 		void
-		set_color(const RGBColor& c);
+        setColor(const RGBColor& c);
 		
 		void
-		set_color(const float r, const float g, const float b); 		
+        setColor(const float r, const float g, const float b);
 			
 		void
-		set_direction(Vector3D d);						
+        setDirection(Vector3D d);
 		
 		void
-		set_direction(float dx, float dy, float dz);
+        setDirection(float dx, float dy, float dz);
 		
 		virtual Vector3D								
-		get_direction(ShadeRec& sr);
+        getDirection(ShadeRec& sr);
 				
 		virtual RGBColor		
 		L(ShadeRec& sr);	
@@ -70,14 +71,14 @@ class Directional: public Light {
 // ------------------------------------------------------------------------------- scale_radiance
 
 inline void
-Directional::scale_radiance(const float b) { 
+Directional::scaleRadiance(const float b) {
 	ls = b;
 }
 
 // ------------------------------------------------------------------------------- set_color
 
 inline void
-Directional::set_color(const float c) {
+Directional::setColor(const float c) {
 	color.r = c; color.g = c; color.b = c;
 }
 
@@ -85,7 +86,7 @@ Directional::set_color(const float c) {
 // ------------------------------------------------------------------------------- set_color
 
 inline void
-Directional::set_color(const RGBColor& c) {
+Directional::setColor(const RGBColor& c) {
 	color = c;
 }
 
@@ -93,7 +94,7 @@ Directional::set_color(const RGBColor& c) {
 // ------------------------------------------------------------------------------- set_color
 
 inline void
-Directional::set_color(const float r, const float g, const float b) {
+Directional::setColor(const float r, const float g, const float b) {
 	color.r = r; color.g = g; color.b = b;
 }
 
@@ -101,7 +102,7 @@ Directional::set_color(const float r, const float g, const float b) {
 // ---------------------------------------------------------------------- set_direction
 
 inline void
-Directional::set_direction(Vector3D d) {
+Directional::setDirection(Vector3D d) {
 	dir = d;
 	dir.normalize();
 }
@@ -110,7 +111,7 @@ Directional::set_direction(Vector3D d) {
 // ---------------------------------------------------------------------- set_direction 
 
 inline void
-Directional::set_direction(float dx, float dy, float dz) {
+Directional::setDirection(float dx, float dy, float dz) {
 	dir.x = dx; dir.y = dy; dir.z = dz;
 	dir.normalize();
 }

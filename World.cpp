@@ -22,8 +22,10 @@
 //#include "Cameras/fisheye.h"
 
 #include "Light/directional.h"
+#include "Light/pointlight.h"
 
 #include "Geometry/sphere.h"
+#include "Geometry/plane.h"
 #include "Material/Matte.h"
 #include "Material/normalmaterial.h"
 
@@ -45,33 +47,47 @@ World::~World(){
 void World::build(){
     tracer_ptr=new RayCast(this);
     ambient_ptr=new Ambient;
-    ambient_ptr->scale_radiance(1.0);
-//    set_ambient_light(ambient_ptr);
+    ambient_ptr->scaleRadiance(2.0);
+    ambient_ptr->setColor(0.3,0.3,0.3);
 
     Directional* light_ptr=new Directional;
-    light_ptr->set_direction(1.0,0.0,0.5);
-    light_ptr->set_color(1.0,0.0,1.0);
+    light_ptr->setDirection(1.0,0.0,0.5);
+    light_ptr->setColor(2,2,2);
     addLight(light_ptr);
 
-//    NormalMaterial *mat=new NormalMaterial();
+    PointLight* pointLight_ptr=new PointLight;
+    pointLight_ptr->setLocation(0,2,0);
+    pointLight_ptr->setColor(3,3,3);
+    addLight(pointLight_ptr);
+
     Matte *matte_ptr=new Matte;
-    matte_ptr->set_ka(0.25);
-    matte_ptr->set_kd(0.65);
-    matte_ptr->set_cd(1.0);
+    matte_ptr->setKa(0.25);
+    matte_ptr->setKd(0.65);
+    matte_ptr->setCd(RGBColor(1.0,1.0,1.0));
     material.push_back(matte_ptr);
 
-    Sphere *sphere=new Sphere(Point3D(0.0,0.0,-1),0.5);
+    Matte *matte2_ptr=new Matte;
+    matte2_ptr->setKa(0.25);
+    matte2_ptr->setKd(0.65);
+    matte2_ptr->setCd(RGBColor(1.0,1.0,1.0));
+    material.push_back(matte2_ptr);
+
+    Plane *plane=new Plane(Point3D(0,-1,0),Normal(0,1,0));
+    plane->setMaterial(matte2_ptr);
+    addGeometry(plane);
+
+    Sphere *sphere=new Sphere(Point3D(0.0,0.0,-1),1);
     sphere->setMaterial(matte_ptr);
     addGeometry(sphere);
 
-    Sphere *sphere1=new Sphere(Point3D(0.2,0.2,-0.8),0.3);
+    Sphere *sphere1=new Sphere(Point3D(1,1,1),0.5);
     sphere1->setMaterial(matte_ptr);
     addGeometry(sphere1);
 
     setting->setSampler(new MultiJittered(16,3));
 
     Pinhole* pinhole=new Pinhole;
-    pinhole->setOrigin(0,0,5);
+    pinhole->setOrigin(0,0,8);
     pinhole->setLookat(0,0,0);
     pinhole->setViewDistance(1000);
     pinhole->computeUVW();
@@ -153,7 +169,7 @@ void World::render_scene() {
     terminate=false;
 
     QtConcurrent::run([this](){
-    //    int nthreads = tbb::task_scheduler_init::automatic;
+//        int nthreads = tbb::task_scheduler_init::automatic;
 //        tbb::task_scheduler_init init;
     int nx = setting->imageWidth;
     int ny =  setting->imageHeight;
@@ -174,6 +190,9 @@ void World::render_scene() {
                 Point2D pp;//pixel上的采样点
                 for(int k=0;k<setting->numSamples;k++){
                     sp=setting->samplerPtr->sampleUnitSquare();
+/*
+    本书的坐标映射方式有问题
+*/
                     pp.x=i-0.5*nx+sp.x;
                     pp.y=j-0.5*ny+sp.y;
 
@@ -182,7 +201,9 @@ void World::render_scene() {
                 mutex.lock();
                 pixelColor/=setting->numSamples;
                 pixelColor*=camera_ptr->getExposureTime();
-                image->setPixelColor(i,j,postProcess(i,j,pixelColor));
+                //对j进行翻转操作
+                int jReversal=ny-j-1;
+                image->setPixelColor(i,jReversal,postProcess(i,jReversal,pixelColor));
                 currentPixelNum++;
                 progress=currentPixelNum*100/allPixelNum;
                 mutex.unlock();

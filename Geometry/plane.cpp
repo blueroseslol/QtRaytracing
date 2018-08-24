@@ -25,10 +25,10 @@ Plane::Plane(Plane&& plane) :a(plane.a),n(plane.n)
 {}
 // ---------------------------------------------------------------- clone
 
-Plane*
-Plane::clone(void) const {
-    return (new Plane(*this));
-}
+//Plane*
+//Plane::clone(void) const {
+//    return (new Plane(*this));
+//}
 
 
 // ---------------------------------------------------------------- assignment operator

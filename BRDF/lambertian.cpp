@@ -1,6 +1,16 @@
 ﻿#include "lambertian.h"
 #include "Utilities/Constants.h"
-Lambertian::Lambertian()
+Lambertian::Lambertian():BRDF(),kd(0),cd(0)
+{
+
+}
+
+Lambertian::Lambertian(const Lambertian &lambertian):BRDF(lambertian),kd(lambertian.kd),cd(lambertian.cd)
+{
+
+}
+
+Lambertian::Lambertian(Lambertian &&lambertian):BRDF(lambertian),kd(lambertian.kd),cd(lambertian.cd)
 {
 
 }

@@ -9,11 +9,12 @@ public:
 
     Plane(const Point3D& point, const Normal& normal);			// constructor
 
-    Plane(const Plane& plane); 									// copy constructor
+    Plane(const Plane& plane);
+    // copy constructor
     Plane(Plane&& plane);
 
-    virtual Plane* 												// virtual copy constructor
-    clone() const;
+//    virtual Plane* 												// virtual copy constructor
+//    clone() const;
 
     Plane& 														// assignment operator
     operator= (const Plane& rhs);
@@ -28,7 +29,7 @@ public:
 
 private:
     Point3D 	a;   				// point through which plane passes
-    Normal 		n;					// normal to the plane
+    Normal 	n;					// normal to the plane
 
     static const double kEpsilon;   // for shadows and secondary rays
 };

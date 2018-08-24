@@ -16,6 +16,8 @@ Light::Light() {}
 
 Light::Light(const Light& ls) {}
 
+Light::Light(Light &&ls){}
+
 
 // ---------------------------------------------------------------------- assignment operator
 

@@ -1,4 +1,4 @@
-// 	Copyright (C) Kevin Suffern 2000-2007.
+﻿// 	Copyright (C) Kevin Suffern 2000-2007.
 //	This C++ code is for non-commercial purposes only.
 //	This C++ code is licensed under the GNU General Public License Version 2.
 //	See the file COPYING.txt for the full license.
@@ -23,13 +23,18 @@ Ambient::Ambient (const Ambient& a)
 		color(a.color) 		
 {}
 
+Ambient::Ambient (Ambient&& a)
+    : 	Light(a),
+        ls(a.ls),
+        color(a.color)
+{}
 
 // ---------------------------------------------------------------------- clone
 
-Light* 
-Ambient::clone(void) const {
-	return (new Ambient(*this));
-}	
+//Light*
+//Ambient::clone(void) const {
+//	return (new Ambient(*this));
+//}
 
 
 // ---------------------------------------------------------------------- assignment operator
@@ -50,13 +55,13 @@ Ambient::operator= (const Ambient& rhs) {
 
 // ---------------------------------------------------------------------- destructor																			
 
-Ambient::~Ambient (void) {}
+Ambient::~Ambient () {}
 
 
 // ---------------------------------------------------------------------- get_direction	
 
 Vector3D								
-Ambient::get_direction(ShadeRec& s) {
+Ambient::getDirection(ShadeRec& s) {
 	return (Vector3D(0.0));
 }
 
@@ -71,4 +76,3 @@ Ambient::L(ShadeRec& sr) {
 
 
 
-
