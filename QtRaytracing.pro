@@ -64,7 +64,9 @@ SOURCES += \
     Material/Matte.cpp \
     Material/normalmaterial.cpp \
     Light/directional.cpp \
-    Light/pointlight.cpp
+    Light/pointlight.cpp \
+    BRDF/glossyspecular.cpp \
+    Material/phong.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -106,7 +108,9 @@ HEADERS += \
     Material/Matte.h \
     Material/normalmaterial.h \
     Light/directional.h \
-    Light/pointlight.h
+    Light/pointlight.h \
+    BRDF/glossyspecular.h \
+    Material/phong.h
 
 FORMS += \
         mainwindow.ui \
