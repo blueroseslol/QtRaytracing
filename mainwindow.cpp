@@ -48,7 +48,7 @@ void MainWindow::on_pushButton_saveImage_clicked()
 {
     if(world->image){
         world->image->save(QFileDialog::getSaveFileName(this,
-        QString::fromLocal8Bit("保存渲染结果"), "", QString::fromLocal8Bit("图片文件 (*.png *.jpg *.bmp)")););
+        QString::fromLocal8Bit("保存渲染结果"), "", QString::fromLocal8Bit("图片文件 (*.png *.jpg *.bmp)")));
     }
 }
 

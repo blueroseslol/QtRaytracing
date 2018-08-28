@@ -15,12 +15,12 @@ Lambertian::Lambertian(Lambertian &&lambertian):BRDF(lambertian),kd(lambertian.k
 
 }
 
-RGBColor Lambertian::f(const ShadeRec &sr, const Vector3D &wi, const Vector3D &wo) const
+RGBColor Lambertian::f(const ShadeRec &sr, const Vector3D &wo, const Vector3D &wi) const
 {
     return kd*cd*invPI;
 }
 
-RGBColor Lambertian::sample_f(const ShadeRec &sr, Vector3D &wi, const Vector3D &wo) const
+RGBColor Lambertian::sample_f(const ShadeRec &sr, Vector3D &wo, const Vector3D &wi) const
 {
     return RGBColor();
 }

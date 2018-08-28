@@ -27,7 +27,7 @@
 #include "Geometry/sphere.h"
 #include "Geometry/plane.h"
 #include "Material/Matte.h"
-#include "Material/normalmaterial.h"
+#include "Material/phong.h"
 
 #include "tbb/tbb.h"
 #include "tbb/parallel_for.h"
@@ -51,12 +51,13 @@ void World::build(){
     ambient_ptr->setColor(0.3,0.3,0.3);
 
     Directional* light_ptr=new Directional;
-    light_ptr->setDirection(1.0,0.0,0.5);
+    light_ptr->setDirection(1,0.0,1);
+    light_ptr->scaleRadiance(1.0);
     light_ptr->setColor(2,2,2);
     addLight(light_ptr);
 
     PointLight* pointLight_ptr=new PointLight;
-    pointLight_ptr->setLocation(0,2,0);
+    pointLight_ptr->setLocation(4,4,3);
     pointLight_ptr->setColor(3,3,3);
     addLight(pointLight_ptr);
 
@@ -72,6 +73,15 @@ void World::build(){
     matte2_ptr->setCd(RGBColor(1.0,1.0,1.0));
     material.push_back(matte2_ptr);
 
+    Phong* phong_ptr=new Phong;
+    phong_ptr->setKa(0.25);
+    phong_ptr->setKd(0.6);
+    phong_ptr->setCd(RGBColor(0.5));
+    phong_ptr->setSpecularKs(0.75);
+    phong_ptr->setSpecularExp(20);
+    material.push_back(phong_ptr);
+
+
     Plane *plane=new Plane(Point3D(0,-1,0),Normal(0,1,0));
     plane->setMaterial(matte2_ptr);
     addGeometry(plane);
@@ -81,7 +91,7 @@ void World::build(){
     addGeometry(sphere);
 
     Sphere *sphere1=new Sphere(Point3D(1,1,1),0.5);
-    sphere1->setMaterial(matte_ptr);
+    sphere1->setMaterial(phong_ptr);
     addGeometry(sphere1);
 
     setting->setSampler(new MultiJittered(16,3));
@@ -217,10 +227,15 @@ void World::render_scene() {
 
 QColor World::postProcess(int &u, int &v,RGBColor& pixelColor)
 {
+    if(pixelColor.r>1 && pixelColor.g>1 && pixelColor.b>1)
+    {
+        return QColor(255,255,255);
+    }
     float maxValue=max(pixelColor.r,max(pixelColor.g,pixelColor.b));
     if(maxValue>1)
     {
         pixelColor/=maxValue;
     }
+
     return QColor( int(255.99*pixelColor.r), int(255.99*pixelColor.g), int(255.99*pixelColor.b));
 }
