@@ -11,7 +11,7 @@ public:
 
     PointLight(PointLight&& pointLight);
 
-    void setLocation(const Vector3D &_location);
+    void setLocation(const Point3D &_location);
 
     void setLocation(const float& x,const float& y,const float& z );
 
@@ -22,20 +22,22 @@ public:
     virtual Vector3D getDirection(ShadeRec &sr);
 
     virtual RGBColor	 L(ShadeRec& sr);
+
+    virtual bool inShadow(const Ray &ray, const ShadeRec &sr) const;
 private:
     float ls;
     RGBColor color;
-    Vector3D location;
+    Point3D location;
 };
 
-inline void PointLight::setLocation(const Vector3D &_location)
+inline void PointLight::setLocation(const Point3D &_location)
 {
     location=_location;
 }
 
 inline void PointLight::setLocation(const float &x, const float &y, const float &z)
 {
-    location=Vector3D(x,y,z);
+    location=Point3D(x,y,z);
 }
 
 inline void PointLight::setColor(const RGBColor &_color)

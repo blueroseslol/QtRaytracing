@@ -1,48 +1,25 @@
-﻿// 	Copyright (C) Kevin Suffern 2000-2007.
-//	This C++ code is for non-commercial purposes only.
-//	This C++ code is licensed under the GNU General Public License Version 2.
-//	See the file COPYING.txt for the full license.
-
-
-#include "Light.h"
-
+﻿#include "Light.h"
 #include "Utilities/Constants.h"
 
-// ---------------------------------------------------------------------- default constructor
+Light::Light():castShadow(true) {}
 
-Light::Light() {}
+Light::Light(const Light& ls):castShadow(ls.castShadow) {}
 
-// ---------------------------------------------------------------------- copy constructor
+Light::Light(Light &&ls):castShadow(ls.castShadow){}
 
-Light::Light(const Light& ls) {}
-
-Light::Light(Light &&ls){}
-
-
-// ---------------------------------------------------------------------- assignment operator
-
-Light& 
-Light::operator= (const Light& rhs) {
+Light& Light::operator= (const Light& rhs) {
 	if (this == &rhs)
 		return (*this);
-
 	return (*this);
 }
 
-
-// ---------------------------------------------------------------------- destructor
-
 Light::~Light() {}
 
-
-
-// ---------------------------------------------------------------------- L
-// returns the radiance
-
-RGBColor								
-Light::L(ShadeRec& s) {
+RGBColor Light::L(ShadeRec& s) {
     return RGBColor();
 }
 
-
-
+bool Light::inShadow(const Ray &ray, const ShadeRec &sr) const
+{
+    return false;
+}

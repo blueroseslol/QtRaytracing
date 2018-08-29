@@ -1,5 +1,4 @@
 ﻿#include "phong.h"
-
 Phong::Phong():Material()
   ,ambient_brdf(new Lambertian),diffuse_brdf(new Lambertian),specular_brdf(new GlossySpecular)
 {
@@ -44,12 +43,19 @@ RGBColor Phong::shade(ShadeRec &sr)
 {
     Vector3D wo=-sr.ray.direction;
     RGBColor L=ambient_brdf->rho(sr,wo)*sr.w.ambient_ptr->L(sr);
-    int num_lights	= sr.w.lights.size();
-    for(int j=0;j<num_lights;j++){
+    for(int j=0;j< sr.w.lights.length();j++){
         Vector3D wi=sr.w.lights[j]->getDirection(sr);
         float ndotwi=sr.normal*wi;
         if(ndotwi>0.0){
-            L+=(diffuse_brdf->f(sr,wo,wi)+specular_brdf->f(sr,wo,wi))*sr.w.lights[j]->L(sr)*ndotwi;
+            bool inShadow=false;
+            if(sr.w.lights[j]->castShadow){
+                Ray shadowRay(sr.hit_point,wi);
+                inShadow=sr.w.lights[j]->inShadow(shadowRay,sr);
+            }
+
+            if(!inShadow){
+                L+=(diffuse_brdf->f(sr,wo,wi)+specular_brdf->f(sr,wo,wi))*sr.w.lights[j]->L(sr)*ndotwi;
+            }
         }
     }
     return L;

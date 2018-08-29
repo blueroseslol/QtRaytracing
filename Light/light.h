@@ -22,6 +22,10 @@ public:
     virtual Vector3D	getDirection(ShadeRec& sr) = 0;
 
     virtual RGBColor	 L(ShadeRec& sr);
+
+    virtual bool inShadow(const Ray& ray,const ShadeRec& sr) const;
+
+    bool castShadow;
 };
 
 #endif

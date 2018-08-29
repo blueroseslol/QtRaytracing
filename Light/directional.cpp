@@ -74,7 +74,17 @@ Directional::getDirection(ShadeRec& sr) {
 
 RGBColor
 Directional::L(ShadeRec& s) {	
-	return (ls * color);
+    return (ls * color);
+}
+
+bool Directional::inShadow(const Ray &ray, const ShadeRec &sr) const
+{
+    float t;
+    for(int j=0;j<sr.w.scene.length();j++){
+        if(sr.w.scene[j]->shadowHit(ray,t))
+        return true;
+    }
+    return false;
 }
 
 

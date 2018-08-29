@@ -1,5 +1,5 @@
 ﻿#include "plane.h"
-
+#include "QDebug"
 const double Plane::kEpsilon = 0.001;
 
 // ----------------------------------------------------------------------  default constructor
@@ -81,6 +81,17 @@ Plane::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
     }
 
     return(false);
+}
+
+bool Plane::shadowHit(const Ray &ray, float &tMin) const
+{
+    float t=(a-ray.origin)*n/(ray.direction*n);
+    if(t>kEpsilon){
+        tMin=t;
+        return true;
+    }else{
+        return false;
+    }
 }
 
 

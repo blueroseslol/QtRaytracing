@@ -18,6 +18,8 @@ public:
 
     virtual void setMaterial(Material* mPtr);
 
+    virtual bool shadowHit(const Ray& ray,float& tMin) const=0;
+
     Material* getMaterial() const;
 protected:
     RGBColor color;

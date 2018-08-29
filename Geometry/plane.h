@@ -5,27 +5,23 @@
 class Plane : public Geometry
 {
 public:
-    Plane();   												// default constructor
+    Plane();
 
-    Plane(const Point3D& point, const Normal& normal);			// constructor
+    Plane(const Point3D& point, const Normal& normal);
 
     Plane(const Plane& plane);
-    // copy constructor
+
     Plane(Plane&& plane);
 
-//    virtual Plane* 												// virtual copy constructor
-//    clone() const;
+    Plane& operator= (const Plane& rhs);
+    Plane& operator= (Plane&& rhs);
 
-    Plane& 														// assignment operator
-    operator= (const Plane& rhs);
-    Plane& 														// assignment operator
-    operator= (Plane&& rhs);
-
-    virtual														// destructor
-    ~Plane();
+    virtual ~Plane();
 
     virtual bool
     hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
+
+    virtual bool shadowHit(const Ray &ray, float &tMin) const;
 
 private:
     Point3D 	a;   				// point through which plane passes

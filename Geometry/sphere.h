@@ -6,23 +6,20 @@ class Sphere : public Geometry
 {
 public:
 
-        Sphere();   									// Default constructor
+        Sphere();
 
-        Sphere(Point3D center, double r);					// Constructor
+        Sphere(Point3D center, double r);
 
-        Sphere(const Sphere& sphere); 						// Copy constructor
+        Sphere(const Sphere& sphere);
         Sphere(Sphere&& sphere);
 
         virtual Sphere* 									// Virtual copy constructor
         clone() const;
 
-        virtual												// Destructor
-        ~Sphere();
+        virtual ~Sphere();
 
-        Sphere& 											// assignment operator
-        operator= (const Sphere& sphere);
-        Sphere& 											// assignment operator
-        operator= (Sphere&& sphere);
+        Sphere& operator= (const Sphere& sphere);
+        Sphere& operator= (Sphere&& sphere);
 
         void
         set_center(const Point3D& c);
@@ -33,8 +30,9 @@ public:
         void
         set_radius(const double r);
 
-        virtual bool
-        hit(const Ray& ray, double& t, ShadeRec& s) const;
+        virtual bool hit(const Ray& ray, double& t, ShadeRec& s) const;
+
+        virtual bool shadowHit(const Ray &ray, float &tMin) const;
 
     private:
 

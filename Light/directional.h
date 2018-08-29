@@ -51,14 +51,12 @@ class Directional: public Light {
 		void
         setDirection(float dx, float dy, float dz);
 		
-		virtual Vector3D								
-        getDirection(ShadeRec& sr);
+        virtual Vector3D	getDirection(ShadeRec& sr);
 				
-		virtual RGBColor		
-		L(ShadeRec& sr);	
+        virtual RGBColor L(ShadeRec& sr);
 		
+        virtual bool inShadow(const Ray &ray, const ShadeRec &sr) const;
 	private:
-
 		float		ls;			
 		RGBColor	color;
 		Vector3D	dir;		// direction the light comes from

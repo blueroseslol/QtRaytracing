@@ -82,7 +82,7 @@ HEADERS += \
     Utilities/RGBColor.h \
     Utilities/ShadeRec.h \
     Utilities/Vector3D.h \
-    Geometry/Geometry.h \
+    Geometry/geometry.h \
     Geometry/plane.h \
     Geometry/sphere.h \
     World.h \
