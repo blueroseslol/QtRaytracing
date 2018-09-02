@@ -66,7 +66,8 @@ SOURCES += \
     Light/directional.cpp \
     Light/pointlight.cpp \
     BRDF/glossyspecular.cpp \
-    Material/phong.cpp
+    Material/phong.cpp \
+    Light/ambientoccluder.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -110,7 +111,8 @@ HEADERS += \
     Light/directional.h \
     Light/pointlight.h \
     BRDF/glossyspecular.h \
-    Material/phong.h
+    Material/phong.h \
+    Light/ambientoccluder.h
 
 FORMS += \
         mainwindow.ui \
