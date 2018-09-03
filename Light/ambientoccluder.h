@@ -18,6 +18,8 @@ private:
     Vector3D u,v,w;
     Sampler* sampler_ptr;
     RGBColor min_amount;
+    float ls;
+    RGBColor color;
 };
 
 #endif // AMBIENTOCCLUDER_H

@@ -67,7 +67,9 @@ SOURCES += \
     Light/pointlight.cpp \
     BRDF/glossyspecular.cpp \
     Material/phong.cpp \
-    Light/ambientoccluder.cpp
+    Light/ambientoccluder.cpp \
+    Tracer/arealighting.cpp \
+    Material/emissive.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -112,7 +114,9 @@ HEADERS += \
     Light/pointlight.h \
     BRDF/glossyspecular.h \
     Material/phong.h \
-    Light/ambientoccluder.h
+    Light/ambientoccluder.h \
+    Tracer/arealighting.h \
+    Material/emissive.h
 
 FORMS += \
         mainwindow.ui \

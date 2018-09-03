@@ -18,7 +18,7 @@ void AmbientOccluder::setSampler(Sampler *s_ptr)
 Vector3D AmbientOccluder::getDirection(ShadeRec &sr)
 {
     Point3D sp=sampler_ptr->sampleHemisphere();
-    return sp.x*u+
+    return sp.x*u+sp.y*v+sp.z*w;
 }
 
 bool AmbientOccluder::inShadow(const Ray &ray, const ShadeRec &sr) const
@@ -33,5 +33,17 @@ bool AmbientOccluder::inShadow(const Ray &ray, const ShadeRec &sr) const
 
 RGBColor AmbientOccluder::L(ShadeRec &sr)
 {
+    w=sr.normal;
+    v=w^Vector3D(0.0072,1.0,0.0034);
+    v.normalize();
+    u=v^w;
 
+    Ray shadowRay;
+    shadowRay.origin=sr.hit_point;
+    shadowRay.direction=getDirection(sr);
+
+    if(inShadow(shadowRay,sr))
+        return min_amount*ls*color;
+    else
+        return ls*color;
 }

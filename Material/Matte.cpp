@@ -111,3 +111,7 @@ RGBColor Matte::shade(ShadeRec& sr) {
 	
     return L;
 }
+
+RGBColor Matte::areaLightShade(ShadeRec& sr){
+    Vector3D wo=-sr.ray.direction
+}
