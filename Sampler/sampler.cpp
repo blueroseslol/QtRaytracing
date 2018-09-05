@@ -108,8 +108,7 @@ void Sampler::map_samples_to_unit_disk(void) {
 // Maps the 2D sample points to 3D points on a unit hemisphere with a cosine power
 // density distribution in the polar angle
 
-void
-Sampler::map_samples_to_hemisphere(const float exp) {
+void Sampler::map_samples_to_hemisphere(const float exp) {
     int size = samples.size();
     hemisphereSamples.reserve(numSamples * numSets);
 
@@ -132,8 +131,7 @@ Sampler::map_samples_to_hemisphere(const float exp) {
 // distribution over the surface
 // this is used for modelling a spherical light
 
-void
-Sampler::map_samples_to_sphere(void) {
+void Sampler::map_samples_to_sphere(void) {
     float r1, r2;
     float x, y, z;
     float r, phi;
@@ -150,4 +148,11 @@ Sampler::map_samples_to_sphere(void) {
         y 	= r * sin(phi);
         sphereSamples.push_back(Point3D(x, y, z));
     }
+}
+
+Point3D Sampler::sampleHemisphere() {
+    if (count % numSamples == 0)  									// start of a new pixel
+        jump = (qrand() % numSets) * numSamples;
+
+    return (hemisphereSamples[jump + shuffledIndices[jump + count++ % numSamples]]);
 }

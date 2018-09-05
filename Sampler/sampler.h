@@ -24,6 +24,7 @@ public:
     void map_samples_to_unit_disk();
     void map_samples_to_hemisphere(const float exp);
     void map_samples_to_sphere();
+    Point3D sampleHemisphere();
 protected:
     int numSamples;
     int numSets;
