@@ -69,7 +69,9 @@ SOURCES += \
     Material/phong.cpp \
     Light/ambientoccluder.cpp \
     Tracer/arealighting.cpp \
-    Material/emissive.cpp
+    Material/emissive.cpp \
+    Geometry/rectangle.cpp \
+    Light/arealight.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -116,7 +118,9 @@ HEADERS += \
     Material/phong.h \
     Light/ambientoccluder.h \
     Tracer/arealighting.h \
-    Material/emissive.h
+    Material/emissive.h \
+    Geometry/rectangle.h \
+    Light/arealight.h
 
 FORMS += \
         mainwindow.ui \

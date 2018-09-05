@@ -20,6 +20,8 @@ public:
 
     virtual bool shadowHit(const Ray& ray,float& tMin) const=0;
 
+    virtual Point3D sampler()=0;
+
     Material* getMaterial() const;
 protected:
     RGBColor color;
