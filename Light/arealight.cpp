@@ -1,6 +1,16 @@
-#include "arealight.h"
+﻿#include "arealight.h"
 #include "World.h"
-AreaLight::AreaLight()
+AreaLight::AreaLight():Light()
+{
+
+}
+
+AreaLight::AreaLight(const AreaLight &al):Light(al)
+{
+
+}
+
+AreaLight::AreaLight(AreaLight &&al):Light(al)
 {
 
 }

@@ -71,7 +71,13 @@ SOURCES += \
     Tracer/arealighting.cpp \
     Material/emissive.cpp \
     Geometry/rectangle.cpp \
-    Light/arealight.cpp
+    Light/arealight.cpp \
+    Light/environmentlight.cpp \
+    Geometry/Triangles/FlatMeshTriangle.cpp \
+    Geometry/Triangles/MeshTriangle.cpp \
+    Geometry/Triangles/SmoothMeshTriangle.cpp \
+    Geometry/Triangles/SmoothTriangle.cpp \
+    Geometry/Triangles/Triangle.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -120,7 +126,13 @@ HEADERS += \
     Tracer/arealighting.h \
     Material/emissive.h \
     Geometry/rectangle.h \
-    Light/arealight.h
+    Light/arealight.h \
+    Light/environmentlight.h \
+    Geometry/Triangles/FlatMeshTriangle.h \
+    Geometry/Triangles/MeshTriangle.h \
+    Geometry/Triangles/SmoothMeshTriangle.h \
+    Geometry/Triangles/SmoothTriangle.h \
+    Geometry/Triangles/Triangle.h
 
 FORMS += \
         mainwindow.ui \
