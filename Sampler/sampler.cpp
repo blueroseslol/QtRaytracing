@@ -5,17 +5,17 @@
 
 Sampler::Sampler():count(0),numSamples(1),numSets(1),jump(0)
 {
-
+    setupShuffledIndices();
 }
 
 Sampler::Sampler(const int &_numSamples):numSamples(_numSamples),count(0),numSets(1),jump(0)
 {
-
+    setupShuffledIndices();
 }
 
 Sampler::Sampler(const int &_numSamples,const int& _numSets):numSamples(_numSamples),count(0),numSets(_numSets),jump(0)
 {
-
+    setupShuffledIndices();
 }
 
 //将几个sets的采样点进行打乱处理

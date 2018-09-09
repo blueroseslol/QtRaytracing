@@ -23,3 +23,13 @@ bool Light::inShadow(const Ray &ray, const ShadeRec &sr) const
 {
     return false;
 }
+
+float Light::G(const ShadeRec &sr) const
+{
+    return 1.0;
+}
+
+float Light::pdf(const ShadeRec &sr) const
+{
+    return 1.0;
+}

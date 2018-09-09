@@ -1,5 +1,5 @@
 ﻿#include "environmentlight.h"
-
+#include "Material/material.h"
 EnvironmentLight::EnvironmentLight():Light()
 {
 

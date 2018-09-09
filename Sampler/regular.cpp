@@ -1,6 +1,6 @@
 ﻿#include "regular.h"
 #include <QDebug>
-Regular::Regular()
+Regular::Regular():Sampler()
 {
 
 }

@@ -20,7 +20,9 @@ public:
 
     virtual bool shadowHit(const Ray& ray,float& tMin) const=0;
 
-    virtual Point3D sampler()=0;
+    virtual Point3D sampler();
+
+    virtual float pdf(ShadeRec& sr);
 
     Material* getMaterial() const;
 protected:

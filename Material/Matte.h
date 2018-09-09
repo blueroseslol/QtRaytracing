@@ -29,6 +29,8 @@ public:
         void	setCd(const float c);
 				
         virtual RGBColor	shade(ShadeRec& sr);
+
+        RGBColor areaLightShade(ShadeRec &sr);
 private:
 		Lambertian*		ambient_brdf;
 		Lambertian*		diffuse_brdf;

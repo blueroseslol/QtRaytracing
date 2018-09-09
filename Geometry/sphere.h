@@ -13,8 +13,8 @@ public:
         Sphere(const Sphere& sphere);
         Sphere(Sphere&& sphere);
 
-        virtual Sphere* 									// Virtual copy constructor
-        clone() const;
+//        virtual Sphere* 									// Virtual copy constructor
+//        clone() const;
 
         virtual ~Sphere();
 

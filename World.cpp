@@ -14,7 +14,7 @@
 #include "Tracer/raycast.h"
 
 //#include "Sampler/jittered.h"
-//#include "Sampler/regular.h"
+#include "Sampler/regular.h"
 #include "Sampler/multijittered.h"
 #include "Sampler/hammersley.h"
 
@@ -38,17 +38,21 @@ World::World(RenderSetting *_setting):setting(_setting),tracer_ptr(nullptr),imag
 }
 
 World::~World(){
-    if(tracer_ptr)
-        delete tracer_ptr;
     if(image)
         delete image;
 }
 
 void World::build(){
     tracer_ptr=new RayCast(this);
-    ambient_ptr=new Ambient;
-    ambient_ptr->scaleRadiance(2.0);
-    ambient_ptr->setColor(0.3,0.3,0.3);
+    sampler_ptr=new MultiJittered(64,3);
+//    ambient_ptr=new Ambient;
+//    ambient_ptr->scaleRadiance(2.0);
+//    ambient_ptr->setColor(0.3,0.3,0.3);
+    ambient_ptr=new AmbientOccluder();
+    ambient_ptr->scaleRadiance(1.0);
+    ambient_ptr->setColor(RGBColor(1.0));
+    ambient_ptr->setMinAmount(0.0);
+    ambient_ptr->setSampler(new MultiJittered(128,3));
 
     Directional* light_ptr=new Directional;
     light_ptr->setDirection(1,0.0,1);
@@ -94,7 +98,7 @@ void World::build(){
     sphere1->setMaterial(phong_ptr);
     addGeometry(sphere1);
 
-    setting->setSampler(new MultiJittered(16,3));
+    setting->setSampler(sampler_ptr);
 
     Pinhole* pinhole=new Pinhole;
     pinhole->setOrigin(0,0,8);
@@ -127,6 +131,19 @@ void World::clearScene(){
         delete (*it);
     }
     lights.clear();
+    if(ambient_ptr){
+        delete ambient_ptr;
+        ambient_ptr=nullptr;
+    }
+    if(tracer_ptr){
+        delete tracer_ptr;
+        tracer_ptr=nullptr;
+    }
+    if(sampler_ptr){
+        delete sampler_ptr;
+        sampler_ptr=nullptr;
+    }
+
 }
 
 //TODO:个人认为这个东西还是放到MutilObject Tracer里比较好

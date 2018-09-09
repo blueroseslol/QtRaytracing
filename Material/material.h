@@ -18,6 +18,8 @@ public:
         virtual ~Material();
 				
         virtual RGBColor shade(ShadeRec& sr);
+
+        virtual RGBColor areaLightShade(ShadeRec& sr);
 protected:
         Material& operator= (const Material& rhs);
 };

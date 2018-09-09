@@ -17,10 +17,10 @@ Sphere::Sphere(Point3D c, double r) : center(c), radius(r)
 
 // ---------------------------------------------------------------- clone
 
-Sphere*
-Sphere::clone(void) const {
-    return (new Sphere(*this));
-}
+//Sphere*
+//Sphere::clone(void) const {
+//    return (new Sphere(*this));
+//}
 
 
 // ---------------------------------------------------------------- copy constructor

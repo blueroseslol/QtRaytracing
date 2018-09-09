@@ -1,5 +1,6 @@
 ﻿#include "arealight.h"
 #include "World.h"
+#include "Geometry/Geometry.h"
 AreaLight::AreaLight():Light()
 {
 

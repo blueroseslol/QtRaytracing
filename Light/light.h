@@ -25,6 +25,9 @@ public:
 
     virtual bool inShadow(const Ray& ray,const ShadeRec& sr) const;
 
+    virtual float G(const ShadeRec& sr) const;
+
+    virtual float pdf(const ShadeRec& sr) const;
     bool castShadow;
 };
 

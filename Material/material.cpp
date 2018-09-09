@@ -40,6 +40,11 @@ RGBColor Material::shade(ShadeRec& sr) {
     return RGBColor();
 }
 
+RGBColor Material::areaLightShade(ShadeRec &sr)
+{
+    return RGBColor(0);
+}
+
 
 
 

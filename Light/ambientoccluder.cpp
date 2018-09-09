@@ -1,8 +1,26 @@
 #include "ambientoccluder.h"
 #include "World.h"
-AmbientOccluder::AmbientOccluder():Light(),sampler_ptr(nullptr)
+AmbientOccluder::AmbientOccluder():Light(),sampler_ptr(nullptr),min_amount(0.0),color(RGBColor(1.0)),ls(1.0)
 {
 
+}
+
+//AmbientOccluder::AmbientOccluder(const AmbientOccluder &ao):Light(ao)
+//{
+
+//}
+
+//AmbientOccluder::AmbientOccluder(AmbientOccluder &&ao):Light(ao)
+//{
+
+//}
+
+AmbientOccluder::~AmbientOccluder()
+{
+//    if(sampler_ptr){
+//        delete sampler_ptr;
+//        sampler_ptr=nullptr;
+//    }
 }
 
 void AmbientOccluder::setSampler(Sampler *s_ptr)
@@ -46,4 +64,19 @@ RGBColor AmbientOccluder::L(ShadeRec &sr)
         return min_amount*ls*color;
     else
         return ls*color;
+}
+
+void AmbientOccluder::scaleRadiance(const float &radiance)
+{
+    ls=radiance;
+}
+
+void AmbientOccluder::setColor(const RGBColor &_color)
+{
+    color=_color;
+}
+
+void AmbientOccluder::setMinAmount(const float &min)
+{
+    min_amount=min;
 }

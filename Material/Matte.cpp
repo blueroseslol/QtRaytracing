@@ -118,7 +118,7 @@ RGBColor Matte::areaLightShade(ShadeRec& sr){
 
     for(int j=0;j<sr.w.lights.length();j++){
         Vector3D wi=sr.w.lights[j]->getDirection(sr);
-        float ndotwi=sr.normal.wi;
+        float ndotwi=sr.normal*wi;
 
         if(ndotwi>0.0){
             bool inShadow=false;
@@ -128,8 +128,9 @@ RGBColor Matte::areaLightShade(ShadeRec& sr){
                 inShadow=sr.w.lights[j]->inShadow(shadowRay,sr);
             }
             if(!inShadow){
-                L=+diffuse_brdf->f(sr,wo,wi)*sr.w.lights[j]->L(sr)*sr.w.lights[j]->G(sr)*ndotwi/sr.w.lights[j]->pdf(sr);
+                L+=diffuse_brdf->f(sr,wo,wi)*sr.w.lights[j]->L(sr)*sr.w.lights[j]->G(sr)*ndotwi/sr.w.lights[j]->pdf(sr);
             }
         }
     }
+    return L;
 }
