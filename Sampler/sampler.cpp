@@ -154,5 +154,6 @@ Point3D Sampler::sampleHemisphere() {
     if (count % numSamples == 0)  									// start of a new pixel
         jump = (qrand() % numSets) * numSamples;
 
+//        return hemisphereSamples[rand_int(0,hemisphereSamples.length()-1)];
     return (hemisphereSamples[jump + shuffledIndices[jump + count++ % numSamples]]);
 }

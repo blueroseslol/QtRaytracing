@@ -7,7 +7,7 @@ Regular::Regular():Sampler()
 
 Regular::Regular(const int &_numSamples):Sampler(_numSamples)
 {
-
+    generateSampler();
 }
 
 Point2D Regular::sampleUnitSquare()
