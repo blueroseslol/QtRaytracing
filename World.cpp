@@ -44,15 +44,15 @@ World::~World(){
 
 void World::build(){
     tracer_ptr=new RayCast(this);
-    sampler_ptr=new MultiJittered(16,1);
-    ambient_ptr=new Ambient;
-    ambient_ptr->scaleRadiance(2.0);
-    ambient_ptr->setColor(0.3,0.3,0.3);
-//    ambient_ptr=new AmbientOccluder();
-//    ambient_ptr->scaleRadiance(1.0);
-//    ambient_ptr->setColor(RGBColor(1.0));
-//    ambient_ptr->setMinAmount(0.0);
-//    ambient_ptr->setSampler(new MultiJittered(128,3));
+    sampler_ptr=new MultiJittered(256,3);
+//    ambient_ptr=new Ambient;
+//    ambient_ptr->scaleRadiance(2.0);
+//    ambient_ptr->setColor(0.3,0.3,0.3);
+    ambient_ptr=new AmbientOccluder();
+    ambient_ptr->scaleRadiance(1.0);
+    ambient_ptr->setColor(RGBColor(1.0));
+    ambient_ptr->setMinAmount(0.0);
+    ambient_ptr->setSampler(new MultiJittered(256,3));
 
     Directional* light_ptr=new Directional;
     light_ptr->setDirection(1,0.0,1);
@@ -215,6 +215,7 @@ void World::render_scene() {
                 RGBColor pixelColor;
                 Point2D sp;//采样点坐标
                 Point2D pp;//pixel上的采样点
+
                 for(int k=0;k<setting->numSamples;k++){
                     sp=setting->samplerPtr->sampleUnitSquare();
 /*
@@ -222,9 +223,14 @@ void World::render_scene() {
 */
                     pp.x=i-0.5*nx+sp.x;
                     pp.y=j-0.5*ny+sp.y;
-
+/*
+    在这里添加自旋锁可以解决AO奇怪的斑块问题，因为使用了TBB库的问题，但是直接用太影响性能，所以会独自计算AO不放进材质中
+*/
+//                    mutex.lock();
                     pixelColor+= tracer_ptr->trace_ray(camera_ptr->getRay(pp),0);
+//                    mutex.unlock();
                 }
+
                 mutex.lock();
                 pixelColor/=setting->numSamples;
                 pixelColor*=camera_ptr->getExposureTime();
