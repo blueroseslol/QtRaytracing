@@ -4,7 +4,7 @@
 #include "Geometry/Geometry.h"
 #include "Cameras/Camera.h"
 #include "Light/ambient.h"
-#include "Light/ambientoccluder.h"
+//#include "Light/ambientoccluder.h"
 #include <QImage>
 #include <QObject>
 #include <QColor>
@@ -25,8 +25,8 @@ public:
     QVector<Geometry*> scene;
     QVector<Material*> material;
     QVector<Light*> lights;
-//    Ambient* ambient_ptr;
-    AmbientOccluder* ambient_ptr;
+    Ambient* ambient_ptr;
+//    AmbientOccluder* ambient_ptr;
     Sampler* sampler_ptr;
     float progress;
     bool terminate;

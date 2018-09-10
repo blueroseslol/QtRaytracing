@@ -44,26 +44,26 @@ World::~World(){
 
 void World::build(){
     tracer_ptr=new RayCast(this);
-    sampler_ptr=new MultiJittered(1,1);
-//    ambient_ptr=new Ambient;
-//    ambient_ptr->scaleRadiance(2.0);
-//    ambient_ptr->setColor(0.3,0.3,0.3);
-    ambient_ptr=new AmbientOccluder();
-    ambient_ptr->scaleRadiance(1.0);
-    ambient_ptr->setColor(RGBColor(1.0));
-    ambient_ptr->setMinAmount(0.0);
-    ambient_ptr->setSampler(new Regular(1));
+    sampler_ptr=new MultiJittered(16,1);
+    ambient_ptr=new Ambient;
+    ambient_ptr->scaleRadiance(2.0);
+    ambient_ptr->setColor(0.3,0.3,0.3);
+//    ambient_ptr=new AmbientOccluder();
+//    ambient_ptr->scaleRadiance(1.0);
+//    ambient_ptr->setColor(RGBColor(1.0));
+//    ambient_ptr->setMinAmount(0.0);
+//    ambient_ptr->setSampler(new MultiJittered(128,3));
 
-//    Directional* light_ptr=new Directional;
-//    light_ptr->setDirection(1,0.0,1);
-//    light_ptr->scaleRadiance(1.0);
-//    light_ptr->setColor(2,2,2);
-//    addLight(light_ptr);
+    Directional* light_ptr=new Directional;
+    light_ptr->setDirection(1,0.0,1);
+    light_ptr->scaleRadiance(1.0);
+    light_ptr->setColor(2,2,2);
+    addLight(light_ptr);
 
-//    PointLight* pointLight_ptr=new PointLight;
-//    pointLight_ptr->setLocation(4,4,3);
-//    pointLight_ptr->setColor(3,3,3);
-//    addLight(pointLight_ptr);
+    PointLight* pointLight_ptr=new PointLight;
+    pointLight_ptr->setLocation(4,4,3);
+    pointLight_ptr->setColor(3,3,3);
+    addLight(pointLight_ptr);
 
     Matte *matte_ptr=new Matte;
     matte_ptr->setKa(0.25);
