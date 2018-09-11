@@ -1,7 +1,7 @@
 ﻿#include "Geometry/Geometry.h"
 #include <QDebug>
 #include "Material/material.h"
-Geometry::Geometry():color(RGBColor()),material_ptr(nullptr){}
+Geometry::Geometry():color(RGBColor()),material_ptr(nullptr),castShadow(true){}
 
 Geometry::~Geometry(){}
 
@@ -33,4 +33,10 @@ float Geometry::pdf(ShadeRec &sr)
 Material *Geometry::getMaterial() const
 {
     return material_ptr;
+}
+
+Normal Geometry::getNormal(const Point3D &point) const
+{
+    qDebug()<<"this function only uses for AreaLight(Rectangle)";
+    return Normal(0,0,1);
 }

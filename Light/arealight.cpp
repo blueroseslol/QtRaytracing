@@ -1,6 +1,7 @@
 ﻿#include "arealight.h"
 #include "World.h"
 #include "Geometry/Geometry.h"
+#include "Material/material.h"
 AreaLight::AreaLight():Light()
 {
 
@@ -16,6 +17,11 @@ AreaLight::AreaLight(AreaLight &&al):Light(al)
 
 }
 
+void AreaLight::setObject(Geometry *objectPtr)
+{
+    object_ptr=objectPtr;
+}
+
 Vector3D AreaLight::getDirection(ShadeRec &sr)
 {
     samplerPoint=object_ptr->sampler();
@@ -29,7 +35,7 @@ RGBColor AreaLight::L(ShadeRec &sr)
 {
     float ndotd=-lightNormal*wi;
     if(ndotd>0)
-        return material_ptr.getLe(sr);
+        return material_ptr->getLe(sr);
     else
         return RGBColor(0);
 }

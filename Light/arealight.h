@@ -15,6 +15,8 @@ public:
 
     void setLocation(const float& x,const float& y,const float& z );
 
+    void setObject(Geometry* objectPtr);
+
     virtual Vector3D getDirection(ShadeRec &sr);
 
     virtual RGBColor L(ShadeRec& sr);

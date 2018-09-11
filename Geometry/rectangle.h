@@ -1,4 +1,4 @@
-#ifndef RECTANGLE_H
+﻿#ifndef RECTANGLE_H
 #define RECTANGLE_H
 #include "Geometry/Geometry.h"
 #include "Sampler/sampler.h"
@@ -6,6 +6,8 @@ class Rectangle : public Geometry
 {
 public:
     Rectangle();
+
+    Rectangle(Point3D _p0,Vector3D _a,Vector3D _b,Normal _normal);
 
     virtual bool hit(const Ray &ray, double &tmin, ShadeRec &sr) const;
 
@@ -17,7 +19,7 @@ public:
 
     virtual float pdf(ShadeRec& sr);
 
-    virtual Normal getNormal(const Point3D& p);
+    virtual Normal getNormal(const Point3D& p) const override;
 private:
     Point3D p0;
     Vector3D a;

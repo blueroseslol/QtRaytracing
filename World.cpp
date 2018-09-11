@@ -9,25 +9,24 @@
 #include "Utilities/Constants.h"
 #include "Utilities/Point2D.h"
 
-//#include "Tracer/singlesphere.h"
-//#include "Tracer/mutipleobjects.h"
 #include "Tracer/raycast.h"
 
-//#include "Sampler/jittered.h"
 #include "Sampler/regular.h"
 #include "Sampler/multijittered.h"
 #include "Sampler/hammersley.h"
 
 #include "Cameras/pinhole.h"
-//#include "Cameras/fisheye.h"
 
 #include "Light/directional.h"
 #include "Light/pointlight.h"
+#include "Light/arealight.h"
 
 #include "Geometry/sphere.h"
 #include "Geometry/plane.h"
+#include "Geometry/rectangle.h"
 #include "Material/Matte.h"
 #include "Material/phong.h"
+#include "Material/emissive.h"
 
 #include "tbb/tbb.h"
 #include "tbb/parallel_for.h"
@@ -64,6 +63,26 @@ void World::build(){
     pointLight_ptr->setLocation(4,4,3);
     pointLight_ptr->setColor(3,3,3);
     addLight(pointLight_ptr);
+
+    Emissive* emissive_ptr=new Emissive;
+    emissive_ptr->scaleRadiance(40.0);
+    emissive_ptr->setCe(1.0,1.0,1.0);
+
+    Point3D p0=Point3D();
+    Vector3D a=Vector3D();
+    Vector3D b=Vector3D();
+    Normal normal=Normal();
+
+    Rectangle* rectangle_ptr=new Rectangle(p0,a,b,normal);
+    rectangle_ptr->setMaterial(emissive_ptr);
+    rectangle_ptr->setSampler(sampler_ptr);
+    rectangle_ptr->castShadow=false;
+    addGeometry(rectangle_ptr);
+
+    AreaLight* areaLight_ptr=new AreaLight;
+    areaLight_ptr->setObject(rectangle_ptr);
+    areaLight_ptr->castShadow=true;
+    addLight(areaLight_ptr);
 
     Matte *matte_ptr=new Matte;
     matte_ptr->setKa(0.25);

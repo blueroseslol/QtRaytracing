@@ -25,6 +25,10 @@ public:
     virtual float pdf(ShadeRec& sr);
 
     Material* getMaterial() const;
+
+    virtual Normal getNormal(const Point3D& point) const;
+
+    bool castShadow;
 protected:
     RGBColor color;
     mutable Material* material_ptr;

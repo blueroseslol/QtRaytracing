@@ -68,10 +68,10 @@ SOURCES += \
     BRDF/glossyspecular.cpp \
     Material/phong.cpp \
     Light/ambientoccluder.cpp \
-#    Tracer/arealighting.cpp \
-#    Material/emissive.cpp \
-#    Geometry/rectangle.cpp \
-#    Light/arealight.cpp \
+    Tracer/arealighting.cpp \
+    Material/emissive.cpp \
+    Geometry/rectangle.cpp \
+    Light/arealight.cpp \
 #    Light/environmentlight.cpp \
 #    Geometry/Triangles/FlatMeshTriangle.cpp \
 #    Geometry/Triangles/MeshTriangle.cpp \
@@ -123,10 +123,10 @@ HEADERS += \
     BRDF/glossyspecular.h \
     Material/phong.h \
     Light/ambientoccluder.h \
-#    Tracer/arealighting.h \
-#    Material/emissive.h \
-#    Geometry/rectangle.h \
-#    Light/arealight.h \
+    Tracer/arealighting.h \
+    Material/emissive.h \
+    Geometry/rectangle.h \
+    Light/arealight.h \
 #    Light/environmentlight.h \
 #    Geometry/Triangles/FlatMeshTriangle.h \
 #    Geometry/Triangles/MeshTriangle.h \
