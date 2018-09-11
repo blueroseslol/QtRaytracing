@@ -45,6 +45,11 @@ RGBColor Material::areaLightShade(ShadeRec &sr)
     return RGBColor(0);
 }
 
+RGBColor Material::getLe(ShadeRec &sr) const
+{
+    return RGBColor(0);
+}
+
 
 
 

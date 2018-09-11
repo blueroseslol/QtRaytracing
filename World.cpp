@@ -3,8 +3,8 @@
 #include <math.h>
 #include <QDebug>
 #include <QtConcurrent>
-#include <QFutureSynchronizer>
-#include <QScopedPointer>
+//#include <QFutureSynchronizer>
+//#include <QScopedPointer>
 
 #include "Utilities/Constants.h"
 #include "Utilities/Point2D.h"
@@ -68,21 +68,23 @@ void World::build(){
     emissive_ptr->scaleRadiance(40.0);
     emissive_ptr->setCe(1.0,1.0,1.0);
 
-    Point3D p0=Point3D();
-    Vector3D a=Vector3D();
-    Vector3D b=Vector3D();
-    Normal normal=Normal();
+//    Point3D p0=Point3D();
+//    Vector3D a=Vector3D();
+//    Vector3D b=Vector3D();
+//    Normal normal=Normal();
 
-    Rectangle* rectangle_ptr=new Rectangle(p0,a,b,normal);
-    rectangle_ptr->setMaterial(emissive_ptr);
-    rectangle_ptr->setSampler(sampler_ptr);
-    rectangle_ptr->castShadow=false;
-    addGeometry(rectangle_ptr);
 
-    AreaLight* areaLight_ptr=new AreaLight;
-    areaLight_ptr->setObject(rectangle_ptr);
-    areaLight_ptr->castShadow=true;
-    addLight(areaLight_ptr);
+    Rectangle* a=new Rectangle();
+
+//    rectangle_ptr->setMaterial(emissive_ptr);
+//    rectangle_ptr->setSampler(sampler_ptr);
+//    rectangle_ptr->castShadow=false;
+//    addGeometry(rectangle_ptr);
+
+//    AreaLight* areaLight_ptr=new AreaLight;
+//    areaLight_ptr->setObject(rectangle_ptr);
+//    areaLight_ptr->castShadow=true;
+//    addLight(areaLight_ptr);
 
     Matte *matte_ptr=new Matte;
     matte_ptr->setKa(0.25);

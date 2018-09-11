@@ -22,7 +22,7 @@ public:
 
     virtual Point3D sampler();
 
-    virtual float pdf(ShadeRec& sr);
+    virtual float pdf(const ShadeRec &sr) const;
 
     Material* getMaterial() const;
 

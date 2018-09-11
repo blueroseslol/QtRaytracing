@@ -1,7 +1,8 @@
 ﻿#ifndef RECTANGLE_H
 #define RECTANGLE_H
 #include "Geometry/Geometry.h"
-#include "Sampler/sampler.h"
+
+class Sampler;
 class Rectangle : public Geometry
 {
 public:
@@ -24,9 +25,14 @@ private:
     Point3D p0;
     Vector3D a;
     Vector3D b;
+    double			a_len_squared;	// square of the length of side a
+    double			b_len_squared;	// square of the length of side b
     Normal normal;
     Sampler *sampler_ptr;
+    float			area;
     float inv_area;
+
+    static const double kEpsilon;
 };
 
 #endif // RECTANGLE_H
