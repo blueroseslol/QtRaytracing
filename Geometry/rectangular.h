@@ -3,12 +3,12 @@
 #include "Geometry/Geometry.h"
 
 class Sampler;
-class Rectangle : public Geometry
+class Rectangular : public Geometry
 {
 public:
-    Rectangle();
+    Rectangular();
 
-    Rectangle(Point3D _p0,Vector3D _a,Vector3D _b,Normal _normal);
+    Rectangular(const Point3D &_p0, const Vector3D &_a, const Vector3D &_b, const Normal &_normal);
 
     virtual bool hit(const Ray &ray, double &tmin, ShadeRec &sr) const;
 
@@ -21,6 +21,7 @@ public:
     virtual float pdf(ShadeRec& sr);
 
     virtual Normal getNormal(const Point3D& p) const override;
+    Rectangular(const Point3D &_p0, const Vector3D &_a, const Vector3D &_b);
 private:
     Point3D p0;
     Vector3D a;

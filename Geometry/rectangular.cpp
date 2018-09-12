@@ -1,17 +1,33 @@
-﻿#include "rectangle.h"
+﻿#include "rectangular.h"
 #include "Sampler/sampler.h"
-const double Rectangle::kEpsilon = 0.001;
-Rectangle::Rectangle():Geometry()
+const double Rectangular::kEpsilon = 0.001;
+Rectangular::Rectangular():Geometry()
 {
 
 }
 
-Rectangle::Rectangle(Point3D _p0, Vector3D _a, Vector3D _b, Normal _normal):Geometry(),p0(_p0),a(_a),b(_b),normal(_normal)
+Rectangular::Rectangular(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b)
+    :	Geometry(),
+        p0(_p0),
+        a(_a),
+        b(_b),
+        a_len_squared(a.len_squared()),
+        b_len_squared(b.len_squared()),
+        area(a.length() * b.length()),
+        inv_area(1.0 / area),
+        sampler_ptr(nullptr)
+{
+    normal = a ^ b;
+    normal.normalize();
+}
+
+Rectangular::Rectangular(const Point3D& _p0,const Vector3D& _a,const Vector3D& _b,const Normal& _normal):Geometry(),p0(_p0),a(_a),b(_b),normal(_normal),a_len_squared(a.len_squared()),b_len_squared(b.len_squared()),
+    area(a.length()*b.length()),inv_area(1.0/area),sampler_ptr(nullptr)
 {
 
 }
 
-bool Rectangle::hit(const Ray &ray, double &tmin, ShadeRec &sr) const
+bool Rectangular::hit(const Ray &ray, double &tmin, ShadeRec &sr) const
 {
     double t = (p0 - ray.origin) * normal / (ray.direction * normal);
 
@@ -38,7 +54,7 @@ bool Rectangle::hit(const Ray &ray, double &tmin, ShadeRec &sr) const
     return (true);
 }
 
-bool Rectangle::shadowHit(const Ray &ray, float &tMin) const
+bool Rectangular::shadowHit(const Ray &ray, float &tMin) const
 {
     double t = (p0 - ray.origin) * normal / (ray.direction * normal);
 
@@ -63,18 +79,23 @@ bool Rectangle::shadowHit(const Ray &ray, float &tMin) const
     return true;
 }
 
-Point3D Rectangle::sampler()
+void Rectangular::setSampler(Sampler *sampler)
+{
+    sampler_ptr=sampler;
+}
+
+Point3D Rectangular::sampler()
 {
     Point2D sample_point=sampler_ptr->sampleUnitSquare();
     return p0+sample_point.x*a+sample_point.y*b;
 }
 
-float Rectangle::pdf(ShadeRec &sr)
+float Rectangular::pdf(ShadeRec &sr)
 {
     return inv_area;
 }
 
-Normal Rectangle::getNormal(const Point3D &p) const
+Normal Rectangular::getNormal(const Point3D &p) const
 {
     return normal;
 }

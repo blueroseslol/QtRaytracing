@@ -34,8 +34,8 @@ Vector3D AreaLight::getDirection(ShadeRec &sr)
 RGBColor AreaLight::L(ShadeRec &sr)
 {
     float ndotd=-lightNormal*wi;
-    if(ndotd>0)
-        return material_ptr->getLe(sr);
+	if (ndotd > 0)
+		return object_ptr->getMaterial()->getLe(sr);
     else
         return RGBColor(0);
 }

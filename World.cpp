@@ -1,10 +1,8 @@
 ﻿#include "World.h"
-#define _USE_MATH_DEFINES
+//#define _USE_MATH_DEFINES
 #include <math.h>
 #include <QDebug>
 #include <QtConcurrent>
-//#include <QFutureSynchronizer>
-//#include <QScopedPointer>
 
 #include "Utilities/Constants.h"
 #include "Utilities/Point2D.h"
@@ -23,7 +21,7 @@
 
 #include "Geometry/sphere.h"
 #include "Geometry/plane.h"
-#include "Geometry/rectangle.h"
+#include "Geometry/rectangular.h"
 #include "Material/Matte.h"
 #include "Material/phong.h"
 #include "Material/emissive.h"
@@ -31,9 +29,11 @@
 #include "tbb/tbb.h"
 #include "tbb/parallel_for.h"
 #include "tbb/blocked_range2d.h"
+
 World::World(RenderSetting *_setting):setting(_setting),tracer_ptr(nullptr),image(nullptr),progress(0.0),terminate(false),
     ambient_ptr(nullptr)
 {
+
 }
 
 World::~World(){
@@ -43,7 +43,7 @@ World::~World(){
 
 void World::build(){
     tracer_ptr=new RayCast(this);
-    sampler_ptr=new MultiJittered(256,3);
+    sampler_ptr=new MultiJittered(64,3);
 //    ambient_ptr=new Ambient;
 //    ambient_ptr->scaleRadiance(2.0);
 //    ambient_ptr->setColor(0.3,0.3,0.3);
@@ -51,7 +51,7 @@ void World::build(){
     ambient_ptr->scaleRadiance(1.0);
     ambient_ptr->setColor(RGBColor(1.0));
     ambient_ptr->setMinAmount(0.0);
-    ambient_ptr->setSampler(new MultiJittered(256,3));
+    ambient_ptr->setSampler(new MultiJittered(64,3));
 
     Directional* light_ptr=new Directional;
     light_ptr->setDirection(1,0.0,1);
@@ -67,24 +67,22 @@ void World::build(){
     Emissive* emissive_ptr=new Emissive;
     emissive_ptr->scaleRadiance(40.0);
     emissive_ptr->setCe(1.0,1.0,1.0);
+    material.push_back(emissive_ptr);
 
-//    Point3D p0=Point3D();
-//    Vector3D a=Vector3D();
-//    Vector3D b=Vector3D();
-//    Normal normal=Normal();
+    Point3D p0=Point3D(0,3,0);
+    Vector3D a=Vector3D(0,3,2);
+    Vector3D b=Vector3D(2,3,0);
 
+    Rectangular* rectangle_ptr=new Rectangular(p0,a,b);
+    rectangle_ptr->setMaterial(emissive_ptr);
+    rectangle_ptr->setSampler(sampler_ptr);
+    rectangle_ptr->castShadow=false;
+    addGeometry(rectangle_ptr);
 
-    Rectangle* a=new Rectangle();
-
-//    rectangle_ptr->setMaterial(emissive_ptr);
-//    rectangle_ptr->setSampler(sampler_ptr);
-//    rectangle_ptr->castShadow=false;
-//    addGeometry(rectangle_ptr);
-
-//    AreaLight* areaLight_ptr=new AreaLight;
-//    areaLight_ptr->setObject(rectangle_ptr);
-//    areaLight_ptr->castShadow=true;
-//    addLight(areaLight_ptr);
+    AreaLight* areaLight_ptr=new AreaLight;
+    areaLight_ptr->setObject(rectangle_ptr);
+    areaLight_ptr->castShadow=true;
+    addLight(areaLight_ptr);
 
     Matte *matte_ptr=new Matte;
     matte_ptr->setKa(0.25);
@@ -247,9 +245,9 @@ void World::render_scene() {
 /*
     在这里添加自旋锁可以解决AO奇怪的斑块问题，因为使用了TBB库的问题，但是直接用太影响性能，所以会独自计算AO不放进材质中
 */
-//                    mutex.lock();
+                    mutex.lock();
                     pixelColor+= tracer_ptr->trace_ray(camera_ptr->getRay(pp),0);
-//                    mutex.unlock();
+                    mutex.unlock();
                 }
 
                 mutex.lock();
