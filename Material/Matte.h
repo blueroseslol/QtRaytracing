@@ -30,7 +30,7 @@ public:
 				
         virtual RGBColor	shade(ShadeRec& sr);
 
-//        virtual RGBColor areaLightShade(ShadeRec &sr);
+        virtual RGBColor areaLightShade(ShadeRec &sr);
 private:
 		Lambertian*		ambient_brdf;
 		Lambertian*		diffuse_brdf;

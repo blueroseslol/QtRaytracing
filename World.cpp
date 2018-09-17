@@ -18,7 +18,7 @@
 
 #include "Light/directional.h"
 #include "Light/pointlight.h"
-#include "Light/arealight.h"
+//#include "Light/arealight.h"
 #include "Light/environmentlight.h"
 
 #include "Geometry/sphere.h"
@@ -32,7 +32,7 @@
 #include "tbb/parallel_for.h"
 #include "tbb/blocked_range2d.h"
 
-World::World(RenderSetting *_setting):setting(_setting),tracer_ptr(nullptr),areaLightTracer_ptr(nullptr),image(nullptr),progress(0.0),terminate(false),
+World::World(RenderSetting *_setting):setting(_setting),tracer_ptr(nullptr),image(nullptr),progress(0.0),terminate(false),
     ambient_ptr(nullptr)
 {
 
@@ -67,38 +67,38 @@ void World::build(){
     pointLight_ptr->setColor(3,3,3);
     addLight(pointLight_ptr);
 
-//    Emissive* emissive_env_ptr=new Emissive;
-//    emissive_env_ptr->scaleRadiance(1.0);
-//    emissive_env_ptr->setCe(1.0,1.0,0.5);
-//    material.push_back(emissive_env_ptr);
+    Emissive* emissive_env_ptr=new Emissive;
+    emissive_env_ptr->scaleRadiance(1.0);
+    emissive_env_ptr->setCe(1.0,1.0,0.5);
+    material.push_back(emissive_env_ptr);
 
-//    EnvironmentLight* envLight_ptr=new EnvironmentLight;
-//    envLight_ptr->setMaterial(emissive_env_ptr);
-//    envLight_ptr->setSampler(sampler_ptr);
-//    envLight_ptr->castShadow=true;
-//    addLight(envLight_ptr);
+    EnvironmentLight* envLight_ptr=new EnvironmentLight;
+    envLight_ptr->setMaterial(emissive_env_ptr);
+    envLight_ptr->setSampler(sampler_ptr);
+    envLight_ptr->castShadow=true;
+    addLight(envLight_ptr);
 
-    Emissive* emissive_ptr=new Emissive;
-    emissive_ptr->scaleRadiance(40.0);
-    emissive_ptr->setCe(1.0,1.0,1.0);
-    material.push_back(emissive_ptr);
+//    Emissive* emissive_ptr=new Emissive;
+//    emissive_ptr->scaleRadiance(5.0);
+//    emissive_ptr->setCe(1.0,1.0,1.0);
+//    material.push_back(emissive_ptr);
 
-    Point3D p0=Point3D(0,3,0);
-    Vector3D a=Vector3D(0,3,2);
-    Vector3D b=Vector3D(2,3,0);
+//    Point3D p0=Point3D(0,2,0);
+//    Vector3D a=Vector3D(0,0,1);
+//    Vector3D b=Vector3D(1,0,0);
 
-    Rectangular* rectangle_ptr=new Rectangular(p0,a,b);
-    rectangle_ptr->setMaterial(emissive_ptr);
-    rectangle_ptr->setSampler(sampler_ptr);
-    rectangle_ptr->castShadow=false;
-    addGeometry(rectangle_ptr);
+//    Rectangular* rectangle_ptr=new Rectangular(p0,a,b,Normal(0,-1,0));
+//    rectangle_ptr->setMaterial(emissive_ptr);
+//    rectangle_ptr->setSampler(sampler_ptr);
+//    rectangle_ptr->castShadow=false;
+//    addGeometry(rectangle_ptr);
 
-    areaLightTracer_ptr=new AreaLighting(this);
+//    areaLightTracer_ptr=new AreaLighting(this);
 
-    AreaLight* areaLight_ptr=new AreaLight;
-    areaLight_ptr->setObject(rectangle_ptr);
-    areaLight_ptr->castShadow=true;
-    addLight(areaLight_ptr);
+//    AreaLight* areaLight_ptr=new AreaLight;
+//    areaLight_ptr->setObject(rectangle_ptr);
+//    areaLight_ptr->castShadow=true;
+//    addLight(areaLight_ptr);
 
     Matte *matte_ptr=new Matte;
     matte_ptr->setKa(0.25);
@@ -263,7 +263,7 @@ void World::render_scene() {
 */
                     mutex.lock();
 //                    if(areaLightTracer_ptr){
-//						pixelColor += areaLightTracer_ptr->trace_ray(camera_ptr->getRay(pp), 0);
+//                        pixelColor += areaLightTracer_ptr->trace_ray(camera_ptr->getRay(pp), 0);
 //                    }
                     pixelColor+= tracer_ptr->trace_ray(camera_ptr->getRay(pp),0);
                     mutex.unlock();

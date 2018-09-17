@@ -112,25 +112,25 @@ RGBColor Matte::shade(ShadeRec& sr) {
     return L;
 }
 
-//RGBColor Matte::areaLightShade(ShadeRec& sr){
-//    Vector3D wo=-sr.ray.direction;
-//    RGBColor L=ambient_brdf->rho(sr,wo)*sr.w.ambient_ptr->L(sr);
+RGBColor Matte::areaLightShade(ShadeRec& sr){
+    Vector3D wo=-sr.ray.direction;
+    RGBColor L=ambient_brdf->rho(sr,wo)*sr.w.ambient_ptr->L(sr);
 
-//    for(int j=0;j<sr.w.lights.length();j++){
-//        Vector3D wi=sr.w.lights[j]->getDirection(sr);
-//        float ndotwi=sr.normal*wi;
+    for(int j=0;j<sr.w.lights.length();j++){
+        Vector3D wi=sr.w.lights[j]->getDirection(sr);
+        float ndotwi=sr.normal*wi;
 
-//        if(ndotwi>0.0){
-//            bool inShadow=false;
+        if(ndotwi>0.0){
+            bool inShadow=false;
 
-//            if(sr.w.lights[j]->castShadow){
-//                Ray shadowRay(sr.hit_point,wi);
-//                inShadow=sr.w.lights[j]->inShadow(shadowRay,sr);
-//            }
-//            if(!inShadow){
-//                L+=diffuse_brdf->f(sr,wo,wi)*sr.w.lights[j]->L(sr)*sr.w.lights[j]->G(sr)*ndotwi/sr.w.lights[j]->pdf(sr);
-//            }
-//        }
-//    }
-//    return L;
-//}
+            if(sr.w.lights[j]->castShadow){
+                Ray shadowRay(sr.hit_point,wi);
+                inShadow=sr.w.lights[j]->inShadow(shadowRay,sr);
+            }
+            if(!inShadow){
+                L+=diffuse_brdf->f(sr,wo,wi)*sr.w.lights[j]->L(sr)*sr.w.lights[j]->G(sr)*ndotwi/sr.w.lights[j]->pdf(sr);
+            }
+        }
+    }
+    return L;
+}
