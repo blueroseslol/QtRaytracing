@@ -42,12 +42,12 @@ RGBColor Material::shade(ShadeRec& sr) {
 
 RGBColor Material::areaLightShade(ShadeRec &sr)
 {
-    return RGBColor(0);
+    return RGBColor();
 }
 
 RGBColor Material::getLe(ShadeRec &sr) const
 {
-    return RGBColor(0);
+    return RGBColor();
 }
 
 

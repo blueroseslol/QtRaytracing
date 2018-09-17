@@ -71,7 +71,8 @@ SOURCES += \
     Tracer/arealighting.cpp \
     Material/emissive.cpp \
     Light/arealight.cpp \
-    Geometry/rectangular.cpp
+    Geometry/rectangular.cpp \
+    Light/environmentlight.cpp
 #    Light/environmentlight.cpp \
 #    Geometry/Triangles/FlatMeshTriangle.cpp \
 #    Geometry/Triangles/MeshTriangle.cpp \
@@ -126,7 +127,8 @@ HEADERS += \
     Tracer/arealighting.h \
     Material/emissive.h \
     Light/arealight.h \
-    Geometry/rectangular.h
+    Geometry/rectangular.h \
+    Light/environmentlight.h
 #    Light/environmentlight.h \
 #    Geometry/Triangles/FlatMeshTriangle.h \
 #    Geometry/Triangles/MeshTriangle.h \

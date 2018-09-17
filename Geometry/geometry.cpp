@@ -37,6 +37,6 @@ Material *Geometry::getMaterial() const
 
 Normal Geometry::getNormal(const Point3D &point) const
 {
-    qDebug()<<"this function only uses for AreaLight(Rectangle)";
+    qDebug()<<"this function only uses for AreaLight(Rectangular)";
     return Normal(0,0,1);
 }

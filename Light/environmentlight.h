@@ -7,11 +7,13 @@ class EnvironmentLight : public Light
 public:
     EnvironmentLight();
 
-    EnvironmentLight(const EnvironmentLight& el);
+//    EnvironmentLight(const EnvironmentLight& el);
 
-    EnvironmentLight(EnvironmentLight&& el);
+//    EnvironmentLight(EnvironmentLight&& el);
 
-    void setSampler();
+    void setSampler(Sampler* _sampler_ptr);
+
+    void setMaterial(Material* _material_ptr);
 
     virtual Vector3D getDirection(ShadeRec &sr);
 

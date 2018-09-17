@@ -56,10 +56,10 @@ void RenderSetting::on_spinBox_imageHeight_valueChanged(const QString &arg1)
 
 void RenderSetting::setSampler(Sampler *sp)
 {
-    if(samplerPtr){
-        delete samplerPtr;
-        samplerPtr=nullptr;
-    }
+//    if(samplerPtr){
+//        delete samplerPtr;
+//        samplerPtr=nullptr;
+//    }
     numSamples=sp->getNumSamples();
     samplerPtr=sp;
 }

@@ -53,9 +53,7 @@ public:
 private:
     Camera* camera_ptr;
     Tracer* tracer_ptr;
-
-
-
+    Tracer* areaLightTracer_ptr;
 signals:
     void renderComplete();
 };

@@ -37,7 +37,7 @@ RGBColor AreaLight::L(ShadeRec &sr)
 	if (ndotd > 0)
 		return object_ptr->getMaterial()->getLe(sr);
     else
-        return RGBColor(0);
+        return RGBColor();
 }
 
 bool AreaLight::inShadow(const Ray &ray, const ShadeRec &sr) const

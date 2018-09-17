@@ -12,7 +12,7 @@
 
 // -------------------------------------------------------- default constructor
 
-RGBColor::RGBColor(void)
+RGBColor::RGBColor()
 	: r(0.0), g(0.0), b(0.0) 							
 {}
 

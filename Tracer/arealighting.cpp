@@ -5,6 +5,11 @@ AreaLighting::AreaLighting()
 
 }
 
+AreaLighting::AreaLighting(World *w_ptr) :Tracer(w_ptr)
+{
+
+}
+
 RGBColor AreaLighting::trace_ray(const Ray &ray, const int depth) const
 {
     ShadeRec sr(world_ptr->hitObject(ray));

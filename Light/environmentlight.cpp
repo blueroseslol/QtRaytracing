@@ -1,18 +1,28 @@
 ﻿#include "environmentlight.h"
 #include "Material/material.h"
-EnvironmentLight::EnvironmentLight():Light()
+EnvironmentLight::EnvironmentLight():Light(),sampler_ptr(nullptr),material_ptr(nullptr)
 {
 
 }
 
-EnvironmentLight::EnvironmentLight(const EnvironmentLight &el):Light(el)
-{
+//EnvironmentLight::EnvironmentLight(const EnvironmentLight &el):Light(el)
+//{
 
+//}
+
+//EnvironmentLight::EnvironmentLight(EnvironmentLight &&el):Light(el)
+//{
+
+//}
+
+void EnvironmentLight::setSampler(Sampler *_sampler_ptr)
+{
+    sampler_ptr=_sampler_ptr;
 }
 
-EnvironmentLight::EnvironmentLight(EnvironmentLight &&el):Light(el)
+void EnvironmentLight::setMaterial(Material *_material_ptr)
 {
-
+    material_ptr=_material_ptr;
 }
 
 Vector3D EnvironmentLight::getDirection(ShadeRec &sr)
@@ -34,10 +44,8 @@ RGBColor EnvironmentLight::L(ShadeRec &sr)
 bool EnvironmentLight::inShadow(const Ray &ray, const ShadeRec &sr) const
 {
     float t;
-    float ts=(samplerPoint-ray.origin)*ray.direction;
-
     for(int j=0;j<sr.w.scene.length();j++){
-        if(sr.w.scene[j]->shadowHit(ray,t)&&t<ts)
+        if(sr.w.scene[j]->shadowHit(ray,t))
             return true;
     }
     return false;

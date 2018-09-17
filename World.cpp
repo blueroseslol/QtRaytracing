@@ -8,6 +8,7 @@
 #include "Utilities/Point2D.h"
 
 #include "Tracer/raycast.h"
+#include "Tracer/arealighting.h"
 
 #include "Sampler/regular.h"
 #include "Sampler/multijittered.h"
@@ -18,6 +19,7 @@
 #include "Light/directional.h"
 #include "Light/pointlight.h"
 #include "Light/arealight.h"
+#include "Light/environmentlight.h"
 
 #include "Geometry/sphere.h"
 #include "Geometry/plane.h"
@@ -30,7 +32,7 @@
 #include "tbb/parallel_for.h"
 #include "tbb/blocked_range2d.h"
 
-World::World(RenderSetting *_setting):setting(_setting),tracer_ptr(nullptr),image(nullptr),progress(0.0),terminate(false),
+World::World(RenderSetting *_setting):setting(_setting),tracer_ptr(nullptr),areaLightTracer_ptr(nullptr),image(nullptr),progress(0.0),terminate(false),
     ambient_ptr(nullptr)
 {
 
@@ -51,7 +53,8 @@ void World::build(){
     ambient_ptr->scaleRadiance(1.0);
     ambient_ptr->setColor(RGBColor(1.0));
     ambient_ptr->setMinAmount(0.0);
-    ambient_ptr->setSampler(new MultiJittered(64,3));
+//    ambient_ptr->setSampler(new MultiJittered(64,3));
+    ambient_ptr->setSampler(sampler_ptr);
 
     Directional* light_ptr=new Directional;
     light_ptr->setDirection(1,0.0,1);
@@ -63,6 +66,17 @@ void World::build(){
     pointLight_ptr->setLocation(4,4,3);
     pointLight_ptr->setColor(3,3,3);
     addLight(pointLight_ptr);
+
+//    Emissive* emissive_env_ptr=new Emissive;
+//    emissive_env_ptr->scaleRadiance(1.0);
+//    emissive_env_ptr->setCe(1.0,1.0,0.5);
+//    material.push_back(emissive_env_ptr);
+
+//    EnvironmentLight* envLight_ptr=new EnvironmentLight;
+//    envLight_ptr->setMaterial(emissive_env_ptr);
+//    envLight_ptr->setSampler(sampler_ptr);
+//    envLight_ptr->castShadow=true;
+//    addLight(envLight_ptr);
 
     Emissive* emissive_ptr=new Emissive;
     emissive_ptr->scaleRadiance(40.0);
@@ -78,6 +92,8 @@ void World::build(){
     rectangle_ptr->setSampler(sampler_ptr);
     rectangle_ptr->castShadow=false;
     addGeometry(rectangle_ptr);
+
+    areaLightTracer_ptr=new AreaLighting(this);
 
     AreaLight* areaLight_ptr=new AreaLight;
     areaLight_ptr->setObject(rectangle_ptr);
@@ -246,6 +262,9 @@ void World::render_scene() {
     在这里添加自旋锁可以解决AO奇怪的斑块问题，因为使用了TBB库的问题，但是直接用太影响性能，所以会独自计算AO不放进材质中
 */
                     mutex.lock();
+//                    if(areaLightTracer_ptr){
+//						pixelColor += areaLightTracer_ptr->trace_ray(camera_ptr->getRay(pp), 0);
+//                    }
                     pixelColor+= tracer_ptr->trace_ray(camera_ptr->getRay(pp),0);
                     mutex.unlock();
                 }
