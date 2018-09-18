@@ -72,13 +72,9 @@ SOURCES += \
     Material/emissive.cpp \
     Light/arealight.cpp \
     Geometry/rectangular.cpp \
-    Light/environmentlight.cpp
-#    Light/environmentlight.cpp \
-#    Geometry/Triangles/FlatMeshTriangle.cpp \
-#    Geometry/Triangles/MeshTriangle.cpp \
-#    Geometry/Triangles/SmoothMeshTriangle.cpp \
-#    Geometry/Triangles/SmoothTriangle.cpp \
-#    Geometry/Triangles/Triangle.cpp
+    Light/environmentlight.cpp \
+    Geometry/box.cpp \
+    Geometry/Triangles/Triangle.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -128,13 +124,9 @@ HEADERS += \
     Material/emissive.h \
     Light/arealight.h \
     Geometry/rectangular.h \
-    Light/environmentlight.h
-#    Light/environmentlight.h \
-#    Geometry/Triangles/FlatMeshTriangle.h \
-#    Geometry/Triangles/MeshTriangle.h \
-#    Geometry/Triangles/SmoothMeshTriangle.h \
-#    Geometry/Triangles/SmoothTriangle.h \
-#    Geometry/Triangles/Triangle.h
+    Light/environmentlight.h \
+    Geometry/box.h \
+    Geometry/Triangles/Triangle.h
 
 FORMS += \
         mainwindow.ui \

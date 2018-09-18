@@ -24,6 +24,8 @@
 #include "Geometry/sphere.h"
 #include "Geometry/plane.h"
 #include "Geometry/rectangular.h"
+#include "Geometry/box.h"
+#include "Geometry/Triangles/Triangle.h"
 #include "Material/Matte.h"
 #include "Material/phong.h"
 #include "Material/emissive.h"
@@ -120,18 +122,24 @@ void World::build(){
     phong_ptr->setSpecularExp(20);
     material.push_back(phong_ptr);
 
-
+    Triangle *triangle=new Triangle(Point3D(0,-0.5,0),Point3D(0,0,1),Point3D(1,0,0));
+    triangle->setMaterial(matte_ptr);
+    addGeometry(triangle);
     Plane *plane=new Plane(Point3D(0,-1,0),Normal(0,1,0));
     plane->setMaterial(matte2_ptr);
     addGeometry(plane);
 
-    Sphere *sphere=new Sphere(Point3D(0.0,0.0,-1),1);
-    sphere->setMaterial(matte_ptr);
-    addGeometry(sphere);
+//    Sphere *sphere=new Sphere(Point3D(0.0,0.0,-1),1);
+//    sphere->setMaterial(matte_ptr);
+//    addGeometry(sphere);
 
-    Sphere *sphere1=new Sphere(Point3D(1,1,1),0.5);
-    sphere1->setMaterial(phong_ptr);
-    addGeometry(sphere1);
+//    Sphere *sphere1=new Sphere(Point3D(1,1,1),0.5);
+//    sphere1->setMaterial(phong_ptr);
+//    addGeometry(sphere1);
+
+//    Box* box=new Box(Point3D(-2,0,-2),Point3D(-1,1,-1));
+//    box->setMaterial(matte_ptr);
+//    addGeometry(box);
 
     setting->setSampler(sampler_ptr);
 

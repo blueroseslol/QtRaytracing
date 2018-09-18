@@ -1,4 +1,4 @@
-#include "ambientoccluder.h"
+﻿#include "ambientoccluder.h"
 #include "World.h"
 AmbientOccluder::AmbientOccluder():Light(),sampler_ptr(nullptr),min_amount(0.0),color(RGBColor(1.0)),ls(1.0)
 {
@@ -41,7 +41,7 @@ Vector3D AmbientOccluder::getDirection(ShadeRec &sr)
 
 bool AmbientOccluder::inShadow(const Ray &ray, const ShadeRec &sr) const
 {
-    float t;
+    double t;
     for(int j=0;j<sr.w.scene.length();j++){
         if(sr.w.scene[j]->shadowHit(ray,t))
             return true;

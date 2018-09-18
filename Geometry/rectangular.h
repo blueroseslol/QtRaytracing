@@ -12,7 +12,7 @@ public:
 
     virtual bool hit(const Ray &ray, double &tmin, ShadeRec &sr) const;
 
-    virtual bool shadowHit(const Ray &ray, float &tMin) const;
+    virtual bool shadowHit(const Ray &ray, double &tmin) const;
 
     void setSampler(Sampler *sampler);
 

@@ -102,7 +102,7 @@ Sphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
     return false;
 }
 
-bool Sphere::shadowHit(const Ray &ray, float &tMin) const
+bool Sphere::shadowHit(const Ray &ray, double &tmin) const
 {
     double 		t;
     Vector3D	temp 	= ray.origin - center;
@@ -119,14 +119,14 @@ bool Sphere::shadowHit(const Ray &ray, float &tMin) const
         t = (-b - e) / denom;    // smaller root
 
         if (t > kEpsilon) {
-            tMin = t;
+            tmin = t;
             return true;
         }
 
         t = (-b + e) / denom;    // larger root
 
         if (t > kEpsilon) {
-            tMin = t;
+            tmin = t;
             return true;
         }
     }

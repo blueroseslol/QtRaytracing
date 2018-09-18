@@ -63,7 +63,7 @@ bool Rectangular::hit(const Ray &ray, double &tmin, ShadeRec &sr) const
     return (true);
 }
 
-bool Rectangular::shadowHit(const Ray &ray, float &tMin) const
+bool Rectangular::shadowHit(const Ray &ray, double &tmin) const
 {
     double t = (p0 - ray.origin) * normal / (ray.direction * normal);
 
@@ -83,7 +83,7 @@ bool Rectangular::shadowHit(const Ray &ray, float &tMin) const
     if (ddotb < 0.0 || ddotb > b_len_squared)
         return (false);
 
-    tMin 				= t;
+    tmin 				= t;
 
     return true;
 }

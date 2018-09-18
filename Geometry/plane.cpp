@@ -83,11 +83,11 @@ Plane::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
     return(false);
 }
 
-bool Plane::shadowHit(const Ray &ray, float &tMin) const
+bool Plane::shadowHit(const Ray &ray, double &tmin) const
 {
     float t=(a-ray.origin)*n/(ray.direction*n);
     if(t>kEpsilon){
-        tMin=t;
+        tmin=t;
         return true;
     }else{
         return false;

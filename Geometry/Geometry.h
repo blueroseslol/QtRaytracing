@@ -3,6 +3,7 @@
 #include "Utilities/ShadeRec.h"
 #include "Utilities/Ray.h"
 #include "Utilities/RGBColor.h"
+#include "Utilities/BBox.h"
 class Material;
 
 class Geometry
@@ -18,7 +19,7 @@ public:
 
     virtual void setMaterial(Material* mPtr);
 
-    virtual bool shadowHit(const Ray& ray,float& tMin) const=0;
+    virtual bool shadowHit(const Ray& ray,double &tmin) const=0;
 
     virtual Point3D sampler();
 
@@ -27,6 +28,8 @@ public:
     Material* getMaterial() const;
 
     virtual Normal getNormal(const Point3D& point) const;
+
+    virtual BBox getBoundingBox();
 
     bool castShadow;
 protected:

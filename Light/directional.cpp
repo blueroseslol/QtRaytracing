@@ -79,7 +79,7 @@ Directional::L(ShadeRec& s) {
 
 bool Directional::inShadow(const Ray &ray, const ShadeRec &sr) const
 {
-    float t;
+    double t;
     for(int j=0;j<sr.w.scene.length();j++){
         if(sr.w.scene[j]->shadowHit(ray,t))
         return true;

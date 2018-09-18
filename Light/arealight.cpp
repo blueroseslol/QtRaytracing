@@ -42,7 +42,7 @@ RGBColor AreaLight::L(ShadeRec &sr)
 
 bool AreaLight::inShadow(const Ray &ray, const ShadeRec &sr) const
 {
-    float t;
+    double t;
     float ts=(samplerPoint-ray.origin)*ray.direction;
 
     for(int j=0;j<sr.w.scene.length();j++){

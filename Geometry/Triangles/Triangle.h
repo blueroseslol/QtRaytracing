@@ -1,51 +1,32 @@
-#ifndef __TRIANGLE__
+﻿#ifndef __TRIANGLE__
 #define __TRIANGLE__
+#include "Geometry/Geometry.h"
 
+class Triangle: public Geometry {
+public:
+    Triangle();
 
-// 	Copyright (C) Kevin Suffern 2000-2007.
-//	This C++ code is for non-commercial purposes only.
-//	This C++ code is licensed under the GNU General Public License Version 2.
-//	See the file COPYING.txt for the full license.
+    Triangle(const Point3D& a, const Point3D& b, const Point3D& c);
 
+    Triangle(const Triangle& triangle);
 
-// this is the triangle discussed in Section 19.3
+    Triangle(Triangle&& triangle);
 
-#include "GeometricObject.h"
+    ~Triangle();
 
-class Triangle: public GeometricObject {	
-	public:
-	
-		Triangle(void);   												
-				
-		Triangle(const Point3D& a, const Point3D& b, const Point3D& c);
+    Triangle&	operator= (const Triangle& rhs);
 
-		virtual Triangle* 												
-		clone(void) const;
-	
-		Triangle(const Triangle& triangle); 							
+    virtual BBox getBoundingBox() override;
 
-		~Triangle(void);   											
+    void computeNormal();
 
-		Triangle& 														
-		operator= (const Triangle& rhs);
-		
-		virtual BBox															
-		get_bounding_box(void);
+    virtual bool hit(const Ray& ray, double& tmin, ShadeRec& sr) const override;
 
-		void 
-		compute_normal(void);
-		
-		virtual bool 
-		hit(const Ray& ray, double& tmin, ShadeRec& sr) const;		 					 
-		
-		virtual bool 																						 
-		shadow_hit(const Ray& ray, double& tmin) const; 
-		
-	private:
-	
-		Point3D	v0, v1, v2;
-		Normal	normal;
+    virtual bool shadowHit(const Ray& ray, double& tmin) const override;
+
+private:
+    Point3D	v0, v1, v2;
+    Normal	normal;
 };
-
 #endif
 
