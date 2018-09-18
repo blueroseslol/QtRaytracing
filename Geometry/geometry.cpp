@@ -27,7 +27,7 @@ Point3D Geometry::sampler()
 
 float Geometry::pdf(const ShadeRec &sr) const
 {
-    return (0.0);
+    return 1.0;
 }
 
 Material *Geometry::getMaterial() const

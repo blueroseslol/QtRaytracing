@@ -1,5 +1,6 @@
 ﻿#include "environmentlight.h"
 #include "Material/material.h"
+#include "Utilities/Constants.h"
 EnvironmentLight::EnvironmentLight():Light(),sampler_ptr(nullptr),material_ptr(nullptr)
 {
 
@@ -53,5 +54,5 @@ bool EnvironmentLight::inShadow(const Ray &ray, const ShadeRec &sr) const
 
 float EnvironmentLight::pdf(const ShadeRec &sr) const
 {
-    return 0;
+   return sr.normal * wi * invPI;
 }

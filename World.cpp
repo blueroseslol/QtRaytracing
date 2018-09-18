@@ -18,7 +18,7 @@
 
 #include "Light/directional.h"
 #include "Light/pointlight.h"
-//#include "Light/arealight.h"
+#include "Light/arealight.h"
 #include "Light/environmentlight.h"
 
 #include "Geometry/sphere.h"
@@ -32,7 +32,7 @@
 #include "tbb/parallel_for.h"
 #include "tbb/blocked_range2d.h"
 
-World::World(RenderSetting *_setting):setting(_setting),tracer_ptr(nullptr),image(nullptr),progress(0.0),terminate(false),
+World::World(RenderSetting *_setting):setting(_setting),tracer_ptr(nullptr),areaLightTracer_ptr(nullptr),image(nullptr),progress(0.0),terminate(false),
     ambient_ptr(nullptr)
 {
 
@@ -79,7 +79,7 @@ void World::build(){
     addLight(envLight_ptr);
 
 //    Emissive* emissive_ptr=new Emissive;
-//    emissive_ptr->scaleRadiance(5.0);
+//    emissive_ptr->scaleRadiance(20.0);
 //    emissive_ptr->setCe(1.0,1.0,1.0);
 //    material.push_back(emissive_ptr);
 
@@ -262,9 +262,9 @@ void World::render_scene() {
     在这里添加自旋锁可以解决AO奇怪的斑块问题，因为使用了TBB库的问题，但是直接用太影响性能，所以会独自计算AO不放进材质中
 */
                     mutex.lock();
-//                    if(areaLightTracer_ptr){
-//                        pixelColor += areaLightTracer_ptr->trace_ray(camera_ptr->getRay(pp), 0);
-//                    }
+                    if(areaLightTracer_ptr){
+                        pixelColor += areaLightTracer_ptr->trace_ray(camera_ptr->getRay(pp), 0);
+                    }
                     pixelColor+= tracer_ptr->trace_ray(camera_ptr->getRay(pp),0);
                     mutex.unlock();
                 }
