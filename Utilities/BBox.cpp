@@ -9,7 +9,7 @@
 
 // --------------------------------------------------------------------- default constructor
 
-BBox::BBox (void)
+BBox::BBox ()
 	: x0(-1), x1(1), y0(-1), y1(1), z0(-1), z1(1)
 {}	
 
@@ -57,8 +57,7 @@ BBox::operator= (const BBox& rhs) {
 	return (*this);
 }			
 
-BBox&
-BBox::operator= (BBox&& rhs) {
+BBox& BBox::operator= (BBox&& rhs) {
     if (this == &rhs)
         return (*this);
 
@@ -73,13 +72,12 @@ BBox::operator= (BBox&& rhs) {
 }
 // --------------------------------------------------------------------- destructor
 
-BBox::~BBox (void) {}	
+BBox::~BBox () {}
 
 
 // --------------------------------------------------------------------- hit
 
-bool 									
-BBox::hit(const Ray& ray) const {	
+bool 	BBox::hit(const Ray& ray) const {
     double ox = ray.origin.x; double oy = ray.origin.y; double oz = ray.origin.z;
     double dx = ray.direction.x; double dy = ray.direction.y; double dz = ray.direction.z;
 	
@@ -145,8 +143,7 @@ BBox::hit(const Ray& ray) const {
 // --------------------------------------------------------------------- inside
 // used to test if a ray starts inside a grid
 
-bool
-BBox::inside(const Point3D& p) const {
+bool BBox::inside(const Point3D& p) const {
 	return ((p.x > x0 && p.x < x1) && (p.y > y0 && p.y < y1) && (p.z > z0 && p.z < z1));
 };
 

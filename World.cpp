@@ -26,6 +26,7 @@
 #include "Geometry/rectangular.h"
 #include "Geometry/box.h"
 #include "Geometry/Triangles/Triangle.h"
+#include "Geometry/Instance.h"
 #include "Material/Matte.h"
 #include "Material/phong.h"
 #include "Material/emissive.h"
@@ -129,9 +130,15 @@ void World::build(){
     plane->setMaterial(matte2_ptr);
     addGeometry(plane);
 
-//    Sphere *sphere=new Sphere(Point3D(0.0,0.0,-1),1);
-//    sphere->setMaterial(matte_ptr);
-//    addGeometry(sphere);
+    Sphere *sphere=new Sphere(Point3D(0.0,0.0,-1),1);
+    sphere->setMaterial(matte_ptr);
+    addGeometry(sphere);
+
+    Instance *instance=new Instance(sphere);
+    instance->setMaterial(phong_ptr);
+    instance->translate(-1,2,-1);
+    instance->scale(1,0.5,0.5);
+    addGeometry(instance);
 
 //    Sphere *sphere1=new Sphere(Point3D(1,1,1),0.5);
 //    sphere1->setMaterial(phong_ptr);

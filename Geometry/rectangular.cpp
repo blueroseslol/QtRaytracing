@@ -1,5 +1,6 @@
 ﻿#include "rectangular.h"
 #include "Sampler/sampler.h"
+#include <type_traits>
 const double Rectangular::kEpsilon = 0.001;
 Rectangular::Rectangular():Geometry(),
           p0(-1, 0, -1),
@@ -9,9 +10,38 @@ Rectangular::Rectangular():Geometry(),
           normal(0, 1, 0),
           area(4.0),
           inv_area(0.25),
-          sampler_ptr(NULL)
+          sampler_ptr(nullptr)
 {
 
+}
+
+Rectangular::Rectangular(const Rectangular &rect):
+    Geometry(),
+    p0(rect.p0),
+    a(rect.a), b(rect.b),
+    a_len_squared(a.len_squared()),
+    b_len_squared(b.len_squared()),
+    area(a.length()*b.length()),
+    inv_area(1.0/area),
+    sampler_ptr(new std::remove_pointer<decltype(rect.sampler_ptr)>::type (*rect.sampler_ptr))
+{
+    normal = a ^ b;
+    normal.normalize();
+}
+
+Rectangular::Rectangular(Rectangular &&rect):
+     Geometry(),
+     p0(rect.p0),
+     a(rect.a), b(rect.b),
+     a_len_squared(a.len_squared()),
+     b_len_squared(b.len_squared()),
+     area(a.length()*b.length()),
+     inv_area(1.0/area),
+     sampler_ptr(rect.sampler_ptr)
+{
+     normal = a ^ b;
+     normal.normalize();
+     rect.sampler_ptr=nullptr;
 }
 
 Rectangular::Rectangular(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b)

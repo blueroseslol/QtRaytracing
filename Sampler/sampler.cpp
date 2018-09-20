@@ -18,6 +18,11 @@ Sampler::Sampler(const int &_numSamples,const int& _numSets):numSamples(_numSamp
     setupShuffledIndices();
 }
 
+void Sampler::generateSampler()
+{
+    qDebug("use base class sampler function!");
+}
+
 //将几个sets的采样点进行打乱处理
 //个人感觉没必要，因为c++11的那个随机数是均匀的
 void Sampler::setupShuffledIndices()

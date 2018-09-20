@@ -14,9 +14,9 @@ class BBox {
 	public:
 		double x0, x1, y0, y1, z0, z1;
 		
-		BBox(void);										
+        BBox();
 						
-		BBox(	const double x0, const double x1,			
+        BBox(const double x0, const double x1,
 				const double y0, const double y1, 
 				const double z0, const double z1);
 
@@ -25,18 +25,14 @@ class BBox {
 		BBox(const BBox& bbox);							
         BBox(BBox&& bbox);
 
-		BBox& 												
-		operator= (const BBox& rhs);			
-        BBox&
-        operator= (BBox&& rhs);
+        BBox& operator= (const BBox& rhs);
+        BBox& operator= (BBox&& rhs);
 
-		~BBox(void);										
+        ~BBox();
 		
-		bool 															
-		hit(const Ray& ray) const;
+        bool hit(const Ray& ray) const;
 	
-		bool
-		inside(const Point3D& p) const;
+        bool inside(const Point3D& p) const;
 };
 	
 #endif

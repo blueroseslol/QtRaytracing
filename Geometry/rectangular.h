@@ -8,6 +8,10 @@ class Rectangular : public Geometry
 public:
     Rectangular();
 
+    Rectangular(const Rectangular& rect);
+
+    Rectangular(Rectangular&& rect);
+
     Rectangular(const Point3D &_p0, const Vector3D &_a, const Vector3D &_b, const Normal &_normal);
 
     virtual bool hit(const Ray &ray, double &tmin, ShadeRec &sr) const;

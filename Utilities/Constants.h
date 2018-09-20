@@ -24,7 +24,7 @@ const double 	invPI 		= 0.3183098861837906715;
 const double 	invTWO_PI 	= 0.1591549430918953358;
 
 static const double 	kEpsilon 	= 0.0001;
-//const double	kHugeValue	= 1.0E10;
+const double	kHugeValue	= 1.0E10;
 
 //const RGBColor	black(0.0);
 //const RGBColor	white(1.0);

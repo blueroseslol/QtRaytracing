@@ -12,7 +12,7 @@ public:
 
     Sampler(const int& _numSamples,const int& _numSets);
 
-    virtual void generateSampler()=0;
+    virtual void generateSampler();
 
     void setupShuffledIndices();
 
