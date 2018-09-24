@@ -16,12 +16,12 @@ Instance::Instance(Geometry* obj_ptr):Geometry(),object_ptr(obj_ptr),invMatrix()
     forwardMatrix.set_identity();
 }	
 
-//Instance::Instance (const Instance& instance):Geometry(instance),invMatrix(instance.invMatrix),transformTheTexture(instance.transformTheTexture)
-//{
-//	if(instance.object_ptr)
-//        object_ptr = new std::remove_pointer<decltype(instance.object_ptr)>::type (*instance.object_ptr);
-//    else  object_ptr = nullptr;
-//}
+Instance::Instance (const Instance& instance):Geometry(instance),invMatrix(instance.invMatrix),transformTheTexture(instance.transformTheTexture)
+{
+    if(instance.object_ptr)
+        object_ptr = new std::remove_pointer<decltype(instance.object_ptr)>::type (*instance.object_ptr);
+    else  object_ptr = nullptr;
+}
 
 Instance::Instance(Instance &&instance):Geometry(instance),invMatrix(instance.invMatrix),transformTheTexture(instance.transformTheTexture),object_ptr(instance.object_ptr)
 {

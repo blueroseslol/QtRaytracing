@@ -12,14 +12,14 @@ public:
     Geometry();
 
     ~Geometry();
-    virtual bool hit(const Ray& ray,double& tmin,ShadeRec& sr) const =0;
+    virtual bool hit(const Ray& ray,double& tmin,ShadeRec& sr) const;
 
     RGBColor getColor() const;
     void setColor(const RGBColor &_color);
 
     virtual void setMaterial(Material* mPtr);
 
-    virtual bool shadowHit(const Ray& ray,double &tmin) const=0;
+    virtual bool shadowHit(const Ray& ray,double &tmin) const;
 
     virtual Point3D sampler();
 

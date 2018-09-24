@@ -11,7 +11,7 @@ class Instance: public Geometry {
 		
         Instance(Geometry* obj_ptr);
 		
-//		Instance(const Instance& instance);
+        Instance(const Instance& instance);
 
         Instance(Instance&& instance);
 

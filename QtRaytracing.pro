@@ -75,7 +75,8 @@ SOURCES += \
     Light/environmentlight.cpp \
     Geometry/box.cpp \
     Geometry/Triangles/Triangle.cpp \
-    Geometry/Instance.cpp
+    Geometry/Instance.cpp \
+    Geometry/compound.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -128,7 +129,8 @@ HEADERS += \
     Light/environmentlight.h \
     Geometry/box.h \
     Geometry/Triangles/Triangle.h \
-    Geometry/Instance.h
+    Geometry/Instance.h \
+    Geometry/compound.h
 
 FORMS += \
         mainwindow.ui \

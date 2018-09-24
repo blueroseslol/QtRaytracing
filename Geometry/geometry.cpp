@@ -5,6 +5,12 @@ Geometry::Geometry():color(RGBColor()),material_ptr(nullptr),castShadow(true){}
 
 Geometry::~Geometry(){}
 
+bool Geometry::hit(const Ray &ray, double &tmin, ShadeRec &sr) const
+{
+    qDebug()<<"use base geometry!";
+    return false;
+}
+
 RGBColor Geometry::getColor() const
 {
     return color;
@@ -18,6 +24,12 @@ void Geometry::setColor(const RGBColor& _color)
 void Geometry::setMaterial(Material *mPtr)
 {
     material_ptr=mPtr;
+}
+
+bool Geometry::shadowHit(const Ray &ray, double &tmin) const
+{
+    qDebug()<<"use base geometry!";
+    return false;
 }
 
 Point3D Geometry::sampler()
