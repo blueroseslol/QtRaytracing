@@ -27,6 +27,7 @@
 #include "Geometry/box.h"
 #include "Geometry/Triangles/Triangle.h"
 #include "Geometry/Instance.h"
+#include "Geometry/compound.h"
 #include "Material/Matte.h"
 #include "Material/phong.h"
 #include "Material/emissive.h"
@@ -104,20 +105,20 @@ void World::build(){
 //    addLight(areaLight_ptr);
 
     Matte *matte_ptr=new Matte;
-    matte_ptr->setKa(0.25);
-    matte_ptr->setKd(0.65);
+    matte_ptr->setKa(0.25f);
+    matte_ptr->setKd(0.65f);
     matte_ptr->setCd(RGBColor(1.0,1.0,1.0));
     material.push_back(matte_ptr);
 
     Matte *matte2_ptr=new Matte;
-    matte2_ptr->setKa(0.25);
-    matte2_ptr->setKd(0.65);
+    matte2_ptr->setKa(0.25f);
+    matte2_ptr->setKd(0.65f);
     matte2_ptr->setCd(RGBColor(1.0,1.0,1.0));
     material.push_back(matte2_ptr);
 
     Phong* phong_ptr=new Phong;
-    phong_ptr->setKa(0.25);
-    phong_ptr->setKd(0.6);
+    phong_ptr->setKa(0.25f);
+    phong_ptr->setKd(0.6f);
     phong_ptr->setCd(RGBColor(0.5));
     phong_ptr->setSpecularKs(0.75);
     phong_ptr->setSpecularExp(20);
@@ -132,13 +133,18 @@ void World::build(){
 
     Sphere *sphere=new Sphere(Point3D(0.0,0.0,-1),1);
     sphere->setMaterial(matte_ptr);
-    addGeometry(sphere);
+//    addGeometry(sphere);
 
     Instance *instance=new Instance(sphere);
     instance->setMaterial(phong_ptr);
     instance->translate(-1,2,-1);
     instance->scale(1,0.5,0.5);
-    addGeometry(instance);
+//    addGeometry(instance);
+
+    Compound*  compound=new Compound;
+    compound->addObject(instance);
+    compound->addObject(sphere);
+    addGeometry(compound);
 
 //    Sphere *sphere1=new Sphere(Point3D(1,1,1),0.5);
 //    sphere1->setMaterial(phong_ptr);

@@ -1,4 +1,4 @@
-#include "emissive.h"
+﻿#include "emissive.h"
 
 Emissive::Emissive()
 {
@@ -23,7 +23,7 @@ RGBColor Emissive::getLe(ShadeRec &sr) const
 RGBColor Emissive::shade(ShadeRec &sr)
 {
     if (-sr.normal * sr.ray.direction > 0.0)
-        return (ls * ce);
+        return ls * ce;
     else
         return RGBColor();
 }

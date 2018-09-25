@@ -12,9 +12,11 @@ public:
     Geometry();
 
     ~Geometry();
+
     virtual bool hit(const Ray& ray,double& tmin,ShadeRec& sr) const;
 
     RGBColor getColor() const;
+
     void setColor(const RGBColor &_color);
 
     virtual void setMaterial(Material* mPtr);

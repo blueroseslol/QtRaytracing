@@ -1,4 +1,4 @@
-#ifndef EMISSIVE_H
+﻿#ifndef EMISSIVE_H
 #define EMISSIVE_H
 #include "Material/material.h"
 

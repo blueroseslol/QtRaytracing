@@ -1,6 +1,6 @@
 ﻿#ifndef __CONSTANTS__
 #define __CONSTANTS__
-#define _USE_MATH_DEFINES
+//#define _USE_MATH_DEFINES
 #include <math.h>
 double rand_float();
 
