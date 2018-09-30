@@ -132,3 +132,8 @@ bool Sphere::shadowHit(const Ray &ray, double &tmin) const
     }
     return false;
 }
+
+BBox Sphere::getBoundingBox()
+{
+    return BBox(Point3D(center.x-radius- kEpsilon,center.y-radius-kEpsilon,center.z-radius-kEpsilon),Point3D(center.x+radius+kEpsilon,center.y+radius+kEpsilon,center.z+radius+kEpsilon));
+}

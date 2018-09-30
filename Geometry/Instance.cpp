@@ -75,102 +75,102 @@ Instance::setObject(Geometry* obj_ptr) {
 // This function is only called when the instance is to be placed in a grid
 // It will always be called from a build function
 
-//void
-//Instance::computeBoundingBox() {
+void
+Instance::computeBoundingBox() {
 	
-//	// First get the object's untransformed BBox
+    // First get the object's untransformed BBox
 	
-//	BBox object_bbox = object_ptr->get_bounding_box();
-	
-	
-//	// Now apply the affine transformations to the box.
-//	// We must apply the transformations to all 8 vertices of the orginal box
-//	// and then work out the new minimum and maximum values
-	
-//	// Construct the eight vertices as 3D points:
-	
-//	Point3D v[8];
-	
-//	v[0].x = object_bbox.x0; v[0].y = object_bbox.y0; v[0].z = object_bbox.z0;
-//	v[1].x = object_bbox.x1; v[1].y = object_bbox.y0; v[1].z = object_bbox.z0;
-//	v[2].x = object_bbox.x1; v[2].y = object_bbox.y1; v[2].z = object_bbox.z0;
-//	v[3].x = object_bbox.x0; v[3].y = object_bbox.y1; v[3].z = object_bbox.z0;
-	
-//	v[4].x = object_bbox.x0; v[4].y = object_bbox.y0; v[4].z = object_bbox.z1;
-//	v[5].x = object_bbox.x1; v[5].y = object_bbox.y0; v[5].z = object_bbox.z1;
-//	v[6].x = object_bbox.x1; v[6].y = object_bbox.y1; v[6].z = object_bbox.z1;
-//	v[7].x = object_bbox.x0; v[7].y = object_bbox.y1; v[7].z = object_bbox.z1;
+    BBox object_bbox = object_ptr->getBoundingBox();
 	
 	
-//	// Transform these using the forward matrix
+    // Now apply the affine transformations to the box.
+    // We must apply the transformations to all 8 vertices of the orginal box
+    // and then work out the new minimum and maximum values
+	
+    // Construct the eight vertices as 3D points:
+	
+    Point3D v[8];
+	
+    v[0].x = object_bbox.x0; v[0].y = object_bbox.y0; v[0].z = object_bbox.z0;
+    v[1].x = object_bbox.x1; v[1].y = object_bbox.y0; v[1].z = object_bbox.z0;
+    v[2].x = object_bbox.x1; v[2].y = object_bbox.y1; v[2].z = object_bbox.z0;
+    v[3].x = object_bbox.x0; v[3].y = object_bbox.y1; v[3].z = object_bbox.z0;
+	
+    v[4].x = object_bbox.x0; v[4].y = object_bbox.y0; v[4].z = object_bbox.z1;
+    v[5].x = object_bbox.x1; v[5].y = object_bbox.y0; v[5].z = object_bbox.z1;
+    v[6].x = object_bbox.x1; v[6].y = object_bbox.y1; v[6].z = object_bbox.z1;
+    v[7].x = object_bbox.x0; v[7].y = object_bbox.y1; v[7].z = object_bbox.z1;
+	
+	
+    // Transform these using the forward matrix
 
-//    v[0] = forwardMatrix * v[0];
-//    v[1] = forwardMatrix * v[1];
-//    v[2] = forwardMatrix * v[2];
-//    v[3] = forwardMatrix * v[3];
-//    v[4] = forwardMatrix * v[4];
-//    v[5] = forwardMatrix * v[5];
-//    v[6] = forwardMatrix * v[6];
-//    v[7] = forwardMatrix * v[7];
+    v[0] = forwardMatrix * v[0];
+    v[1] = forwardMatrix * v[1];
+    v[2] = forwardMatrix * v[2];
+    v[3] = forwardMatrix * v[3];
+    v[4] = forwardMatrix * v[4];
+    v[5] = forwardMatrix * v[5];
+    v[6] = forwardMatrix * v[6];
+    v[7] = forwardMatrix * v[7];
 
 	
-//	// Since forward_matrix is a static variable, we must now set it to the unit matrix
-//	// This sets it up correctly for the next instance object
+    // Since forward_matrix is a static variable, we must now set it to the unit matrix
+    // This sets it up correctly for the next instance object
 	
-//    forwardMatrix.set_identity();
+    forwardMatrix.set_identity();
 	
 	
-//	// Compute the minimum values
+    // Compute the minimum values
 	
-//	float x0 = kHugeValue;
-//	float y0 = kHugeValue;
-//	float z0 = kHugeValue;
+    float x0 = kHugeValue;
+    float y0 = kHugeValue;
+    float z0 = kHugeValue;
 		
-//	for (int j = 0; j <= 7; j++)  {
-//		if (v[j].x < x0)
-//			x0 = v[j].x;
-//	}
+    for (int j = 0; j <= 7; j++)  {
+        if (v[j].x < x0)
+            x0 = v[j].x;
+    }
 		
-//	for (int j = 0; j <= 7; j++) {
-//		if (v[j].y < y0)
-//			y0 = v[j].y;
-//	}
+    for (int j = 0; j <= 7; j++) {
+        if (v[j].y < y0)
+            y0 = v[j].y;
+    }
 		
-//	for (int j = 0; j <= 7; j++) {
-//		if (v[j].z < z0)
-//			z0 = v[j].z;
-//	}
+    for (int j = 0; j <= 7; j++) {
+        if (v[j].z < z0)
+            z0 = v[j].z;
+    }
 	
-//	// Compute the minimum values
+    // Compute the minimum values
 	
-//	float x1 = -kHugeValue;
-//	float y1 = -kHugeValue;
-//	float z1 = -kHugeValue;
+    float x1 = -kHugeValue;
+    float y1 = -kHugeValue;
+    float z1 = -kHugeValue;
 	
-//	for (int j = 0; j <= 7; j++) {
-//		if (v[j].x > x1)
-//			x1 = v[j].x;
-//	}
+    for (int j = 0; j <= 7; j++) {
+        if (v[j].x > x1)
+            x1 = v[j].x;
+    }
 		
-//	for (int j = 0; j <= 7; j++) {
-//		if (v[j].y > y1)
-//			y1 = v[j].y;
-//	}
+    for (int j = 0; j <= 7; j++) {
+        if (v[j].y > y1)
+            y1 = v[j].y;
+    }
 		
-//	for (int j = 0; j <= 7; j++) {
-//		if (v[j].z > z1)
-//			z1 = v[j].z;
-//	}
+    for (int j = 0; j <= 7; j++) {
+        if (v[j].z > z1)
+            z1 = v[j].z;
+    }
 	
-//	// Assign values to the bounding box
+    // Assign values to the bounding box
 	
-//	bbox.x0 = x0;
-//	bbox.y0 = y0;
-//	bbox.z0 = z0;
-//	bbox.x1 = x1;
-//	bbox.y1 = y1;
-//	bbox.z1 = z1;
-//}
+    bbox.x0 = x0;
+    bbox.y0 = y0;
+    bbox.z0 = z0;
+    bbox.x1 = x1;
+    bbox.y1 = y1;
+    bbox.z1 = z1;
+}
 
 
 //---------------------------------------------------------------- get_bounding_box 

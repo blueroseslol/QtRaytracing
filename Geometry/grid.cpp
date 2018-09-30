@@ -95,19 +95,12 @@ void Grid::setupCells() {
 	// set up the array of grid cells with null pointers
 	
 	int num_cells = nx * ny * nz;	
-	cells.reserve(num_objects);
-	
-	for (int j = 0; j < num_cells; j++)
-        cells.push_back(nullptr);
+	cells.resize(num_cells);
+    cells.fill(nullptr);
 				
 	// set up a temporary array to hold the number of objects stored in each cell
 	
-    QVector<int> counts;
-	counts.reserve(num_cells);
-		
-	for (int j = 0; j < num_cells; j++)
-		counts.push_back(0);
-		
+    QVector<int> counts(num_cells,0);
 
 	// put the objects into the cells
 	 
@@ -116,42 +109,39 @@ void Grid::setupCells() {
 			
 	for (int j = 0; j < num_objects; j++) {
         obj_bBox =  objects[j]->getBoundingBox();
-				
-		// compute the cell indices at the corners of the bounding box of the object
-		
-		int ixmin = clamp((obj_bBox.x0 - p0.x) * nx / (p1.x - p0.x), 0, nx - 1);
-		int iymin = clamp((obj_bBox.y0 - p0.y) * ny / (p1.y - p0.y), 0, ny - 1);
-		int izmin = clamp((obj_bBox.z0 - p0.z) * nz / (p1.z - p0.z), 0, nz - 1);
-		int ixmax = clamp((obj_bBox.x1 - p0.x) * nx / (p1.x - p0.x), 0, nx - 1);
-		int iymax = clamp((obj_bBox.y1 - p0.y) * ny / (p1.y - p0.y), 0, ny - 1);
-		int izmax = clamp((obj_bBox.z1 - p0.z) * nz / (p1.z - p0.z), 0, nz - 1);
+
+        int ixmin = clamp((obj_bBox.x0 - p0.x) * nx / (wx), 0, nx - 1);
+        int iymin = clamp((obj_bBox.y0 - p0.y) * ny / (wy), 0, ny - 1);
+        int izmin = clamp((obj_bBox.z0 - p0.z) * nz / (wz), 0, nz - 1);
+        int ixmax = clamp((obj_bBox.x1 - p0.x) * nx / (wx), 0, nx - 1);
+        int iymax = clamp((obj_bBox.y1 - p0.y) * ny / (wy), 0, ny - 1);
+        int izmax = clamp((obj_bBox.z1 - p0.z) * nz / (wz), 0, nz - 1);
 				
 		// add the object to the cells
 				
-		for (int iz = izmin; iz <= izmax; iz++) 					// cells in z direction
-			for (int iy = iymin; iy <= iymax; iy++)					// cells in y direction
-				for (int ix = ixmin; ix <= ixmax; ix++) {			// cells in x direction
-					index = ix + nx * iy + nx * ny * iz;
-															
-					if (counts[index] == 0) {
-						cells[index] = objects[j];
-						counts[index] += 1;  						// now = 1
-					}
-					else {
-						if (counts[index] == 1) {
-							Compound* compound_ptr = new Compound;	// construct a compound object
+        for (int iz = izmin; iz <= izmax; iz++) 					// cells in z direction
+            for (int iy = iymin; iy <= iymax; iy++)					// cells in y direction
+                for (int ix = ixmin; ix <= ixmax; ix++) {			// cells in x direction
+                    index = ix + nx * iy + nx * ny * iz;
+
+                    if (counts[index] == 0) {
+                        cells[index] = objects[j];
+                        counts[index] += 1;  						// now = 1
+                    }else
+                    {
+                        if (counts[index] == 1) {
+                            Compound* compound_ptr = new Compound;	// construct a compound object
                             compound_ptr->addObject(cells[index]); // add object already in cell
                             compound_ptr->addObject(objects[j]);  	// add the new object
-							cells[index] = compound_ptr;			// store compound in current cell
-							counts[index] += 1;  					// now = 2
-						}						
-						else {										// counts[index] > 1
-                            qDebug()<<"use point convert！";
+                            cells[index] = compound_ptr;			// store compound in current cell
+                            counts[index] += 1;  					// now = 2
+                        }
+                        else {										// counts[index] > 1
                             ((Compound*)cells[index])->addObject(objects[j]);	// just add current object
-							counts[index] += 1;						// for statistics only
-						}
-					}
-				}	
+                            counts[index] += 1;						// for statistics only
+                        }
+                    }
+                }
 	}  // end of for (int j = 0; j < num_objects; j++)
 	
 	
@@ -723,7 +713,8 @@ bool 	Grid::hit(const Ray& ray, double& t, ShadeRec& sr) const {
 	double tx_max, ty_max, tz_max; 
 	
 	// the following code includes modifications from Shirley and Morley (2003)
-	
+    //光线步进算法
+    //x、y、z方向上的最大最小T值
 	double a = 1.0 / dx;
 	if (a >= 0) {
 		tx_min = (x0 - ox) * a;
@@ -753,7 +744,7 @@ bool 	Grid::hit(const Ray& ray, double& t, ShadeRec& sr) const {
 		tz_min = (z1 - oz) * c;
 		tz_max = (z0 - oz) * c;
 	}
-	
+    //计算最大与最小t值
 	double t0, t1;
 	
 	if (tx_min > ty_min)
@@ -779,13 +770,14 @@ bool 	Grid::hit(const Ray& ray, double& t, ShadeRec& sr) const {
 	// initial cell coordinates
 	
 	int ix, iy, iz;
-	
+    //如果在Grid内就直接计算对应index
     if (bbox.inside(ray.origin)) {  			// does the ray start inside the grid?
 		ix = clamp((ox - x0) * nx / (x1 - x0), 0, nx - 1);
 		iy = clamp((oy - y0) * ny / (y1 - y0), 0, ny - 1);
 		iz = clamp((oz - z0) * nz / (z1 - z0), 0, nz - 1);
 	}
 	else {
+        //不在Grid内也计算Index
         Point3D p = ray.origin + t0 * ray.direction;  // initial hit point with grid's bounding box
 		ix = clamp((p.x - x0) * nx / (x1 - x0), 0, nx - 1);
 		iy = clamp((p.y - y0) * ny / (y1 - y0), 0, ny - 1);
@@ -793,7 +785,7 @@ bool 	Grid::hit(const Ray& ray, double& t, ShadeRec& sr) const {
 	}
 	
 	// ray parameter increments per cell in the x, y, and z directions
-	
+    //三个分量中，每cell的t值差
 	double dtx = (tx_max - tx_min) / nx;
 	double dty = (ty_max - ty_min) / ny;
 	double dtz = (tz_max - tz_min) / nz;
@@ -854,7 +846,8 @@ bool 	Grid::hit(const Ray& ray, double& t, ShadeRec& sr) const {
 		iz_stop = -1;
 	}
 	
-		
+    //计算出三个坐标上各自的下一个t,然后计算最小t值，然后进行求交测试
+    //这是一种预测法，比简单的步进更有效率
 	// traverse the grid
 	
 	while (true) {	

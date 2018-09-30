@@ -28,6 +28,7 @@
 #include "Geometry/Triangles/Triangle.h"
 #include "Geometry/Instance.h"
 #include "Geometry/compound.h"
+#include "Geometry/grid.h"
 #include "Material/Matte.h"
 #include "Material/phong.h"
 #include "Material/emissive.h"
@@ -126,7 +127,7 @@ void World::build(){
 
     Triangle *triangle=new Triangle(Point3D(0,-0.5,0),Point3D(0,0,1),Point3D(1,0,0));
     triangle->setMaterial(matte_ptr);
-    addGeometry(triangle);
+//    addGeometry(triangle);
     Plane *plane=new Plane(Point3D(0,-1,0),Normal(0,1,0));
     plane->setMaterial(matte2_ptr);
     addGeometry(plane);
@@ -139,12 +140,15 @@ void World::build(){
     instance->setMaterial(phong_ptr);
     instance->translate(-1,2,-1);
     instance->scale(1,0.5,0.5);
+    instance->computeBoundingBox();
 //    addGeometry(instance);
 
-    Compound*  compound=new Compound;
-    compound->addObject(instance);
-    compound->addObject(sphere);
-    addGeometry(compound);
+	Grid *grid_ptr = new Grid;
+	grid_ptr->addObject(instance);
+	grid_ptr->addObject(sphere);
+	grid_ptr->addObject(triangle);
+	grid_ptr->setupCells();
+	addGeometry(grid_ptr);
 
 //    Sphere *sphere1=new Sphere(Point3D(1,1,1),0.5);
 //    sphere1->setMaterial(phong_ptr);

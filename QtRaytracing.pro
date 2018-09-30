@@ -76,7 +76,10 @@ SOURCES += \
     Geometry/box.cpp \
     Geometry/Triangles/Triangle.cpp \
     Geometry/Instance.cpp \
-    Geometry/compound.cpp
+    Geometry/compound.cpp \
+    Geometry/grid.cpp \
+    Tracer/whitted.cpp \
+    Material/reflective.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -130,7 +133,10 @@ HEADERS += \
     Geometry/box.h \
     Geometry/Triangles/Triangle.h \
     Geometry/Instance.h \
-    Geometry/compound.h
+    Geometry/compound.h \
+    Geometry/grid.h \
+    Tracer/whitted.h \
+    Material/reflective.h
 
 FORMS += \
         mainwindow.ui \

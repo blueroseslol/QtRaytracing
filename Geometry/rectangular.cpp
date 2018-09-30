@@ -1,6 +1,7 @@
 ﻿#include "rectangular.h"
 #include "Sampler/sampler.h"
 #include <type_traits>
+#include "Utilities/Maths.h"
 const double Rectangular::kEpsilon = 0.001;
 Rectangular::Rectangular():Geometry(),
           p0(-1, 0, -1),
@@ -57,6 +58,13 @@ Rectangular::Rectangular(const Point3D& _p0, const Vector3D& _a, const Vector3D&
 {
     normal = a ^ b;
     normal.normalize();
+}
+
+BBox Rectangular::getBoundingBox()
+{
+    return(BBox(min(p0.x, p0.x + a.x + b.x) - kEpsilon, max(p0.x, p0.x + a.x + b.x) + kEpsilon,
+                min(p0.y, p0.y + a.y + b.y) - kEpsilon, max(p0.y, p0.y + a.y + b.y) + kEpsilon,
+                min(p0.z, p0.z + a.z + b.z) - kEpsilon, max(p0.z, p0.z + a.z + b.z) + kEpsilon));
 }
 
 Rectangular::Rectangular(const Point3D& _p0,const Vector3D& _a,const Vector3D& _b,const Normal& _normal):Geometry(),

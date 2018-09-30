@@ -25,7 +25,10 @@ public:
     virtual float pdf(ShadeRec& sr);
 
     virtual Normal getNormal(const Point3D& p) const override;
+
     Rectangular(const Point3D &_p0, const Vector3D &_a, const Vector3D &_b);
+
+    virtual BBox getBoundingBox();
 private:
     Point3D p0;
     Vector3D a;

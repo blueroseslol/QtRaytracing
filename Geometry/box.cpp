@@ -279,3 +279,8 @@ bool Box::shadowHit(const Ray &ray, double &tmin) const
     else
         return false;
 }
+
+BBox Box::getBoundingBox()
+{
+    return BBox(Point3D(x0- kEpsilon,y0- kEpsilon,z0- kEpsilon),Point3D(x1+ kEpsilon,y1+ kEpsilon,z0+ kEpsilon));
+}

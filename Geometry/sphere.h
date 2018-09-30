@@ -34,6 +34,8 @@ public:
 
         virtual bool shadowHit(const Ray &ray, double &tmin) const;
 
+        virtual BBox getBoundingBox();
+
     private:
 
         Point3D 	center;   			// center coordinates as a point

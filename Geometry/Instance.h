@@ -23,7 +23,7 @@ class Instance: public Geometry {
 		
         void transformTexture(const bool transform);
 			
-//        virtual void computeBoundingBox();
+        virtual void computeBoundingBox();
 		
         virtual BBox getBoundingBox();
 											

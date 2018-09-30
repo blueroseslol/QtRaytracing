@@ -27,6 +27,8 @@ public:
 
     virtual bool shadowHit(const Ray& ray, double& tmin) const;
 
+    virtual BBox getBoundingBox();
+
 private:
 
     double x0, x1, y0, y1, z0, z1;
