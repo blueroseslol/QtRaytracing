@@ -36,44 +36,6 @@ Matte::Matte(Matte &&m): Material(m),ambient_brdf(m.ambient_brdf),diffuse_brdf(m
     m.diffuse_brdf=nullptr;
 }
 
-
-// ---------------------------------------------------------------- clone
-
-//Material* Matte::clone(void) const {
-//	return (new Matte(*this));
-//}
-
-
-// ---------------------------------------------------------------- assignment operator
-
-//Matte& Matte::operator= (const Matte& rhs) {
-//	if (this == &rhs)
-//		return (*this);
-		
-//	Material::operator=(rhs);
-	
-//	if (ambient_brdf) {
-//		delete ambient_brdf;
-//		ambient_brdf = NULL;
-//	}
-
-//	if (rhs.ambient_brdf)
-//		ambient_brdf = rhs.ambient_brdf->clone();
-		
-//	if (diffuse_brdf) {
-//		delete diffuse_brdf;
-//		diffuse_brdf = NULL;
-//	}
-
-//	if (rhs.diffuse_brdf)
-//		diffuse_brdf = rhs.diffuse_brdf->clone();
-
-//	return (*this);
-//}
-
-
-// ---------------------------------------------------------------- destructor
-
 Matte::~Matte() {
 
 	if (ambient_brdf) {
@@ -86,9 +48,6 @@ Matte::~Matte() {
         diffuse_brdf = nullptr;
 	}
 }
-
-
-// ---------------------------------------------------------------- shade
 
 RGBColor Matte::shade(ShadeRec& sr) {
     Vector3D 	wo 			= -sr.ray.direction;

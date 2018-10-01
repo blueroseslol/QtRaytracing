@@ -9,7 +9,7 @@ RenderSetting::RenderSetting(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::RenderSetting),
     imageWidth(500),imageHeight(500),backergroundColor(RGBColor()),
-    samplerPtr(nullptr)
+    samplerPtr(nullptr),numSamples(1)
 {
     ui->setupUi(this);
 //    QSettings config("RenderSetting.ini",QSettings::NativeFormat);
@@ -77,4 +77,9 @@ void RenderSetting::setSamples(const int n)
     }else{
 //        samplerPtr=new Regular(0);
     }
+}
+
+void RenderSetting::setMaxDepth(const int depth)
+{
+    maxDepth=depth;
 }

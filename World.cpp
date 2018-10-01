@@ -9,6 +9,7 @@
 
 #include "Tracer/raycast.h"
 #include "Tracer/arealighting.h"
+#include "Tracer/whitted.h"
 
 #include "Sampler/regular.h"
 #include "Sampler/multijittered.h"
@@ -32,6 +33,7 @@
 #include "Material/Matte.h"
 #include "Material/phong.h"
 #include "Material/emissive.h"
+#include "Material/Reflective.h"
 
 #include "tbb/tbb.h"
 #include "tbb/parallel_for.h"
@@ -50,6 +52,8 @@ World::~World(){
 
 void World::build(){
     tracer_ptr=new RayCast(this);
+//    tracer_ptr=new Whitted(this);
+    setting->maxDepth=10;
     sampler_ptr=new MultiJittered(64,3);
 //    ambient_ptr=new Ambient;
 //    ambient_ptr->scaleRadiance(2.0);
@@ -125,6 +129,16 @@ void World::build(){
     phong_ptr->setSpecularExp(20);
     material.push_back(phong_ptr);
 
+    Reflective* reflection_ptr=new Reflective;
+    reflection_ptr->setKa(0.25f);
+    reflection_ptr->setKd(0.5f);
+    reflection_ptr->setCd(RGBColor(0.75,0.75,0));
+    reflection_ptr->setSpecularKs(0.15);
+    reflection_ptr->setSpecularExp(100);
+    reflection_ptr->setKr(0.75);
+    reflection_ptr->setCr(RGBColor(1.0));
+    material.push_back(reflection_ptr);
+
     Triangle *triangle=new Triangle(Point3D(0,-0.5,0),Point3D(0,0,1),Point3D(1,0,0));
     triangle->setMaterial(matte_ptr);
 //    addGeometry(triangle);
@@ -133,7 +147,7 @@ void World::build(){
     addGeometry(plane);
 
     Sphere *sphere=new Sphere(Point3D(0.0,0.0,-1),1);
-    sphere->setMaterial(matte_ptr);
+    sphere->setMaterial(reflection_ptr);
 //    addGeometry(sphere);
 
     Instance *instance=new Instance(sphere);

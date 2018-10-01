@@ -1,48 +1,29 @@
-﻿// 	Copyright (C) Kevin Suffern 2000-2007.
-//	This C++ code is for non-commercial purposes only.
-//	This C++ code is licensed under the GNU General Public License Version 2.
-//	See the file COPYING.txt for the full license.
-
-
-#include "Whitted.h"
+﻿#include "Tracer/Whitted.h"
 #include "World.h"
-#include "ShadeRec.h"
+#include "Utilities/ShadeRec.h"
 #include "Material/Material.h"
-
-// -------------------------------------------------------------------- default constructor
-
-Whitted::Whitted()
-	: Tracer()
+#include <QDebug>
+Whitted::Whitted():Tracer()
 {}
 
-
-// -------------------------------------------------------------------- constructor
-		
-Whitted::Whitted(World* _worldPtr)
-	: Tracer(_worldPtr)
+Whitted::Whitted(World* _worldPtr):Tracer(_worldPtr)
 {}
-
-
-// -------------------------------------------------------------------- destructor
 
 Whitted::~Whitted() {}
 
-
-// -------------------------------------------------------------------- trace_ray
-
-RGBColor	
-Whitted::trace_ray(const Ray ray, const int depth) const {
-	if (depth > world_ptr->vp.max_depth)
+RGBColor Whitted::trace_ray(const Ray ray, const int depth) const {
+    qDebug()<<"hit";
+    if (depth > world_ptr->setting->maxDepth)
         return RGBColor();
-	else {
-        ShadeRec sr(world_ptr->hitObjects(ray));
-					
+    else {
+        ShadeRec sr(world_ptr->hitObject(ray));
 		if (sr.hit_an_object) {
 			sr.depth = depth;
 			sr.ray = ray;	
-			return (sr.material_ptr->shade(sr));   
+
+            return sr.material_ptr->shade(sr);
 		}
 		else
-			return (world_ptr->background_color);
-	}																																			
+            return (world_ptr->setting->backergroundColor);
+    }
 }

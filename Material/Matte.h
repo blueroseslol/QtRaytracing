@@ -11,10 +11,6 @@ public:
 		Matte(const Matte& m);
 
         Matte(Matte&& m);
-		
-//        virtual Material*	clone(void) const;
-
-//		Matte& operator= (const Matte& rhs);
 
         ~Matte();
 		

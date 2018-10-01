@@ -20,7 +20,7 @@ RGBColor Lambertian::f(const ShadeRec &sr, const Vector3D &wo, const Vector3D &w
     return kd*cd*invPI;
 }
 
-RGBColor Lambertian::sample_f(const ShadeRec &sr, Vector3D &wo, const Vector3D &wi) const
+RGBColor Lambertian::sampleF(const ShadeRec &sr, Vector3D &wo, const Vector3D &wi) const
 {
     return RGBColor();
 }

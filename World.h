@@ -27,6 +27,7 @@ public:
     QVector<Light*> lights;
 //    Ambient* ambient_ptr;
     AmbientOccluder* ambient_ptr;
+    Tracer* tracer_ptr;
     Sampler* sampler_ptr;
     float progress;
     bool terminate;
@@ -52,7 +53,7 @@ public:
     void addLight(Light *lightPtr);
 private:
     Camera* camera_ptr;
-    Tracer* tracer_ptr;
+
     Tracer* areaLightTracer_ptr;
 signals:
     void renderComplete();

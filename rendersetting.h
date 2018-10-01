@@ -20,11 +20,14 @@ public:
     int imageWidth;
     int imageHeight;
     int numSamples;
+    int maxDepth;
     Sampler *samplerPtr;
 
     void setSampler(Sampler *sp);
 
     void setSamples(const int n);
+
+    void setMaxDepth(const int depth);
 private slots:
     void on_pushButton_close_clicked();
 

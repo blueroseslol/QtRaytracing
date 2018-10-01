@@ -79,7 +79,8 @@ SOURCES += \
     Geometry/compound.cpp \
     Geometry/grid.cpp \
     Tracer/whitted.cpp \
-    Material/reflective.cpp
+    Material/reflective.cpp \
+    BRDF/perfectSpecular.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -136,7 +137,8 @@ HEADERS += \
     Geometry/compound.h \
     Geometry/grid.h \
     Tracer/whitted.h \
-    Material/reflective.h
+    Material/reflective.h \
+    BRDF/perfectSpecular.h
 
 FORMS += \
         mainwindow.ui \
