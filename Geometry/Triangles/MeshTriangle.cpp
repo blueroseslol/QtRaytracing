@@ -5,15 +5,15 @@
 
 // the copy constructor and assignment operator do not clone the mesh
 
-#include "Constants.h"
+#include "Utilities/Constants.h"
 #include "MeshTriangle.h"
-#include "Maths.h"
+#include "Utilities/Maths.h"
 						
 
 // ----------------------------------------------------------------  default constructor
 
-MeshTriangle::MeshTriangle(void)
-	: 	GeometricObject(),
+MeshTriangle::MeshTriangle()
+    : 	Geometry(),
 		mesh_ptr(NULL),
 		index0(0), index1(0), index2(0),
 		normal()
@@ -24,7 +24,7 @@ MeshTriangle::MeshTriangle(void)
 // the normal is computed in Grid::read_ply_file
 
 MeshTriangle::MeshTriangle(Mesh* _mesh_ptr, const int i0, const int i1, const int i2)
-	: 	GeometricObject(),
+    : 	Geometry(),
 		mesh_ptr(_mesh_ptr),
 		index0(i0), index1(i1), index2(i2) 
 {}
@@ -33,7 +33,7 @@ MeshTriangle::MeshTriangle(Mesh* _mesh_ptr, const int i0, const int i1, const in
 // ---------------------------------------------------------------- copy constructor
 
 MeshTriangle::MeshTriangle (const MeshTriangle& mt)
-	:	GeometricObject(mt),
+    :	Geometry(mt),
 		mesh_ptr(mt.mesh_ptr), // just the pointer
 		index0(mt.index0), 
 		index1(mt.index1), 
@@ -49,7 +49,7 @@ MeshTriangle::operator= (const MeshTriangle& rhs) {
 	if (this == &rhs)
 		return (*this);
 
-	GeometricObject::operator= (rhs);
+    Geometry::operator= (rhs);
 	
 	mesh_ptr 	= rhs.mesh_ptr; // just the pointer
 	index0 		= rhs.index0;
@@ -63,7 +63,7 @@ MeshTriangle::operator= (const MeshTriangle& rhs) {
 
 // ---------------------------------------------------------------- destructor
 
-MeshTriangle::~MeshTriangle (void) {
+MeshTriangle::~MeshTriangle () {
 	if (mesh_ptr) {
 		delete mesh_ptr;
 		mesh_ptr = NULL;
@@ -74,7 +74,7 @@ MeshTriangle::~MeshTriangle (void) {
 // ---------------------------------------------------------------- compute_normal
 
 void 
-MeshTriangle::compute_normal(const bool reverse_normal) {
+MeshTriangle::computeNormal(const bool reverse_normal) {
 	normal = (mesh_ptr->vertices[index1] - mesh_ptr->vertices[index0]) ^
 			 (mesh_ptr->vertices[index2] - mesh_ptr->vertices[index0]);
 	normal.normalize();
@@ -88,7 +88,7 @@ MeshTriangle::compute_normal(const bool reverse_normal) {
 // this is called in Grid::compute_mesh_normals
 
 Normal
-MeshTriangle::get_normal(void) const {
+MeshTriangle::getNormal(void) const {
 	return (normal);
 }	
 
@@ -96,7 +96,7 @@ MeshTriangle::get_normal(void) const {
 //---------------------------------------------------------------- get_bounding_box
 
 BBox
-MeshTriangle::get_bounding_box(void) {	
+MeshTriangle::getBoundingBox(void) {	
 	double delta = 0.0001;  // to avoid degenerate bounding boxes
 	
 	Point3D v1(mesh_ptr->vertices[index0]);
@@ -114,14 +114,14 @@ MeshTriangle::get_bounding_box(void) {
 // flat, smooth, flat uv, smooth uv
 
 bool 															 
-MeshTriangle::shadow_hit(const Ray& ray, double& tmin) const {	
+MeshTriangle::shadowHit(const Ray& ray, double& tmin) const {	
 	Point3D v0(mesh_ptr->vertices[index0]);
 	Point3D v1(mesh_ptr->vertices[index1]);
 	Point3D v2(mesh_ptr->vertices[index2]);
 
-	double a = v0.x - v1.x, b = v0.x - v2.x, c = ray.d.x, d = v0.x - ray.o.x; 
-	double e = v0.y - v1.y, f = v0.y - v2.y, g = ray.d.y, h = v0.y - ray.o.y;
-	double i = v0.z - v1.z, j = v0.z - v2.z, k = ray.d.z, l = v0.z - ray.o.z;
+    double a = v0.x - v1.x, b = v0.x - v2.x, c = ray.direction.x, d = v0.x - ray.origin.x;
+    double e = v0.y - v1.y, f = v0.y - v2.y, g = ray.direction.y, h = v0.y - ray.origin.y;
+    double i = v0.z - v1.z, j = v0.z - v2.z, k = ray.direction.z, l = v0.z - ray.origin.z;
 		
 	double m = f * k - g * j, n = h * k - g * l, p = f * l - h * j;
 	double q = g * i - e * k, s = e * j - f * i;
@@ -160,7 +160,7 @@ MeshTriangle::shadow_hit(const Ray& ray, double& tmin) const {
 // this is used for texture mapping in Chapter 29
 
 float 
-MeshTriangle::interpolate_u(const float beta, const float gamma) const {	
+MeshTriangle::interpolateU(const float beta, const float gamma) const {	
 	return( (1 - beta - gamma) * mesh_ptr->u[index0] 
 				+ beta * mesh_ptr->u[index1] 
 					+ gamma * mesh_ptr->u[index2] );
@@ -171,7 +171,7 @@ MeshTriangle::interpolate_u(const float beta, const float gamma) const {
 // this is used for texture mapping in Chapter 29
 
 float 
-MeshTriangle::interpolate_v(const float beta, const float gamma) const {	
+MeshTriangle::interpolateV(const float beta, const float gamma) const {	
 	return( (1 - beta - gamma) * mesh_ptr->v[index0] 
 				+ beta * mesh_ptr->v[index1] 
 					+ gamma * mesh_ptr->v[index2] );

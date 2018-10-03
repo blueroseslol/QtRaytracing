@@ -9,7 +9,7 @@ RenderSetting::RenderSetting(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::RenderSetting),
     imageWidth(500),imageHeight(500),backergroundColor(RGBColor()),
-    samplerPtr(nullptr),numSamples(1)
+    samplerPtr(nullptr),numSamples(1),maxDepth(5)
 {
     ui->setupUi(this);
 //    QSettings config("RenderSetting.ini",QSettings::NativeFormat);

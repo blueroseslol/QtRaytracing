@@ -28,7 +28,6 @@ RGBColor Reflective::shade(ShadeRec& sr) {
     RGBColor fr = reflective_brdf->sampleF(sr, wo, wi);
     Ray reflected_ray(sr.hit_point, wi);
 //    reflected_ray.depth = sr.depth + 1;
-
     L += fr * sr.w.tracer_ptr->trace_ray(reflected_ray, sr.depth + 1) * (sr.normal * wi);
 
     return L;

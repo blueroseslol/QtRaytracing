@@ -23,6 +23,8 @@ public:
     virtual bool hit(const Ray& ray, double& tmin, ShadeRec& sr) const override;
 
     virtual bool shadowHit(const Ray& ray, double& tmin) const override;
+
+    virtual Normal getNormal(const Point3D &point) const;
 private:
     Point3D	v0, v1, v2;
     Normal	normal;

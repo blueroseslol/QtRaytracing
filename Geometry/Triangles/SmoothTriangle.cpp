@@ -3,14 +3,14 @@
 //	This C++ code is licensed under the GNU General Public License Version 2.
 //	See the file COPYING.txt for the full license.
 
-#include "Constants.h"
-#include "Maths.h"
+#include "Utilities/Constants.h"
+#include "Utilities/Maths.h"
 #include "SmoothTriangle.h"
 
 // ----------------------------------------------------------------  default constructor
 
 SmoothTriangle::SmoothTriangle(void)
-	:	GeometricObject(),
+    :	Geometry(),
 		v0(0.0), 	
 		v1(0,0,1), 
 		v2(1,0,0),
@@ -23,7 +23,7 @@ SmoothTriangle::SmoothTriangle(void)
 // ---------------------------------------------------------------- constructor
 
 SmoothTriangle::SmoothTriangle(const Point3D& a, const Point3D& b, const Point3D& c)
-	:	GeometricObject(),	
+    :	Geometry(),
 		v0(a),
 		v1(b),
 		v2(c),
@@ -31,20 +31,10 @@ SmoothTriangle::SmoothTriangle(const Point3D& a, const Point3D& b, const Point3D
 		n1(0, 1, 0),
 		n2(0, 1, 0)
 {}
-
-
-// ---------------------------------------------------------------- clone
-
-SmoothTriangle* 
-SmoothTriangle::clone(void) const {
-	return (new SmoothTriangle (*this));
-}
-
-
 // ---------------------------------------------------------------- copy constructor
 
 SmoothTriangle::SmoothTriangle (const SmoothTriangle& st)
-	:	GeometricObject(st),
+    :	Geometry(st),
 		v0(st.v1),
 		v1(st.v1),
 		v2(st.v2),
@@ -105,9 +95,9 @@ SmoothTriangle::get_bounding_box(void) {
 
 bool 
 SmoothTriangle::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {	
-	double a = v0.x - v1.x, b = v0.x - v2.x, c = ray.d.x, d = v0.x - ray.o.x; 
-	double e = v0.y - v1.y, f = v0.y - v2.y, g = ray.d.y, h = v0.y - ray.o.y;
-	double i = v0.z - v1.z, j = v0.z - v2.z, k = ray.d.z, l = v0.z - ray.o.z;
+    double a = v0.x - v1.x, b = v0.x - v2.x, c = ray.direction.x, d = v0.x - ray.origin.x;
+    double e = v0.y - v1.y, f = v0.y - v2.y, g = ray.direction.y, h = v0.y - ray.origin.y;
+    double i = v0.z - v1.z, j = v0.z - v2.z, k = ray.direction.z, l = v0.z - ray.origin.z;
 		
 	double m = f * k - g * j, n = h * k - g * l, p = f * l - h * j;
 	double q = g * i - e * k, s = e * j - f * i;
@@ -138,7 +128,7 @@ SmoothTriangle::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 					
 	tmin 				= t;
 	sr.normal 			= interpolate_normal(beta, gamma); 
-	sr.local_hit_point 	= ray.o + t * ray.d;	
+    sr.local_hit_point 	= ray.origin + t * ray.direction;
 	
 	return (true);	
 }  	
@@ -150,9 +140,9 @@ SmoothTriangle::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 
 bool 																						 
 SmoothTriangle::shadow_hit(const Ray& ray, double& tmin) const {	
-	double a = v0.x - v1.x, b = v0.x - v2.x, c = ray.d.x, d = v0.x - ray.o.x; 
-	double e = v0.y - v1.y, f = v0.y - v2.y, g = ray.d.y, h = v0.y - ray.o.y;
-	double i = v0.z - v1.z, j = v0.z - v2.z, k = ray.d.z, l = v0.z - ray.o.z;
+    double a = v0.x - v1.x, b = v0.x - v2.x, c = ray.direction.x, d = v0.x - ray.origin.x;
+    double e = v0.y - v1.y, f = v0.y - v2.y, g = ray.direction.y, h = v0.y - ray.origin.y;
+    double i = v0.z - v1.z, j = v0.z - v2.z, k = ray.direction.z, l = v0.z - ray.origin.z;
 		
 	double m = f * k - g * j, n = h * k - g * l, p = f * l - h * j;
 	double q = g * i - e * k, s = e * j - f * i;

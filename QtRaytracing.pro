@@ -80,7 +80,13 @@ SOURCES += \
     Geometry/grid.cpp \
     Tracer/whitted.cpp \
     Material/reflective.cpp \
-    BRDF/perfectSpecular.cpp
+    BRDF/perfectSpecular.cpp \
+#    Geometry/Triangles/FlatMeshTriangle.cpp \
+#    Geometry/Triangles/MeshTriangle.cpp \
+#    Utilities/Mesh.cpp \
+#    Geometry/Triangles/SmoothMeshTriangle.cpp \
+#    Geometry/Triangles/SmoothTriangle.cpp \
+#    Geometry/ply.c
 
 HEADERS += \
     mainwindow.h \
@@ -138,7 +144,13 @@ HEADERS += \
     Geometry/grid.h \
     Tracer/whitted.h \
     Material/reflective.h \
-    BRDF/perfectSpecular.h
+    BRDF/perfectSpecular.h \
+#    Geometry/Triangles/FlatMeshTriangle.h \
+#    Geometry/Triangles/MeshTriangle.h \
+#    Utilities/Mesh.h \
+#    Geometry/Triangles/SmoothMeshTriangle.h \
+#    Geometry/Triangles/SmoothTriangle.h \
+#    Geometry/ply.h
 
 FORMS += \
         mainwindow.ui \

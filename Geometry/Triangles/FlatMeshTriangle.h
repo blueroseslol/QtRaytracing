@@ -16,23 +16,17 @@
 class FlatMeshTriangle: public MeshTriangle {	
 	public:
 		
-		FlatMeshTriangle(void);   									
+        FlatMeshTriangle();
 		
 		FlatMeshTriangle(Mesh* _meshPtr, const int i0, const int i1, const int i2);		
-
-		virtual FlatMeshTriangle* 										
-		clone(void) const;
 	
 		FlatMeshTriangle(const FlatMeshTriangle& fmt); 					
 
-		virtual
-		~FlatMeshTriangle(void);   									
+        virtual ~FlatMeshTriangle();
 
-		FlatMeshTriangle& 												
-		operator= (const FlatMeshTriangle& rhs);
+        FlatMeshTriangle& operator= (const FlatMeshTriangle& rhs);
 				
-		virtual	bool
-		hit(const Ray& ray, double& tmin, ShadeRec& sr) const; 																	
+        virtual	bool hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
 };
 
 #endif

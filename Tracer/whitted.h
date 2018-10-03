@@ -11,7 +11,7 @@ public:
 
     virtual ~Whitted();
 
-    virtual RGBColor trace_ray(const Ray ray, const int depth) const;
+    virtual RGBColor trace_ray(const Ray& ray, const int depth) const override;
 };
 
 #endif

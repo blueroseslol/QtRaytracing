@@ -24,10 +24,9 @@ class Ray {
 		Ray(const Ray& ray); 		
         Ray(Ray&& ray);
 
-		Ray& 						
-		operator= (const Ray& rhs);
-        Ray&
-        operator= (Ray&& rhs);
+        Ray& operator= (const Ray& rhs);
+
+        Ray& operator= (Ray&& rhs);
 
         ~Ray();
 };

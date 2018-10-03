@@ -41,10 +41,8 @@ class Mesh {
 
         ~Mesh();
 
-		Mesh& 										
-		operator= (const Mesh& rhs);
-        Mesh&
-        operator= (Mesh&& rhs);
+        Mesh& operator= (const Mesh& rhs);
+        Mesh& operator= (Mesh&& rhs);
 };
 
 #endif

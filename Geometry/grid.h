@@ -54,7 +54,7 @@ private:
 
     Point3D findMaxBounds();
 
-    void readPlyFile(char* file_name, const int triangle_type);
+//    void readPlyFile(char* file_name, const int triangle_type);
 
 //    void  computeMeshNormals();
 };

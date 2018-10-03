@@ -79,10 +79,10 @@ bool Triangle::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 	sr.normal 			= normal;  	
     sr.local_hit_point 	= ray.origin + t * ray.direction;
 	
-	return (true);	
+    return true;
 }  		
 
-bool 	Triangle::shadowHit(const Ray& ray, double &tmin) const {
+bool Triangle::shadowHit(const Ray& ray, double &tmin) const {
     double a = v0.x - v1.x, b = v0.x - v2.x, c = ray.direction.x, d = v0.x - ray.origin.x;
     double e = v0.y - v1.y, f = v0.y - v2.y, g = ray.direction.y, h = v0.y - ray.origin.y;
     double i = v0.z - v1.z, j = v0.z - v2.z, k = ray.direction.z, l = v0.z - ray.origin.z;
@@ -117,4 +117,9 @@ bool 	Triangle::shadowHit(const Ray& ray, double &tmin) const {
 	tmin = t;
 	
     return true;
-}  
+}
+
+Normal Triangle::getNormal(const Point3D &point) const
+{
+    return normal;
+}

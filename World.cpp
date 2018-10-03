@@ -51,9 +51,9 @@ World::~World(){
 }
 
 void World::build(){
-    tracer_ptr=new RayCast(this);
-//    tracer_ptr=new Whitted(this);
-    setting->maxDepth=10;
+    //tracer_ptr=new RayCast(this);
+    tracer_ptr=new Whitted(this);
+    setting->maxDepth=1;
     sampler_ptr=new MultiJittered(64,3);
 //    ambient_ptr=new Ambient;
 //    ambient_ptr->scaleRadiance(2.0);
@@ -140,18 +140,18 @@ void World::build(){
     material.push_back(reflection_ptr);
 
     Triangle *triangle=new Triangle(Point3D(0,-0.5,0),Point3D(0,0,1),Point3D(1,0,0));
-    triangle->setMaterial(matte_ptr);
+    triangle->setMaterial(reflection_ptr);
 //    addGeometry(triangle);
     Plane *plane=new Plane(Point3D(0,-1,0),Normal(0,1,0));
-    plane->setMaterial(matte2_ptr);
+    plane->setMaterial(matte_ptr);
     addGeometry(plane);
 
     Sphere *sphere=new Sphere(Point3D(0.0,0.0,-1),1);
-    sphere->setMaterial(reflection_ptr);
+    sphere->setMaterial(matte_ptr);
 //    addGeometry(sphere);
 
     Instance *instance=new Instance(sphere);
-    instance->setMaterial(phong_ptr);
+    instance->setMaterial(matte_ptr);
     instance->translate(-1,2,-1);
     instance->scale(1,0.5,0.5);
     instance->computeBoundingBox();
@@ -336,6 +336,6 @@ QColor World::postProcess(int &u, int &v,RGBColor& pixelColor)
     {
         pixelColor/=maxValue;
     }
-
-    return QColor( int(255.99*pixelColor.r), int(255.99*pixelColor.g), int(255.99*pixelColor.b));
+	QColor color(int(255.99*pixelColor.r), int(255.99*pixelColor.g), int(255.99*pixelColor.b));
+    return color;
 }

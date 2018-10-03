@@ -11,8 +11,7 @@ Whitted::Whitted(World* _worldPtr):Tracer(_worldPtr)
 
 Whitted::~Whitted() {}
 
-RGBColor Whitted::trace_ray(const Ray ray, const int depth) const {
-    qDebug()<<"hit";
+RGBColor Whitted::trace_ray(const Ray& ray, const int depth) const {
     if (depth > world_ptr->setting->maxDepth)
         return RGBColor();
     else {
@@ -24,6 +23,6 @@ RGBColor Whitted::trace_ray(const Ray ray, const int depth) const {
             return sr.material_ptr->shade(sr);
 		}
 		else
-            return (world_ptr->setting->backergroundColor);
+            return world_ptr->setting->backergroundColor;
     }
 }
