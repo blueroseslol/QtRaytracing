@@ -9,6 +9,8 @@ class BRDF
 public:
     BRDF();
 
+    ~BRDF();
+
     virtual RGBColor f(const ShadeRec& sr,const Vector3D& wi,const Vector3D& wo) const =0;
 
     virtual RGBColor sampleF(const ShadeRec& sr,Vector3D& wi,const Vector3D& wo) const;

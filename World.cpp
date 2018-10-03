@@ -34,6 +34,7 @@
 #include "Material/phong.h"
 #include "Material/emissive.h"
 #include "Material/Reflective.h"
+#include "Material/GlossyReflector.h"
 
 #include "tbb/tbb.h"
 #include "tbb/parallel_for.h"
@@ -139,6 +140,17 @@ void World::build(){
     reflection_ptr->setCr(RGBColor(1.0));
     material.push_back(reflection_ptr);
 
+    GlossyReflector *glossy_ptr=new GlossyReflector;
+    glossy_ptr->setKa(0.25f);
+    glossy_ptr->setKd(0.5f);
+    glossy_ptr->setCd(RGBColor(0,0.75,0.75));
+    glossy_ptr->setSpecularKs(0.15);
+    glossy_ptr->setSpecularExp(100);
+    glossy_ptr->setKr(0.75);
+    glossy_ptr->setCr(RGBColor(1.0));
+    glossy_ptr->setSamples(16,20);
+    material.push_back(glossy_ptr);
+
     Triangle *triangle=new Triangle(Point3D(0,-0.5,0),Point3D(0,0,1),Point3D(1,0,0));
     triangle->setMaterial(reflection_ptr);
 //    addGeometry(triangle);
@@ -147,11 +159,11 @@ void World::build(){
     addGeometry(plane);
 
     Sphere *sphere=new Sphere(Point3D(0.0,0.0,-1),1);
-    sphere->setMaterial(matte_ptr);
+    sphere->setMaterial(glossy_ptr);
 //    addGeometry(sphere);
 
     Instance *instance=new Instance(sphere);
-    instance->setMaterial(matte_ptr);
+    instance->setMaterial(glossy_ptr);
     instance->translate(-1,2,-1);
     instance->scale(1,0.5,0.5);
     instance->computeBoundingBox();

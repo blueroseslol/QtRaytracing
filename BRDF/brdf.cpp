@@ -1,8 +1,17 @@
 #include "brdf.h"
 
-BRDF::BRDF()
+BRDF::BRDF():sampler_ptr(nullptr)
 {
 
+}
+
+BRDF::~BRDF()
+{
+    if(sampler_ptr)
+    {
+        delete sampler_ptr;
+        sampler_ptr=nullptr;
+    }
 }
 
 RGBColor BRDF::sampleF(const ShadeRec &sr, Vector3D &wi, const Vector3D &wo) const

@@ -15,8 +15,9 @@ public:
 
     virtual RGBColor rho(const ShadeRec &sr, const Vector3D &wo) const;
 
-    virtual RGBColor sampleF(const ShadeRec &sr, Vector3D &wo, const Vector3D &wi) const;
+    virtual RGBColor sampleF(const ShadeRec &sr, Vector3D &wo, Vector3D &wi,float &pdf) const;
 
+    void setSamples(const int numSamples,const float exp);
     void setKs(const float k);
     void setCs(const RGBColor &c);
     void setCs(const float r, const float g, const float b);

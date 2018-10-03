@@ -87,6 +87,7 @@ SOURCES += \
 #    Geometry/Triangles/SmoothMeshTriangle.cpp \
 #    Geometry/Triangles/SmoothTriangle.cpp \
 #    Geometry/ply.c
+    Material/GlossyReflector.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -151,6 +152,7 @@ HEADERS += \
 #    Geometry/Triangles/SmoothMeshTriangle.h \
 #    Geometry/Triangles/SmoothTriangle.h \
 #    Geometry/ply.h
+    Material/GlossyReflector.h
 
 FORMS += \
         mainwindow.ui \
