@@ -3,7 +3,6 @@
 #include "Geometry/Compound.h"
 #include "Utilities/ShadeRec.h"
 #include "Utilities/Mesh.h"
-
 class Grid: public Compound {										  	
 public:
 

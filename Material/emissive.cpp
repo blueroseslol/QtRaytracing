@@ -1,5 +1,5 @@
 ﻿#include "emissive.h"
-
+#include <QDebug>
 Emissive::Emissive()
 {
 
@@ -30,6 +30,24 @@ RGBColor Emissive::shade(ShadeRec &sr)
 
 RGBColor Emissive::areaLightShade(ShadeRec &sr)
 {
+    if(-sr.normal*sr.ray.direction>0.0)
+        return ls*ce;
+    else
+        return RGBColor();
+}
+
+RGBColor Emissive::pathShade(ShadeRec &sr)
+{
+    if(-sr.normal*sr.ray.direction>0.0)
+        return ls*ce;
+    else
+        return RGBColor();
+}
+
+RGBColor Emissive::globalShade(ShadeRec &sr)
+{
+    if(sr.depth==1)
+        return RGBColor();
     if(-sr.normal*sr.ray.direction>0.0)
         return ls*ce;
     else

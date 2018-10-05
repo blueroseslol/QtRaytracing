@@ -14,19 +14,25 @@ public:
 
         ~Matte();
 		
-        void 	setKa(const float k);
+        void setKa(const float k);
 		
-        void 	setKd(const float k);
+        void setKd(const float k);
 		
-        void	setCd(const RGBColor c);
+        void setCd(const RGBColor c);
 		
-        void	setCd(const float r, const float g, const float b);
+        void setCd(const float r, const float g, const float b);
 		
-        void	setCd(const float c);
+        void setCd(const float c);
 				
-        virtual RGBColor	shade(ShadeRec& sr);
+        virtual RGBColor shade(ShadeRec& sr) override;
 
-        virtual RGBColor areaLightShade(ShadeRec &sr);
+        virtual RGBColor areaLightShade(ShadeRec &sr) override;
+
+        virtual RGBColor pathShade(ShadeRec &sr) override;
+
+        virtual RGBColor globalShade(ShadeRec &sr) override;
+
+        void setSamples(const int numSamples, const float exp);
 private:
 		Lambertian*		ambient_brdf;
 		Lambertian*		diffuse_brdf;
@@ -54,5 +60,7 @@ inline void	Matte::setCd(const float c) {
     ambient_brdf->setCd(c);
     diffuse_brdf->setCd(c);
 }
+
+
 
 #endif

@@ -23,6 +23,8 @@ public:
 
     void setExponent(const float exp);
 
+    virtual RGBColor shade(ShadeRec &sr);
+
     virtual RGBColor areaLightShade(ShadeRec& sr);
 
 private:

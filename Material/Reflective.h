@@ -23,6 +23,12 @@ public:
     void setCr(const float c);
 
     virtual RGBColor shade(ShadeRec& s);
+
+    virtual RGBColor areaLightShade(ShadeRec &sr);
+
+    virtual RGBColor pathShade(ShadeRec &sr);
+
+    virtual RGBColor globalShade(ShadeRec &sr);
 private:
 
     PerfectSpecular* reflective_brdf;

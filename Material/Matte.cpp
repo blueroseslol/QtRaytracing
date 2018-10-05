@@ -6,6 +6,7 @@
 
 #include "Matte.h"
 #include <QDebug>
+#include "Tracer/tracer.h"
 // ---------------------------------------------------------------- default constructor
 
 Matte::Matte ():Material(),
@@ -50,8 +51,8 @@ Matte::~Matte() {
 }
 
 RGBColor Matte::shade(ShadeRec& sr) {
-    Vector3D 	wo 			= -sr.ray.direction;
-    RGBColor 	L 			= ambient_brdf->rho(sr, wo) * sr.w.ambient_ptr->L(sr);
+    Vector3D wo= -sr.ray.direction;
+    RGBColor L= ambient_brdf->rho(sr, wo) * sr.w.ambient_ptr->L(sr);
     for (int j = 0; j < sr.w.lights.length(); j++) {
         Vector3D wi = sr.w.lights[j]->getDirection(sr);
         float ndotwi = sr.normal * wi;
@@ -92,4 +93,37 @@ RGBColor Matte::areaLightShade(ShadeRec& sr){
         }
     }
     return L;
+}
+
+RGBColor Matte::pathShade(ShadeRec &sr)
+{
+//	qDebug() << "!";
+    Vector3D wi;
+    Vector3D wo=-sr.ray.direction;
+    float pdf;
+    RGBColor f=diffuse_brdf->sampleF(sr,wo,wi,pdf);
+    Ray reflectedRay(sr.hit_point,wi);
+	RGBColor color = sr.w.tracer_ptr->trace_ray(reflectedRay, sr.depth + 1);
+    return f*color*(sr.normal*wi)/pdf;
+}
+
+RGBColor Matte::globalShade(ShadeRec &sr)
+{
+    RGBColor L;
+    if(sr.depth==0)
+        L=areaLightShade(sr);
+    Vector3D wi;
+    Vector3D wo=-sr.ray.direction;
+    float pdf;
+    RGBColor f=diffuse_brdf->sampleF(sr,wo,wi,pdf);
+    float ndotwi=sr.normal*wi;
+    Ray reflectedRay(sr.hit_point,wi);
+
+    L+=f*sr.w.tracer_ptr->trace_ray(reflectedRay,sr.depth+1)*ndotwi/pdf;
+    return L;
+}
+
+void Matte::setSamples(const int numSamples, const float exp)
+{
+	diffuse_brdf->setSamples(numSamples);
 }

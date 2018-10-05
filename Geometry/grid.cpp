@@ -9,7 +9,6 @@
 //#include "Geometry/Triangles/SmoothMeshTriangle.h"
 
 #include "Geometry/Triangles/Triangle.h"
-//#include "Geometry/ply.h"
 typedef enum {
 	flat, 
 	smooth
@@ -307,7 +306,7 @@ Point3D Grid::findMaxBounds() {
 
 
 //    // open a ply file for reading
-  
+//  extern PlyFile *ply_open_for_reading( char *, int *, char ***, int *, float *);
 //    ply = ply_open_for_reading(file_name, &nelems, &elist, &file_type, &version);
 	
 //    // print what we found out about the file

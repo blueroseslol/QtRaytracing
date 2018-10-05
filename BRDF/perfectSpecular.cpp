@@ -5,7 +5,7 @@
 
 
 #include "PerfectSpecular.h"
-
+#include "Sampler/multijittered.h"
 // ---------------------------------------------------------- default constructor
 
 PerfectSpecular::PerfectSpecular()
@@ -28,6 +28,12 @@ PerfectSpecular::PerfectSpecular(PerfectSpecular &&ps):BRDF(ps),kr(ps.kr),cr(ps.
 
 }
 
+void PerfectSpecular::setSamples(const int numSamples)
+{
+    sampler_ptr=new MultiJittered(numSamples);
+    sampler_ptr->map_samples_to_hemisphere(1.0);
+}
+
 
 // ---------------------------------------------------------- f
 
@@ -47,7 +53,7 @@ PerfectSpecular::sampleF(const ShadeRec& sr, const Vector3D& wo, Vector3D& wi) c
 	float ndotwo = sr.normal * wo;
 	wi = -wo + 2.0 * sr.normal * ndotwo; 
 //        return (kr * cr / fabs(sr.normal * wi));
-    return (kr * cr / (sr.normal * wi)); // why is this fabs? // kr would be a Fresnel term in a Fresnel reflector
+    return kr * cr / (sr.normal * wi); // why is this fabs? // kr would be a Fresnel term in a Fresnel reflector
 }											 // for transparency when ray hits inside surface?, if so it should go in Chapter 24
 
 
@@ -58,8 +64,8 @@ PerfectSpecular::sampleF(const ShadeRec& sr, const Vector3D& wo, Vector3D& wi) c
 RGBColor PerfectSpecular::sampleF(const ShadeRec& sr, const Vector3D& wo, Vector3D& wi, float& pdf) const {
 	float ndotwo = sr.normal * wo;
 	wi = -wo + 2.0 * sr.normal * ndotwo; 
-	pdf = fabs(sr.normal * wi);
-	return (kr * cr);  
+    pdf = sr.normal * wi;
+    return kr * cr;
 }
 
 // ---------------------------------------------------------- rho

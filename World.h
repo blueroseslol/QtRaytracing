@@ -40,6 +40,8 @@ public:
 
     ShadeRec hitObject(const Ray& ray) const;
 
+    void cornellBox();
+
     void build();
 
     void render_scene();

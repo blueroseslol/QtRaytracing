@@ -23,6 +23,8 @@ class PerfectSpecular: public BRDF
         PerfectSpecular(const PerfectSpecular& ps);
 
         PerfectSpecular(PerfectSpecular&& ps);
+
+		void setSamples(const int numSamples);
 		
         void setKr(const float k);
 		

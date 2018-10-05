@@ -87,7 +87,9 @@ SOURCES += \
 #    Geometry/Triangles/SmoothMeshTriangle.cpp \
 #    Geometry/Triangles/SmoothTriangle.cpp \
 #    Geometry/ply.c
-    Material/GlossyReflector.cpp
+    Material/GlossyReflector.cpp \
+    Tracer/pathtrace.cpp \
+    Tracer/globeltracer.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -152,7 +154,9 @@ HEADERS += \
 #    Geometry/Triangles/SmoothMeshTriangle.h \
 #    Geometry/Triangles/SmoothTriangle.h \
 #    Geometry/ply.h
-    Material/GlossyReflector.h
+    Material/GlossyReflector.h \
+    Tracer/pathtrace.h \
+    Tracer/globeltracer.h
 
 FORMS += \
         mainwindow.ui \

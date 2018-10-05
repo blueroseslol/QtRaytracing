@@ -9,7 +9,7 @@ public:
 
     Whitted(World* _worldPtr);
 
-    virtual ~Whitted();
+    ~Whitted();
 
     virtual RGBColor trace_ray(const Ray& ray, const int depth) const override;
 };

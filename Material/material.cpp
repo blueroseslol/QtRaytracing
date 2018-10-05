@@ -1,11 +1,8 @@
 ﻿// 	Copyright (C) Kevin Suffern 2000-2007.
 //	This C++ code is for non-commercial purposes only.
 //	This C++ code is licensed under the GNU General Public License Version 2.
-//	See the file COPYING.txt for the full license.
-
-
+//	See the file COPYING.txt for the full license.#
 #include "Material.h"
-
 // ---------------------------------------------------------------- default constructor
 
 Material::Material() {}
@@ -45,11 +42,17 @@ RGBColor Material::areaLightShade(ShadeRec &sr)
     return RGBColor();
 }
 
+RGBColor Material::pathShade(ShadeRec &sr)
+{
+    return RGBColor();
+}
+
 RGBColor Material::getLe(ShadeRec &sr) const
 {
     return RGBColor();
 }
 
-
-
-
+RGBColor Material::globalShade(ShadeRec &sr)
+{
+    return RGBColor();
+}

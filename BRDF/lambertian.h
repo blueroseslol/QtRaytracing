@@ -15,8 +15,11 @@ public:
 
     virtual RGBColor sampleF(const ShadeRec &sr, Vector3D &wo, const Vector3D &wi) const;
 
+    virtual RGBColor sampleF(const ShadeRec& sr, const Vector3D& wo, Vector3D& wi, float& pdf) const;
+
     virtual RGBColor rho(const ShadeRec &sr, const Vector3D &wo) const;
 
+    void setSamples(const int numSamples);
     void setKa(const float k);
     void setKd(const float k);
     void setCd(const RGBColor &c);
@@ -28,7 +31,6 @@ private:
 };
 
 // -------------------------------------------------------------- set_ka
-
 inline void
 Lambertian::setKa(const float k) {
     kd = k;

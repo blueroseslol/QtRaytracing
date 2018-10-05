@@ -13,9 +13,13 @@ public:
 
     virtual RGBColor getLe(ShadeRec& sr) const;
 
-    virtual RGBColor shade(ShadeRec& sr);
+    virtual RGBColor shade(ShadeRec& sr) override;
 
-    virtual RGBColor areaLightShade(ShadeRec& sr);
+    virtual RGBColor areaLightShade(ShadeRec& sr) override;
+
+    virtual RGBColor pathShade(ShadeRec &sr) override;
+
+    virtual RGBColor globalShade(ShadeRec &sr) override;
 private:
     float ls;
     RGBColor ce;    //自发光颜色
