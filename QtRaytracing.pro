@@ -81,15 +81,15 @@ SOURCES += \
     Tracer/whitted.cpp \
     Material/reflective.cpp \
     BRDF/perfectSpecular.cpp \
-#    Geometry/Triangles/FlatMeshTriangle.cpp \
-#    Geometry/Triangles/MeshTriangle.cpp \
-#    Utilities/Mesh.cpp \
-#    Geometry/Triangles/SmoothMeshTriangle.cpp \
-#    Geometry/Triangles/SmoothTriangle.cpp \
-#    Geometry/ply.c
     Material/GlossyReflector.cpp \
     Tracer/pathtrace.cpp \
-    Tracer/globeltracer.cpp
+    Tracer/globeltracer.cpp \
+    BRDF/BTDF.cpp \
+    BRDF/PerfectTransmitter.cpp \
+    Material/Transparent.cpp \
+    Material/Dielectric.cpp \
+    BRDF/FresnelReflector.cpp \
+    BRDF/FresnelTransmitter.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -148,15 +148,15 @@ HEADERS += \
     Tracer/whitted.h \
     Material/reflective.h \
     BRDF/perfectSpecular.h \
-#    Geometry/Triangles/FlatMeshTriangle.h \
-#    Geometry/Triangles/MeshTriangle.h \
-#    Utilities/Mesh.h \
-#    Geometry/Triangles/SmoothMeshTriangle.h \
-#    Geometry/Triangles/SmoothTriangle.h \
-#    Geometry/ply.h
     Material/GlossyReflector.h \
     Tracer/pathtrace.h \
-    Tracer/globeltracer.h
+    Tracer/globeltracer.h \
+    BRDF/BTDF.h \
+    BRDF/PerfectTransmitter.h \
+    Material/Transparent.h \
+    Material/Dielectric.h \
+    BRDF/FresnelReflector.h \
+    BRDF/FresnelTransmitter.h
 
 FORMS += \
         mainwindow.ui \

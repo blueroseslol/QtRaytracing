@@ -16,3 +16,7 @@ RGBColor Tracer::trace_ray(const Ray &) const{
 RGBColor Tracer::trace_ray(const Ray& ray,const int depth) const{
     return RGBColor();
 }
+
+RGBColor Tracer::trace_ray(const Ray &ray, double &tmin, const int depth) const{
+    return RGBColor();
+}

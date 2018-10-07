@@ -37,6 +37,7 @@
 #include "Material/emissive.h"
 #include "Material/Reflective.h"
 #include "Material/GlossyReflector.h"
+#include "Material/Transparent.h"
 
 #include "tbb/tbb.h"
 #include "tbb/parallel_for.h"
@@ -54,45 +55,44 @@ World::~World(){
 }
 
 void World::build(){
-    cornellBox();
-//    //tracer_ptr=new RayCast(this);
-////    tracer_ptr=new Whitted(this);
-//    tracer_ptr=new PathTrace(this);
-//    setting->maxDepth=50;
-//    sampler_ptr=new MultiJittered(2048,3);
-////    ambient_ptr=new Ambient;
-////    ambient_ptr->scaleRadiance(2.0);
-////    ambient_ptr->setColor(0.3,0.3,0.3);
-//    ambient_ptr=new AmbientOccluder();
-//    ambient_ptr->scaleRadiance(1.0);
-//    ambient_ptr->setColor(RGBColor(1.0));
-//    ambient_ptr->setMinAmount(0.0);
-////    ambient_ptr->setSampler(new MultiJittered(64,3));
-//    ambient_ptr->setSampler(sampler_ptr);
+//    cornellBox();
+    //tracer_ptr=new RayCast(this);
+    tracer_ptr=new Whitted(this);
+    setting->maxDepth=10;
+    sampler_ptr=new MultiJittered(256,3);
+//    ambient_ptr=new Ambient;
+//    ambient_ptr->scaleRadiance(2.0);
+//    ambient_ptr->setColor(0.3,0.3,0.3);
+    ambient_ptr=new AmbientOccluder();
+    ambient_ptr->scaleRadiance(1.0);
+    ambient_ptr->setColor(RGBColor(1.0));
+    ambient_ptr->setMinAmount(0.0);
+//    ambient_ptr->setSampler(new MultiJittered(64,3));
+    ambient_ptr->setSampler(sampler_ptr);
 
-//    Directional* light_ptr=new Directional;
-//    light_ptr->setDirection(1,0.0,1);
-//    light_ptr->scaleRadiance(1.0);
-//    light_ptr->setColor(2,2,2);
-//    addLight(light_ptr);
+    Directional* light_ptr=new Directional;
+    light_ptr->setDirection(1,0.0,1);
+    light_ptr->scaleRadiance(1.0);
+    light_ptr->setColor(2,2,2);
+    addLight(light_ptr);
 
-//    PointLight* pointLight_ptr=new PointLight;
-//    pointLight_ptr->setLocation(4,4,3);
-//    pointLight_ptr->setColor(3,3,3);
-//    addLight(pointLight_ptr);
+    PointLight* pointLight_ptr=new PointLight;
+    pointLight_ptr->setLocation(4,4,3);
+    pointLight_ptr->setColor(3,3,3);
+    addLight(pointLight_ptr);
 
-//    Emissive* emissive_env_ptr=new Emissive;
-//    emissive_env_ptr->scaleRadiance(1.0);
-//    emissive_env_ptr->setCe(1.0,1.0,0.5);
-//    material.push_back(emissive_env_ptr);
+    Emissive* emissive_env_ptr=new Emissive;
+    emissive_env_ptr->scaleRadiance(1.0);
+    emissive_env_ptr->setCe(1.0,1.0,0.5);
+    material.push_back(emissive_env_ptr);
 
-//    EnvironmentLight* envLight_ptr=new EnvironmentLight;
-//    envLight_ptr->setMaterial(emissive_env_ptr);
-//    envLight_ptr->setSampler(sampler_ptr);
-//    envLight_ptr->castShadow=true;
-//    addLight(envLight_ptr);
-////面光源
-////---------------------------------------------------------------------------
+    EnvironmentLight* envLight_ptr=new EnvironmentLight;
+    envLight_ptr->setMaterial(emissive_env_ptr);
+    envLight_ptr->setSampler(sampler_ptr);
+    envLight_ptr->castShadow=true;
+    addLight(envLight_ptr);
+//面光源
+//---------------------------------------------------------------------------
 //    Emissive* emissive_ptr=new Emissive;
 ////        emissive_ptr->scaleRadiance(20.0);
 //    emissive_ptr->scaleRadiance(20);
@@ -109,96 +109,103 @@ void World::build(){
 //    rectangle_ptr->castShadow=false;
 //    addGeometry(rectangle_ptr);
 
-////    areaLightTracer_ptr=new AreaLighting(this);
+//    areaLightTracer_ptr=new AreaLighting(this);
 
-////    AreaLight* areaLight_ptr=new AreaLight;
-////    areaLight_ptr->setObject(rectangle_ptr);
-////    areaLight_ptr->castShadow=true;
-////    addLight(areaLight_ptr);
-////---------------------------------------------------------------------------
-//    Matte *matte_ptr=new Matte;
-//    matte_ptr->setKa(0.25f);
-//    matte_ptr->setKd(0.65f);
-//    matte_ptr->setCd(RGBColor(1.0,1.0,1.0));
-//	matte_ptr->setSamples(16, 1);
-//    material.push_back(matte_ptr);
+//    AreaLight* areaLight_ptr=new AreaLight;
+//    areaLight_ptr->setObject(rectangle_ptr);
+//    areaLight_ptr->castShadow=true;
+//    addLight(areaLight_ptr);
+//---------------------------------------------------------------------------
+    Matte *matte_ptr=new Matte;
+    matte_ptr->setKa(0.25f);
+    matte_ptr->setKd(0.65f);
+    matte_ptr->setCd(RGBColor(1.0,1.0,1.0));
+    matte_ptr->setSamples(16, 1);
+    material.push_back(matte_ptr);
 
-//    Matte *matte2_ptr=new Matte;
-//    matte2_ptr->setKa(0.25f);
-//    matte2_ptr->setKd(0.65f);
-//    matte2_ptr->setCd(RGBColor(1.0,1.0,1.0));
-//    material.push_back(matte2_ptr);
+    Matte *matte2_ptr=new Matte;
+    matte2_ptr->setKa(0.25f);
+    matte2_ptr->setKd(0.65f);
+    matte2_ptr->setCd(RGBColor(1.0,1.0,1.0));
+    material.push_back(matte2_ptr);
 
-//    Phong* phong_ptr=new Phong;
-//    phong_ptr->setKa(0.25f);
-//    phong_ptr->setKd(0.6f);
-//    phong_ptr->setCd(RGBColor(0.5));
-//    phong_ptr->setSpecularKs(0.75);
-//    phong_ptr->setSpecularExp(20);
-//    material.push_back(phong_ptr);
+    Phong* phong_ptr=new Phong;
+    phong_ptr->setKa(0.25f);
+    phong_ptr->setKd(0.6f);
+    phong_ptr->setCd(RGBColor(0.5));
+    phong_ptr->setSpecularKs(0.75);
+    phong_ptr->setSpecularExp(20);
+    material.push_back(phong_ptr);
 
-//    Reflective* reflection_ptr=new Reflective;
-//    reflection_ptr->setKa(0.25f);
-//    reflection_ptr->setKd(0.5f);
-//    reflection_ptr->setCd(RGBColor(0.75,0.75,0));
-//    reflection_ptr->setSpecularKs(0.15);
-//    reflection_ptr->setSpecularExp(100);
-//    reflection_ptr->setKr(0.75);
-//    reflection_ptr->setCr(RGBColor(1.0));
-//    material.push_back(reflection_ptr);
+    Reflective* reflection_ptr=new Reflective;
+    reflection_ptr->setKa(0.25f);
+    reflection_ptr->setKd(0.5f);
+    reflection_ptr->setCd(RGBColor(0.75,0.75,0));
+    reflection_ptr->setSpecularKs(0.15);
+    reflection_ptr->setSpecularExp(100);
+    reflection_ptr->setKr(0.75);
+    reflection_ptr->setCr(RGBColor(1.0));
+    material.push_back(reflection_ptr);
 
-//    GlossyReflector *glossy_ptr=new GlossyReflector;
-//    glossy_ptr->setKa(0.25f);
-//    glossy_ptr->setKd(0.5f);
-//    glossy_ptr->setCd(RGBColor(0,0.75,0.75));
-//    glossy_ptr->setSpecularKs(0.15);
-//    glossy_ptr->setSpecularExp(100);
-//    glossy_ptr->setKr(0.75);
-//    glossy_ptr->setCr(RGBColor(1.0));
-//    glossy_ptr->setSamples(16,20);
-//    material.push_back(glossy_ptr);
+    GlossyReflector *glossy_ptr=new GlossyReflector;
+    glossy_ptr->setKa(0.25f);
+    glossy_ptr->setKd(0.5f);
+    glossy_ptr->setCd(RGBColor(0,0.75,0.75));
+    glossy_ptr->setSpecularKs(0.15);
+    glossy_ptr->setSpecularExp(100);
+    glossy_ptr->setKr(0.75);
+    glossy_ptr->setCr(RGBColor(1.0));
+    glossy_ptr->setSamples(16,20);
+    material.push_back(glossy_ptr);
 
-//    Triangle *triangle=new Triangle(Point3D(0,-0.5,0),Point3D(0,0,1),Point3D(1,0,0));
-//    triangle->setMaterial(matte_ptr);
-////    addGeometry(triangle);
-//    Plane *plane=new Plane(Point3D(0,-1,0),Normal(0,1,0));
-//    plane->setMaterial(matte_ptr);
-//    addGeometry(plane);
+    Transparent* glass_ptr=new Transparent;
+    glass_ptr->setKr(0.5);
+    glass_ptr->setIor(1.5);
+    glass_ptr->setKr(0.1);
+    glass_ptr->setKt(0.9);
 
-//    Sphere *sphere=new Sphere(Point3D(0.0,0.0,-1),1);
-//    sphere->setMaterial(matte_ptr);
-////    addGeometry(sphere);
 
-//    Instance *instance=new Instance(sphere);
-//    instance->setMaterial(matte_ptr);
-//    instance->translate(-1,2,-1);
-//    instance->scale(1,0.5,0.5);
-//    instance->computeBoundingBox();
-////    addGeometry(instance);
+    Triangle *triangle=new Triangle(Point3D(0,-0.5,0),Point3D(0,0,1),Point3D(1,0,0));
+    triangle->setMaterial(matte_ptr);
+//    addGeometry(triangle);
+    Plane *plane=new Plane(Point3D(0,-1,0),Normal(0,1,0));
+    plane->setMaterial(matte_ptr);
+    addGeometry(plane);
 
-//	Grid *grid_ptr = new Grid;
-//	grid_ptr->addObject(instance);
-//	grid_ptr->addObject(sphere);
-//	grid_ptr->addObject(triangle);
-//	grid_ptr->setupCells();
-//	addGeometry(grid_ptr);
+    Sphere *sphere=new Sphere(Point3D(0.0,0.0,-1),1);
+    sphere->setMaterial(glass_ptr);
+//    addGeometry(sphere);
 
-////    Sphere *sphere1=new Sphere(Point3D(1,1,1),0.5);
-////    sphere1->setMaterial(phong_ptr);
-////    addGeometry(sphere1);
+    Instance *instance=new Instance(sphere);
+    instance->setMaterial(matte_ptr);
+    instance->translate(-1,2,-1);
+    instance->scale(1,0.5,0.5);
+    instance->computeBoundingBox();
+//    addGeometry(instance);
 
-////    Box* box=new Box(Point3D(-2,0,-2),Point3D(-1,1,-1));
-////    box->setMaterial(matte_ptr);
-////    addGeometry(box);
+    Grid *grid_ptr = new Grid;
+    grid_ptr->addObject(instance);
+    grid_ptr->addObject(sphere);
+    grid_ptr->addObject(triangle);
+    grid_ptr->setupCells();
+    addGeometry(grid_ptr);
 
-//    setting->setSampler(sampler_ptr);
+//    Sphere *sphere1=new Sphere(Point3D(1,1,1),0.5);
+//    sphere1->setMaterial(phong_ptr);
+//    addGeometry(sphere1);
 
-//    Pinhole* pinhole=new Pinhole;
-//    pinhole->setOrigin(0,0,8);
-//    pinhole->setLookat(0,0,0);
-//    pinhole->setViewDistance(1000);
-//    pinhole->computeUVW();
-//    setCamera(pinhole);
+//    Box* box=new Box(Point3D(-2,0,-2),Point3D(-1,1,-1));
+//    box->setMaterial(matte_ptr);
+//    addGeometry(box);
+
+    setting->setSampler(sampler_ptr);
+
+    Pinhole* pinhole=new Pinhole;
+    pinhole->setOrigin(0,0,8);
+    pinhole->setLookat(0,0,0);
+    pinhole->setViewDistance(1000);
+    pinhole->computeUVW();
+    setCamera(pinhole);
 
 }
 void World::addLight(Light *lightPtr){
