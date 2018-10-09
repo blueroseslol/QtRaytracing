@@ -89,7 +89,24 @@ SOURCES += \
     Material/Transparent.cpp \
     Material/Dielectric.cpp \
     BRDF/FresnelReflector.cpp \
-    BRDF/FresnelTransmitter.cpp
+    BRDF/FresnelTransmitter.cpp \
+    Texture/Checker3D.cpp \
+    Texture/CubicNoise.cpp \
+    Texture/Image.cpp \
+    Texture/ImageTexture.cpp \
+    Texture/LatticeNoise.cpp \
+    Texture/PlaneChecker.cpp \
+    Texture/RampFBmTexture.cpp \
+    Texture/Texture.cpp \
+    Texture/TurbulenceTexture.cpp \
+    Texture/WrappedFBmTexture.cpp \
+    Material/SV_Matte.cpp \
+    Texture/constantcolor.cpp \
+    BRDF/SV_Lambertian.cpp \
+    Texture/Mapping.cpp \
+    Texture/sphericalmap.cpp \
+    Texture/TInstance.cpp \
+    Texture/FBmTexture.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -156,7 +173,24 @@ HEADERS += \
     Material/Transparent.h \
     Material/Dielectric.h \
     BRDF/FresnelReflector.h \
-    BRDF/FresnelTransmitter.h
+    BRDF/FresnelTransmitter.h \
+    Texture/Checker3D.h \
+    Texture/CubicNoise.h \
+    Texture/Image.h \
+    Texture/ImageTexture.h \
+    Texture/LatticeNoise.h \
+    Texture/PlaneChecker.h \
+    Texture/RampFBmTexture.h \
+    Texture/Texture.h \
+    Texture/TurbulenceTexture.h \
+    Texture/WrappedFBmTexture.h \
+    Material/SV_Matte.h \
+    Texture/constantcolor.h \
+    BRDF/SV_Lambertian.h \
+    Texture/Mapping.h \
+    Texture/sphericalmap.h \
+    Texture/TInstance.h \
+    Texture/FBmTexture.h
 
 FORMS += \
         mainwindow.ui \
